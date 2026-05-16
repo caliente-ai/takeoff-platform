@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TakeoffAI - History</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#b5c4ff",
+                        "surface-container-highest": "#e3e1ec",
+                        "outline": "#737688",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#e5e1e4",
+                        "on-tertiary-container": "#ffeae5",
+                        "tertiary-container": "#c53b00",
+                        "surface-container": "#eeedf7",
+                        "surface-variant": "#e3e1ec",
+                        "inverse-primary": "#b5c4ff",
+                        "surface-container-low": "#f4f2fd",
+                        "on-secondary-container": "#656466",
+                        "on-error-container": "#93000a",
+                        "surface": "#fbf8ff",
+                        "secondary": "#5f5e60",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#eceeff",
+                        "surface-tint": "#0051e0",
+                        "surface-container-high": "#e8e7f1",
+                        "outline-variant": "#c3c5d9",
+                        "primary-fixed": "#dbe1ff",
+                        "tertiary": "#9b2d00",
+                        "tertiary-fixed": "#ffdbd0",
+                        "on-surface-variant": "#424656",
+                        "on-tertiary-fixed": "#3a0b00",
+                        "on-secondary-fixed": "#1c1b1d",
+                        "on-secondary-fixed-variant": "#474649",
+                        "secondary-container": "#e5e1e4",
+                        "on-primary": "#ffffff",
+                        "primary": "#0048c9",
+                        "background": "#fbf8ff",
+                        "on-primary-fixed": "#00164d",
+                        "tertiary-fixed-dim": "#ffb59e",
+                        "inverse-surface": "#2f3038",
+                        "on-primary-fixed-variant": "#003cac",
+                        "on-tertiary-fixed-variant": "#842500",
+                        "surface-dim": "#dad9e3",
+                        "secondary-fixed-dim": "#c8c6c8",
+                        "error": "#ba1a1a",
+                        "primary-container": "#005dff",
+                        "inverse-on-surface": "#f1effa",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#fbf8ff",
+                        "on-background": "#1a1b22",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1a1b22"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "48px",
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "section-gap": "80px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-lg": ["Geist", "sans-serif"],
+                        "display-xl": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "metadata-sm": ["JetBrains Mono", "monospace"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-md": ["Geist", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "display-xl": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "metadata-sm": ["11px", { "lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #fbf8ff; }
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid #c3c5d9;
+        }
+        .light-leak-active {
+            border-top: 2px solid #0048c9;
+        }
+        /* Custom scrollbar for high-density lists */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c3c5d9;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #737688;
+        }
+    </style>
+</head>
+<body class="text-on-background font-body-md antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-64 z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface/90 dark:bg-inverse-surface/90 backdrop-blur-[12px] border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md tracking-tighter text-on-surface dark:text-inverse-on-surface font-extrabold">TakeoffAI</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative w-64 hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" style="font-size: 18px;">search</span>
+<input class="w-full bg-surface-container-low border-b border-outline-variant focus:border-primary text-on-surface font-body-md text-body-md pl-10 pr-4 py-2 focus:outline-none transition-colors" placeholder="Search system logs..." style="border-top: none; border-left: none; border-right: none; background: transparent;" type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors cursor-pointer active:opacity-70 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors cursor-pointer active:opacity-70 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center overflow-hidden ml-2">
+<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxGQCzQSjey65i7qVMgEkRELo90qu1GuG0xkY0hXOceDXVgREDXQXk4Iq1BKoi23sBtCNZvzi_kmQwOq0OwyxvV1cTo_qdkMmDK0UhG6BysFO_Vn6BKmTenNi0BuFvZ_DqI9PxU1wdsufqG1nowWl8VYRjKCtMjfeId9muMdlCg8xZTUhpMNeG77lvOFrL6gkNS9OCpS0h-xqLWbs7XoZuc_q2oYHFI2KvKmDkJjvvE1dkQV8Qlp7qRCBbFUmvthXA3EYSK1VvLQ"/>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-64 bg-surface/70 dark:bg-inverse-surface/70 backdrop-blur-[30px] border-r border-outline-variant dark:border-outline flex flex-col py-margin-desktop px-4 z-50">
+<div class="mb-12 px-2 flex flex-col gap-1">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface">TakeoffAI</h2>
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant uppercase tracking-widest">Technical Architect</span>
+</div>
+<ul class="flex flex-col gap-2 flex-grow font-body-md text-body-md">
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded text-on-surface-variant dark:text-on-secondary-fixed-variant hover:bg-surface-container-high/50 dark:hover:bg-secondary-fixed-variant/20 transition-colors scale-98 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open" style="font-size: 20px;">folder_open</span>
+                    Projects
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded text-on-surface-variant dark:text-on-secondary-fixed-variant hover:bg-surface-container-high/50 dark:hover:bg-secondary-fixed-variant/20 transition-colors scale-98 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="database" style="font-size: 20px;">database</span>
+                    Library
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded text-primary dark:text-primary-fixed-dim font-bold border-r-2 border-primary dark:border-primary-fixed-dim bg-surface-container/50 scale-98 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="history" data-weight="fill" style="font-variation-settings: 'FILL' 1;">history</span>
+                    History
+                </a>
+</li>
+</ul>
+<div class="mt-auto px-2 pt-6 border-t border-outline-variant/30">
+<div class="font-metadata-sm text-metadata-sm text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#10B981]"></span>
+                System Operational
+            </div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-16 min-h-screen p-margin-desktop flex flex-col gap-section-gap">
+<!-- Header Section -->
+<div class="flex items-end justify-between">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">System Audit Trail</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Cryptographically verifiable log of all AI detection runs, automated exports, and significant system events across your infrastructure.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2 border border-outline-variant bg-transparent text-on-surface font-body-md text-body-md rounded-DEFAULT hover:bg-surface-container hover:border-outline transition-all flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">tune</span>
+                    Parameters
+                </button>
+<button class="px-6 py-2 bg-[#09090b] text-white font-body-md text-body-md rounded-DEFAULT hover:bg-[#27272a] transition-all flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                    Export CSV
+                </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Metrics Row (Span full width of grid) -->
+<div class="col-span-12 grid grid-cols-3 gap-gutter mb-4">
+<div class="glass-panel p-6 rounded-lg flex flex-col gap-2">
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant uppercase tracking-widest">Total Ops (24h)</span>
+<div class="flex items-end gap-3">
+<span class="font-display-xl text-display-xl text-on-surface leading-none">12,408</span>
+<span class="font-metadata-sm text-metadata-sm text-primary mb-1 flex items-center"><span class="material-symbols-outlined" style="font-size: 14px;">arrow_upward</span> 4.2%</span>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-lg flex flex-col gap-2">
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant uppercase tracking-widest">Anomalies Detected</span>
+<div class="flex items-end gap-3">
+<span class="font-display-xl text-display-xl text-on-surface leading-none">0</span>
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant mb-1">Within expected threshold</span>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-lg flex flex-col gap-2">
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant uppercase tracking-widest">Data Processed</span>
+<div class="flex items-end gap-3">
+<span class="font-display-xl text-display-xl text-on-surface leading-none">8.4</span>
+<span class="font-headline-md text-headline-md text-on-surface-variant mb-1">TB</span>
+</div>
+</div>
+</div>
+<!-- Main Log Panel (Span 8) -->
+<div class="col-span-8 glass-panel rounded-xl flex flex-col light-leak-active overflow-hidden h-[600px]">
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest/50">
+<h3 class="font-headline-md text-headline-md text-on-surface">Event Stream</h3>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-metadata-sm text-metadata-sm text-primary">Live</span>
+</div>
+</div>
+<!-- High Density Table Header -->
+<div class="grid grid-cols-[100px_2fr_1.5fr_120px] gap-4 px-6 py-3 border-b border-outline-variant bg-surface-container-low font-metadata-sm text-metadata-sm text-on-surface-variant uppercase">
+<div>Timestamp</div>
+<div>Event Detail</div>
+<div>Target / Resource</div>
+<div class="text-right">Status</div>
+</div>
+<!-- Scrollable Log Area -->
+<div class="flex-1 overflow-y-auto p-2">
+<!-- Log Row 1 -->
+<div class="grid grid-cols-[100px_2fr_1.5fr_120px] gap-4 px-4 py-3 border-b border-outline-variant/30 hover:bg-surface-container/50 transition-colors items-start rounded">
+<div class="font-metadata-sm text-metadata-sm text-on-surface-variant">14:02:11.05Z</div>
+<div class="flex flex-col gap-1">
+<span class="font-body-md text-body-md font-medium text-on-surface">AI Detection Sweep</span>
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant">Model v4.2.1-beta / Auto-triggered</span>
+</div>
+<div class="font-metadata-sm text-metadata-sm text-on-surface bg-surface-container px-2 py-1 rounded w-fit border border-outline-variant/50">vol_sys_09912</div>
+<div class="text-right flex items-center justify-end gap-2">
+<span class="font-metadata-sm text-metadata-sm text-primary">COMPLETED</span>
+<span class="material-symbols-outlined text-primary" style="font-size: 16px;">check_circle</span>
+</div>
+</div>
+<!-- Log Row 2 -->
+<div class="grid grid-cols-[100px_2fr_1.5fr_120px] gap-4 px-4 py-3 border-b border-outline-variant/30 hover:bg-surface-container/50 transition-colors items-start rounded">
+<div class="font-metadata-sm text-metadata-sm text-on-surface-variant">14:01:45.88Z</div>
+<div class="flex flex-col gap-1">
+<span class="font-body-md text-body-md font-medium text-on-surface">Batch Export Initiated</span>
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant">User: k.chen@takeoffai.com</span>
+</div>
+<div class="font-metadata-sm text-metadata-sm text-on-surface bg-surface-container px-2 py-1 rounded w-fit border border-outline-variant/50">s3://archive-2026</div>
+<div class="text-right flex items-center justify-end gap-2">
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant">PROCESSING</span>
+<span class="material-symbols-outlined text-on-surface-variant animate-spin" style="font-size: 16px;">sync</span>
+</div>
+</div>
+<!-- Log Row 3 -->
+<div class="grid grid-cols-[100px_2fr_1.5fr_120px] gap-4 px-4 py-3 border-b border-outline-variant/30 hover:bg-surface-container/50 transition-colors items-start rounded bg-[#fff0f0]">
+<div class="font-metadata-sm text-metadata-sm text-[#93000a]">13:55:10.12Z</div>
+<div class="flex flex-col gap-1">
+<span class="font-body-md text-body-md font-medium text-[#93000a]">Configuration Integrity Fault</span>
+<span class="font-metadata-sm text-metadata-sm text-[#93000a]/70">Mismatch in schema validation layer</span>
+</div>
+<div class="font-metadata-sm text-metadata-sm text-[#93000a] bg-[#ffdad6] px-2 py-1 rounded w-fit border border-[#93000a]/20">cfg_cluster_eu1</div>
+<div class="text-right flex items-center justify-end gap-2">
+<span class="font-metadata-sm text-metadata-sm text-[#93000a]">FAILED</span>
+<span class="material-symbols-outlined text-[#93000a]" style="font-size: 16px;">error</span>
+</div>
+</div>
+<!-- Log Row 4 -->
+<div class="grid grid-cols-[100px_2fr_1.5fr_120px] gap-4 px-4 py-3 border-b border-outline-variant/30 hover:bg-surface-container/50 transition-colors items-start rounded">
+<div class="font-metadata-sm text-metadata-sm text-on-surface-variant">13:42:00.01Z</div>
+<div class="flex flex-col gap-1">
+<span class="font-body-md text-body-md font-medium text-on-surface">Scheduled Telemetry Sync</span>
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant">System Routine Worker</span>
+</div>
+<div class="font-metadata-sm text-metadata-sm text-on-surface bg-surface-container px-2 py-1 rounded w-fit border border-outline-variant/50">endpoint_metrics</div>
+<div class="text-right flex items-center justify-end gap-2">
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant">COMPLETED</span>
+</div>
+</div>
+<!-- Log Row 5 -->
+<div class="grid grid-cols-[100px_2fr_1.5fr_120px] gap-4 px-4 py-3 border-b border-outline-variant/30 hover:bg-surface-container/50 transition-colors items-start rounded">
+<div class="font-metadata-sm text-metadata-sm text-on-surface-variant">13:30:15.44Z</div>
+<div class="flex flex-col gap-1">
+<span class="font-body-md text-body-md font-medium text-on-surface">API Key Rotation</span>
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant">Automated Security Protocol</span>
+</div>
+<div class="font-metadata-sm text-metadata-sm text-on-surface bg-surface-container px-2 py-1 rounded w-fit border border-outline-variant/50">auth_svc_primary</div>
+<div class="text-right flex items-center justify-end gap-2">
+<span class="font-metadata-sm text-metadata-sm text-primary">SUCCESS</span>
+<span class="material-symbols-outlined text-primary" style="font-size: 16px;">shield</span>
+</div>
+</div>
+<!-- Log Row 6 -->
+<div class="grid grid-cols-[100px_2fr_1.5fr_120px] gap-4 px-4 py-3 border-b border-outline-variant/30 hover:bg-surface-container/50 transition-colors items-start rounded">
+<div class="font-metadata-sm text-metadata-sm text-on-surface-variant">13:15:00.00Z</div>
+<div class="flex flex-col gap-1">
+<span class="font-body-md text-body-md font-medium text-on-surface">AI Detection Sweep</span>
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant">Model v4.2.1-beta / Auto-triggered</span>
+</div>
+<div class="font-metadata-sm text-metadata-sm text-on-surface bg-surface-container px-2 py-1 rounded w-fit border border-outline-variant/50">vol_sys_09911</div>
+<div class="text-right flex items-center justify-end gap-2">
+<span class="font-metadata-sm text-metadata-sm text-primary">COMPLETED</span>
+<span class="material-symbols-outlined text-primary" style="font-size: 16px;">check_circle</span>
+</div>
+</div>
+</div>
+<div class="px-6 py-3 border-t border-outline-variant bg-surface-container-lowest flex justify-center">
+<button class="font-metadata-sm text-metadata-sm text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1">
+                        Load Older Entries <span class="material-symbols-outlined" style="font-size: 14px;">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Query & Filter Sidebar (Span 4) -->
+<div class="col-span-4 flex flex-col gap-gutter h-[600px]">
+<!-- Active Filters Card -->
+<div class="glass-panel rounded-xl p-6 flex flex-col gap-4">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2 border-b border-outline-variant pb-2">Active Query</h3>
+<div class="flex flex-col gap-3">
+<label class="font-metadata-sm text-metadata-sm text-on-surface-variant">Time Range</label>
+<select class="w-full bg-surface-container border border-outline-variant rounded px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:outline-none appearance-none">
+<option>Last 24 Hours</option>
+<option>Last 7 Days</option>
+<option>Last 30 Days</option>
+<option>Custom Range...</option>
+</select>
+</div>
+<div class="flex flex-col gap-3 mt-2">
+<label class="font-metadata-sm text-metadata-sm text-on-surface-variant">Event Type</label>
+<div class="flex flex-wrap gap-2">
+<span class="font-metadata-sm text-metadata-sm px-3 py-1.5 rounded-full border border-primary bg-primary/10 text-primary cursor-pointer">AI Detection Runs</span>
+<span class="font-metadata-sm text-metadata-sm px-3 py-1.5 rounded-full border border-outline-variant text-on-surface-variant hover:border-outline cursor-pointer transition-colors">Exports</span>
+<span class="font-metadata-sm text-metadata-sm px-3 py-1.5 rounded-full border border-outline-variant text-on-surface-variant hover:border-outline cursor-pointer transition-colors">Security</span>
+<span class="font-metadata-sm text-metadata-sm px-3 py-1.5 rounded-full border border-outline-variant text-on-surface-variant hover:border-outline cursor-pointer transition-colors">System</span>
+</div>
+</div>
+</div>
+<!-- System Metadata Card -->
+<div class="glass-panel rounded-xl p-6 flex-1 flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4">Instance Details</h3>
+<div class="flex flex-col gap-4">
+<div class="flex justify-between border-b border-outline-variant/30 pb-2">
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant">Environment</span>
+<span class="font-metadata-sm text-metadata-sm text-on-surface font-semibold">Production (us-east-1)</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/30 pb-2">
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant">Node Cluster</span>
+<span class="font-metadata-sm text-metadata-sm text-on-surface font-semibold">TK-88X-ALPHA</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/30 pb-2">
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant">Data Retention</span>
+<span class="font-metadata-sm text-metadata-sm text-on-surface font-semibold">90 Days Strict</span>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<button class="w-full py-2 border border-outline-variant border-dashed text-on-surface-variant font-metadata-sm text-metadata-sm hover:bg-surface-container transition-colors rounded">
+                            View Infrastructure Map
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

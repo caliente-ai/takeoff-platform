@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TakeoffAI - History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#ffb596",
+                    "on-surface": "#191b23",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#b4c5ff",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#46464e",
+                    "tertiary-container": "#bc4800",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-tertiary-container": "#ffede6",
+                    "surface-container-high": "#e7e7f3",
+                    "secondary-container": "#e3e1ec",
+                    "tertiary": "#943700",
+                    "surface": "#faf8ff",
+                    "on-secondary-container": "#63646c",
+                    "secondary-fixed-dim": "#c6c5cf",
+                    "on-surface-variant": "#434655",
+                    "on-background": "#191b23",
+                    "secondary-fixed": "#e3e1ec",
+                    "outline": "#737686",
+                    "inverse-surface": "#2e3039",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f3f3fe",
+                    "primary-container": "#2563eb",
+                    "on-secondary-fixed": "#1a1b22",
+                    "surface-bright": "#faf8ff",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#ffdbcd",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#e1e2ed",
+                    "on-primary-fixed": "#00174b",
+                    "background": "#faf8ff",
+                    "surface-container-highest": "#e1e2ed",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#f0f0fb",
+                    "secondary": "#5d5e66",
+                    "on-primary-container": "#eeefff",
+                    "surface-dim": "#d9d9e5",
+                    "primary-fixed": "#dbe1ff",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "outline-variant": "#c3c6d7",
+                    "surface-tint": "#0053db",
+                    "primary": "#004ac6",
+                    "surface-container": "#ededf9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "1rem",
+                    "margin_page": "1.5rem",
+                    "row_height_base": "40px",
+                    "sidebar_width": "240px",
+                    "row_height_dense": "32px",
+                    "header_height": "48px"
+            },
+            "fontFamily": {
+                    "mono-data": [
+                            "JetBrains Mono"
+                    ],
+                    "page-title": [
+                            "Inter"
+                    ],
+                    "body-base": [
+                            "Inter"
+                    ],
+                    "label-xs": [
+                            "Inter"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "mono-data": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "page-title": [
+                            "22px",
+                            {
+                                    "lineHeight": "28px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-base": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-xs": [
+                            "11px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.02em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-sm": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "22px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "24px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-base antialiased min-h-screen flex">
+<!-- SideNavBar Component -->
+<nav class="hidden md:flex bg-surface-container-low dark:bg-surface-container-lowest font-body-base text-body-base fixed left-0 top-0 h-full w-sidebar_width border-r border-outline-variant dark:border-outline flex-col p-gutter z-20">
+<div class="mb-8 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary flex items-center justify-center text-on-primary font-bold">M</div>
+<div>
+<h1 class="font-page-title text-page-title text-on-surface dark:text-on-surface-variant leading-none mb-1">Memorial Hospital</h1>
+<p class="font-label-xs text-label-xs text-on-surface-variant">Workspace Switcher</p>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary rounded h-row_height_base flex items-center justify-center font-label-sm text-label-sm mb-6 hover:bg-surface-tint transition-colors">
+            Create New Project
+        </button>
+<div class="flex flex-col gap-1 flex-grow">
+<a class="flex items-center gap-3 px-3 h-row_height_base rounded text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="analytics">analytics</span>
+<span>Projects</span>
+</a>
+<a class="flex items-center gap-3 px-3 h-row_height_base rounded text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="menu_book">menu_book</span>
+<span>Library</span>
+</a>
+<a class="flex items-center gap-3 px-3 h-row_height_base rounded border-l-2 border-primary bg-secondary-container text-on-secondary-container font-semibold" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="history">history</span>
+<span>History</span>
+</a>
+<a class="flex items-center gap-3 px-3 h-row_height_base rounded text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="bar_chart">bar_chart</span>
+<span>Usage</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-sidebar_width min-h-screen">
+<!-- TopAppBar Component -->
+<header class="bg-surface dark:bg-surface-dim font-label-sm text-label-sm sticky top-0 right-0 w-full h-header_height border-b border-outline-variant dark:border-outline flex justify-between items-center px-margin_page z-10">
+<div class="flex items-center gap-4">
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed-dim">TakeoffAI</span>
+<div class="relative hidden sm:flex items-center">
+<span class="material-symbols-outlined absolute left-2 text-on-surface-variant text-[18px]">search</span>
+<input class="pl-8 pr-3 h-8 border border-outline-variant rounded bg-surface-container-lowest focus:border-primary focus:ring-1 focus:ring-primary outline-none text-sm w-64" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4 text-primary dark:text-primary-fixed-dim cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px] hover:text-primary transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-[20px] hover:text-primary transition-colors" data-icon="settings">settings</span>
+<span class="material-symbols-outlined text-[20px] hover:text-primary transition-colors" data-icon="help_outline">help_outline</span>
+<div class="w-8 h-8 rounded-full bg-secondary-container overflow-hidden border border-outline-variant">
+<img alt="Estimator Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a male estimator, well-lit studio lighting, neutral grey background. The image has a clean, corporate aesthetic suitable for a modern web application profile picture. High resolution, sharp focus, professional attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaXAUmdmrqxVbB-wXm9xRWQSvJdssMJ34C-CtDFcD9GiFNxgQPGHazHcO_31g9yzcez7HjHKYaOx-dQUe6AFfas5fWPFgOhHFLX1WRyF9sgcyDhuME_FxH8JB1ZgOJc94OMhnVpTbCpDwgKSdnUNeGoQ-j6lcNaC8HF_5mBdTQM42vKC18G_uLhWRUX6tuBpxZAv3ph9ez8aE5WJVfY4NtPovE7UWhn5tfkdpbB1j53ddWkgEHCbj55pYxuX814EaX3w_Cl5HQ9w"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 p-margin_page flex flex-col gap-6 overflow-x-hidden">
+<!-- Page Header & Filters -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<h2 class="font-page-title text-page-title text-on-surface mb-1">Activity History</h2>
+<p class="font-body-base text-body-base text-on-surface-variant">Complete log of all workspace events and automated processes.</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1.5 rounded-full border border-primary bg-primary-container text-on-primary-container font-label-sm text-label-sm">All Activity</button>
+<button class="px-3 py-1.5 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container-low transition-colors">Exports</button>
+<button class="px-3 py-1.5 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container-low transition-colors">Detections</button>
+<button class="px-3 py-1.5 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container-low transition-colors">Collaborations</button>
+</div>
+</div>
+<!-- Dense Data Table -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex-1 flex flex-col">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="py-2 px-4 font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider font-semibold">Activity Type</th>
+<th class="py-2 px-4 font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider font-semibold">Project Name</th>
+<th class="py-2 px-4 font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider font-semibold">User</th>
+<th class="py-2 px-4 font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider font-semibold">Date / Time</th>
+<th class="py-2 px-4 font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider font-semibold text-right">Status</th>
+</tr>
+</thead>
+<tbody class="font-mono-data text-mono-data text-on-surface">
+<!-- Row 1 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors h-row_height_dense">
+<td class="py-1.5 px-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">magic_button</span>
+<span>AI Detection Run</span>
+</div>
+</td>
+<td class="py-1.5 px-4 whitespace-nowrap">West Wing Expansion</td>
+<td class="py-1.5 px-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-secondary-container flex items-center justify-center text-[10px] font-bold">JD</div>
+<span>System (Auto)</span>
+</div>
+</td>
+<td class="py-1.5 px-4 whitespace-nowrap text-on-surface-variant">2023-10-27 14:32:01</td>
+<td class="py-1.5 px-4 whitespace-nowrap text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-green-100 text-green-800 border border-green-200">Completed</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors h-row_height_dense">
+<td class="py-1.5 px-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">download</span>
+<span>Quantities Export</span>
+</div>
+</td>
+<td class="py-1.5 px-4 whitespace-nowrap">ICU Renovation Phase 2</td>
+<td class="py-1.5 px-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center text-[10px] font-bold">AS</div>
+<span>Alex Smith</span>
+</div>
+</td>
+<td class="py-1.5 px-4 whitespace-nowrap text-on-surface-variant">2023-10-27 11:15:44</td>
+<td class="py-1.5 px-4 whitespace-nowrap text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-green-100 text-green-800 border border-green-200">Success</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors h-row_height_dense">
+<td class="py-1.5 px-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">add_circle</span>
+<span>New Project Created</span>
+</div>
+</td>
+<td class="py-1.5 px-4 whitespace-nowrap">Outpatient Clinic</td>
+<td class="py-1.5 px-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center text-[10px] font-bold">MJ</div>
+<span>Maria Johnson</span>
+</div>
+</td>
+<td class="py-1.5 px-4 whitespace-nowrap text-on-surface-variant">2023-10-26 09:05:12</td>
+<td class="py-1.5 px-4 whitespace-nowrap text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-secondary-container text-on-secondary-container border border-outline-variant">Logged</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors h-row_height_dense">
+<td class="py-1.5 px-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-error">error</span>
+<span>Drawing Upload Failed</span>
+</div>
+</td>
+<td class="py-1.5 px-4 whitespace-nowrap">Pediatrics Wing</td>
+<td class="py-1.5 px-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center text-[10px] font-bold">AS</div>
+<span>Alex Smith</span>
+</div>
+</td>
+<td class="py-1.5 px-4 whitespace-nowrap text-on-surface-variant">2023-10-25 16:45:00</td>
+<td class="py-1.5 px-4 whitespace-nowrap text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-error-container text-on-error-container border border-error">Failed</span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors h-row_height_dense">
+<td class="py-1.5 px-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">magic_button</span>
+<span>AI Detection Run</span>
+</div>
+</td>
+<td class="py-1.5 px-4 whitespace-nowrap">Pediatrics Wing</td>
+<td class="py-1.5 px-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-secondary-container flex items-center justify-center text-[10px] font-bold">JD</div>
+<span>System (Auto)</span>
+</div>
+</td>
+<td class="py-1.5 px-4 whitespace-nowrap text-on-surface-variant">2023-10-25 16:50:22</td>
+<td class="py-1.5 px-4 whitespace-nowrap text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-yellow-100 text-yellow-800 border border-yellow-200">Processing</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination / Footer -->
+<div class="mt-auto border-t border-outline-variant p-3 flex justify-between items-center bg-surface-container-low">
+<span class="font-label-xs text-label-xs text-on-surface-variant">Showing 1-5 of 1,204 entries</span>
+<div class="flex gap-1">
+<button class="px-2 py-1 border border-outline-variant rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high transition-colors disabled:opacity-50" disabled="">Prev</button>
+<button class="px-2 py-1 border border-outline-variant rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high transition-colors">Next</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

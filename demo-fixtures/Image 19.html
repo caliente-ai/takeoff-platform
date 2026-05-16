@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TakeoffAI - Projects Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-container": "#ffede6",
+                      "primary": "#004ac6",
+                      "on-surface": "#191b23",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#2e3039",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed": "#360f00",
+                      "on-secondary-container": "#63646c",
+                      "tertiary-fixed": "#ffdbcd",
+                      "error": "#ba1a1a",
+                      "on-secondary-fixed-variant": "#46464e",
+                      "surface-container": "#ededf9",
+                      "tertiary-container": "#bc4800",
+                      "surface-variant": "#e1e2ed",
+                      "surface": "#faf8ff",
+                      "surface-tint": "#0053db",
+                      "surface-container-high": "#e7e7f3",
+                      "surface-bright": "#faf8ff",
+                      "on-error": "#ffffff",
+                      "secondary-fixed-dim": "#c6c5cf",
+                      "outline-variant": "#c3c6d7",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#1a1b22",
+                      "on-primary-container": "#eeefff",
+                      "secondary-fixed": "#e3e1ec",
+                      "secondary": "#5d5e66",
+                      "outline": "#737686",
+                      "on-tertiary": "#ffffff",
+                      "inverse-on-surface": "#f0f0fb",
+                      "primary-container": "#2563eb",
+                      "on-surface-variant": "#434655",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb596",
+                      "surface-container-low": "#f3f3fe",
+                      "inverse-primary": "#b4c5ff",
+                      "surface-dim": "#d9d9e5",
+                      "secondary-container": "#e3e1ec",
+                      "background": "#faf8ff",
+                      "primary-fixed": "#dbe1ff",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "on-tertiary-fixed-variant": "#7d2d00",
+                      "on-primary-fixed": "#00174b",
+                      "error-container": "#ffdad6",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "on-background": "#191b23",
+                      "tertiary": "#943700",
+                      "surface-container-highest": "#e1e2ed"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin_page": "1.5rem",
+                      "row_height_dense": "32px",
+                      "header_height": "48px",
+                      "gutter": "1rem",
+                      "row_height_base": "40px",
+                      "sidebar_width": "240px"
+              },
+              "fontFamily": {
+                      "page-title": ["Inter"],
+                      "body-base": ["Inter"],
+                      "label-xs": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "mono-data": ["JetBrains Mono"],
+                      "headline-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "page-title": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "body-base": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                      "label-xs": ["11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                      "headline-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+                      "label-sm": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                      "mono-data": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                      "headline-lg": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { background-color: #f4f4f5; /* zinc-50 approx, using surface color from theme */ background-color: theme('colors.surface'); }
+        /* Custom scrollbar for high density look */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+    </style>
+</head>
+<body class="text-on-surface font-body-base bg-surface antialiased overflow-hidden flex h-screen w-screen">
+<!-- SideNavBar -->
+<nav class="bg-surface dark:bg-surface text-primary dark:text-inverse-primary font-body-base text-body-base fixed left-0 top-0 h-screen w-sidebar_width border-r border-outline-variant dark:border-outline flex flex-col h-full py-4 transition-all duration-200 ease-in-out z-20">
+<!-- Brand / Header -->
+<div class="px-4 mb-6 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl">domain</span>
+<span class="font-page-title text-page-title text-primary dark:text-primary-fixed">TakeoffAI</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs px-1.5 py-0.5 rounded uppercase tracking-wider ml-1">BETA</span>
+</div>
+</div>
+<!-- Org Switcher (Context) -->
+<div class="px-4 mb-6">
+<button class="w-full flex items-center justify-between px-3 py-2 bg-surface-container-low border border-outline-variant rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">apartment</span>
+<span class="font-label-sm text-label-sm text-on-surface truncate">Memorial Hospital</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">unfold_more</span>
+</button>
+</div>
+<!-- Main Navigation -->
+<div class="flex-1 flex flex-col gap-1">
+<!-- Active Tab: Projects -->
+<a class="flex items-center gap-3 px-4 h-row_height_base bg-surface-container-high text-primary border-l-2 border-primary font-headline-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">folder</span>
+<span>Projects</span>
+</a>
+<a class="flex items-center gap-3 px-4 h-row_height_base text-on-surface-variant hover:bg-surface-container-low transition-colors hover:bg-surface-container dark:hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Library</span>
+</a>
+<a class="flex items-center gap-3 px-4 h-row_height_base text-on-surface-variant hover:bg-surface-container-low transition-colors hover:bg-surface-container dark:hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">history</span>
+<span>History</span>
+</a>
+<a class="flex items-center gap-3 px-4 h-row_height_base text-on-surface-variant hover:bg-surface-container-low transition-colors hover:bg-surface-container dark:hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span>Usage</span>
+</a>
+</div>
+<!-- Footer Navigation -->
+<div class="mt-auto flex flex-col gap-1 border-t border-outline-variant pt-4">
+<a class="flex items-center gap-3 px-4 h-row_height_base text-on-surface-variant hover:bg-surface-container-low transition-colors hover:bg-surface-container dark:hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span>Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 h-row_height_base text-on-surface-variant hover:bg-surface-container-low transition-colors hover:bg-surface-container dark:hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-sidebar_width flex flex-col h-screen overflow-hidden bg-background">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-inverse-primary font-headline-md text-headline-md sticky top-0 right-0 h-header_height w-full border-b border-outline-variant dark:border-outline flex items-center justify-between px-margin_page z-10 transition-all duration-200 ease-in-out">
+<div class="flex items-center gap-4">
+<!-- Page Context / Title -->
+<div class="flex items-baseline gap-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface m-0">Projects</h1>
+<span class="font-mono-data text-mono-data text-outline">(12)</span>
+</div>
+</div>
+<!-- Global Search & Actions -->
+<div class="flex items-center gap-4">
+<!-- Search Input -->
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="w-full h-8 pl-8 pr-3 bg-surface-container-lowest border border-outline-variant rounded font-body-base text-body-base text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder-outline transition-all" placeholder="Search projects..." type="text"/>
+<div class="absolute right-2 top-1/2 -translate-y-1/2 flex gap-1">
+<kbd class="font-mono-data text-[10px] text-outline border border-outline-variant rounded px-1 bg-surface-container-low">⌘</kbd>
+<kbd class="font-mono-data text-[10px] text-outline border border-outline-variant rounded px-1 bg-surface-container-low">K</kbd>
+</div>
+</div>
+<div class="h-5 w-px bg-outline-variant"></div>
+<!-- Icon Actions -->
+<button class="text-on-surface-variant hover:text-primary transition-colors active:opacity-80 flex items-center justify-center h-8 w-8 rounded hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors active:opacity-80 flex items-center justify-center h-8 w-8 rounded hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<div class="h-5 w-px bg-outline-variant"></div>
+<!-- Primary / Secondary Actions -->
+<button class="h-8 px-3 flex items-center justify-center gap-1.5 bg-surface-container-lowest border border-outline-variant text-on-surface font-label-sm text-label-sm rounded hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                    Export
+                </button>
+<button class="h-8 px-3 flex items-center justify-center gap-1.5 bg-primary text-on-primary font-label-sm text-label-sm rounded hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                    Create New
+                </button>
+</div>
+</header>
+<!-- Scrollable Workspace -->
+<div class="flex-1 overflow-auto p-margin_page">
+<!-- Tab Strip / Filters -->
+<div class="flex items-center justify-between mb-6 border-b border-outline-variant">
+<div class="flex gap-6 h-row_height_base">
+<button class="flex items-center h-full px-1 text-primary font-label-sm text-label-sm border-b-2 border-primary">
+                        All <span class="ml-1.5 px-1.5 py-0.5 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-[10px] font-mono-data">12</span>
+</button>
+<button class="flex items-center h-full px-1 text-on-surface-variant font-label-sm text-label-sm border-b-2 border-transparent hover:text-on-surface hover:border-outline-variant transition-colors">
+                        In Progress <span class="ml-1.5 px-1.5 py-0.5 bg-surface-container-high text-on-surface-variant rounded-full text-[10px] font-mono-data">4</span>
+</button>
+<button class="flex items-center h-full px-1 text-on-surface-variant font-label-sm text-label-sm border-b-2 border-transparent hover:text-on-surface hover:border-outline-variant transition-colors">
+                        In Review <span class="ml-1.5 px-1.5 py-0.5 bg-surface-container-high text-on-surface-variant rounded-full text-[10px] font-mono-data">3</span>
+</button>
+<button class="flex items-center h-full px-1 text-on-surface-variant font-label-sm text-label-sm border-b-2 border-transparent hover:text-on-surface hover:border-outline-variant transition-colors">
+                        Complete <span class="ml-1.5 px-1.5 py-0.5 bg-surface-container-high text-on-surface-variant rounded-full text-[10px] font-mono-data">5</span>
+</button>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<button class="h-7 px-2 flex items-center justify-center gap-1 bg-surface-container-lowest border border-outline-variant text-on-surface font-label-xs text-label-xs rounded hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[14px]">filter_list</span>
+                        Filter
+                    </button>
+<div class="flex border border-outline-variant rounded bg-surface-container-lowest overflow-hidden">
+<button class="h-7 w-8 flex items-center justify-center bg-surface-container-low text-primary border-r border-outline-variant">
+<span class="material-symbols-outlined text-[16px]">grid_view</span>
+</button>
+<button class="h-7 w-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]">list</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bento Grid View -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- Project Card 1: Memorial Hospital (In Review) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex flex-col hover:border-primary transition-colors group">
+<!-- Blueprint Placeholder -->
+<div class="h-32 w-full bg-surface-container-highest relative border-b border-outline-variant">
+<img alt="Memorial Hospital Blueprint" class="w-full h-full object-cover opacity-80 mix-blend-multiply filter grayscale" data-alt="A highly detailed architectural blueprint of a modern hospital wing, rendered in classic technical blue and white lines. The drawing shows complex floor plans, room layouts, and structural grids. The image is cropped to focus on a dense section of the plan, conveying a technical, industrious, and high-density information aesthetic suitable for a professional software dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb1r1ZT7QCJoEY-8b0jYVbm60ZZkWKfwr1aAhplS2ziZPw9uozYtCEGMn3seEjoFai92ljTP99YLHrAd1zFISLmC26hGWcGJoOzVv6VrDngbT4vk__JDh67gFDiTsYqUEt-Xb7XnCsri6XcNEmluG037JSe2VBz8q7ou_WCvpLkaDvkimTl0fdQ-jVvrTqn7P-Xg3i9wuZIN6DtEWPCTKx1yEHv4HqPArnavUrEdbTTIdqgVqGKZ_8fJtLFE3mDXktY8rrqRYftg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 to-transparent"></div>
+<div class="absolute top-3 left-3 flex gap-2">
+<!-- Status Badge: Soft Tint -->
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-xs text-label-xs rounded border border-tertiary-fixed-dim uppercase tracking-wider">In Review</span>
+</div>
+</div>
+<!-- Card Content -->
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-headline-md text-headline-md text-on-surface m-0 group-hover:text-primary transition-colors line-clamp-1">Memorial Hospital</h3>
+<button class="text-outline hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</div>
+<p class="font-body-base text-body-base text-on-surface-variant text-sm mb-4 line-clamp-1">Phase 2 Expansion - MEP Coordination</p>
+<div class="mt-auto grid grid-cols-2 gap-4 border-t border-outline-variant pt-3">
+<div>
+<div class="font-label-xs text-label-xs text-outline uppercase tracking-wider mb-0.5">Sheets processed</div>
+<div class="font-mono-data text-mono-data text-on-surface flex items-baseline gap-1">
+<span class="text-lg">142</span>
+<span class="text-outline text-xs">/ 150</span>
+</div>
+</div>
+<div>
+<div class="font-label-xs text-label-xs text-outline uppercase tracking-wider mb-0.5">Detections</div>
+<div class="font-mono-data text-mono-data text-primary">3,842</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Project Card 2: Westview Office (In Progress) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex flex-col hover:border-primary transition-colors group">
+<div class="h-32 w-full bg-surface-container-highest relative border-b border-outline-variant">
+<img alt="Westview Office Blueprint" class="w-full h-full object-cover opacity-80 mix-blend-multiply filter grayscale" data-alt="A technical blueprint overlay of a modern commercial office building structure. The architectural drawing highlights structural columns, HVAC routing, and open floor plan grids. Rendered in strict, high-density technical style with monochrome lines, reflecting a corporate, precision-focused software interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq1TLlhE5_nMV0CpYGs1-73yDk810xPbte4Ua8lWlkEiSK3VYrMKyUPhcCOD9KpQmOw_RL2_TXnVNkrIEI3eljvs5aAXsyca_ZjssakrK6PYFN3hBQXiCzqFDVnXdN8nxnU-hyMb35FR9WV4CRaoS-ggcCrt5ES_0FWOOr5Ux7TYBZREobO5tvSp0lVTno-tRjTrpE5oViZxMNuIr0FqvkTk-qj3KfpFLzZrmNLzDjd0xqSQxR4-9amt44S4V06zNQJC31wmRq3Q"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 to-transparent"></div>
+<div class="absolute top-3 left-3 flex gap-2">
+<span class="px-2 py-0.5 bg-primary-fixed text-on-primary-fixed-variant font-label-xs text-label-xs rounded border border-primary-fixed-dim uppercase tracking-wider">In Progress</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-headline-md text-headline-md text-on-surface m-0 group-hover:text-primary transition-colors line-clamp-1">Westview Office Park</h3>
+<button class="text-outline hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</div>
+<p class="font-body-base text-body-base text-on-surface-variant text-sm mb-4 line-clamp-1">Tower B - Core &amp; Shell Estimating</p>
+<div class="mt-auto grid grid-cols-2 gap-4 border-t border-outline-variant pt-3">
+<div>
+<div class="font-label-xs text-label-xs text-outline uppercase tracking-wider mb-0.5">Sheets processed</div>
+<div class="font-mono-data text-mono-data text-on-surface flex items-baseline gap-1">
+<span class="text-lg">85</span>
+<span class="text-outline text-xs">/ 85</span>
+</div>
+</div>
+<div>
+<div class="font-label-xs text-label-xs text-outline uppercase tracking-wider mb-0.5">Detections</div>
+<div class="font-mono-data text-mono-data text-primary">1,204</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Project Card 3: Lakeside Elementary (Complete) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex flex-col hover:border-primary transition-colors group">
+<div class="h-32 w-full bg-surface-container-highest relative border-b border-outline-variant">
+<img alt="Lakeside Elementary Blueprint" class="w-full h-full object-cover opacity-60 mix-blend-multiply filter grayscale" data-alt="A detailed architectural plan for an educational facility, showcasing classroom layouts, corridors, and site boundaries. The drawing is crisp, high-contrast, and strictly technical, devoid of decorative elements. The visual style aligns perfectly with a dense, Bloomberg-terminal inspired construction software dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj4Hh8SCT2XvrTK_nRVEOIvistdrnQ4YONqv8kNFAgIaN7AeZyuekmV33IiaUPR83N7ruYJLEaZxI4ao8QrMeSLhLhyFLr-yp2FY97-9FM8zIgrK8YKirwlJq-vlGi7lFQK3AN4v_l6JOriR5VA4tLNdjuGVH0euiCdxg0dFWX2202-0wnBHCDsq9uODh-NHPZaBcR0yZvX9uVcN3Qs-ZJsPsupZuVSa2CiYhM40Md7K-dDyRnGcTdhkQ8xmsaX2_qaUlqMk_tiw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 to-transparent"></div>
+<div class="absolute top-3 left-3 flex gap-2">
+<span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs rounded border border-outline-variant uppercase tracking-wider">Complete</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-headline-md text-headline-md text-on-surface m-0 group-hover:text-primary transition-colors line-clamp-1">Lakeside Elementary</h3>
+<button class="text-outline hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</div>
+<p class="font-body-base text-body-base text-on-surface-variant text-sm mb-4 line-clamp-1">Renovation &amp; Addition - Final Takeoff</p>
+<div class="mt-auto grid grid-cols-2 gap-4 border-t border-outline-variant pt-3 opacity-80">
+<div>
+<div class="font-label-xs text-label-xs text-outline uppercase tracking-wider mb-0.5">Sheets processed</div>
+<div class="font-mono-data text-mono-data text-on-surface flex items-baseline gap-1">
+<span class="text-lg">210</span>
+<span class="text-outline text-xs">/ 210</span>
+</div>
+</div>
+<div>
+<div class="font-label-xs text-label-xs text-outline uppercase tracking-wider mb-0.5">Detections</div>
+<div class="font-mono-data text-mono-data text-on-surface-variant">5,611</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Stats Row (Bento style addition for Bloomberg density feel) -->
+<div class="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-3 flex flex-col justify-center">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Total Active Sheets</span>
+<span class="font-mono-data text-mono-data text-xl text-on-surface mt-1">437</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-3 flex flex-col justify-center">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Processing Queue</span>
+<span class="font-mono-data text-mono-data text-xl text-tertiary-container mt-1">8</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-3 flex flex-col justify-center">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Total Detections YTD</span>
+<span class="font-mono-data text-mono-data text-xl text-on-surface mt-1">10,657</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-3 flex flex-col justify-center items-start">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider mb-2">System Status</span>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-mono-data text-mono-data text-sm text-on-surface">All Systems Operational</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
