@@ -1,12 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx --yes create-next-app@latest apps/web --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-pnpm --no-turbopack --skip-install --yes)",
+      "Bash(*)",
       "WebSearch",
       "WebFetch(domain:www.sotaaz.com)",
       "WebFetch(domain:stitch.withgoogle.com)",
-      "Read(//tmp/**)",
-      "Read(//private/tmp/**)"
+      "Read(*)",
+      "Read(//private/tmp/**)",
+      "WebFetch(*)"
     ]
   }
 }
