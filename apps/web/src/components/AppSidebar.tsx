@@ -62,7 +62,7 @@ export function AppSidebar() {
       <div className="mb-5 flex items-center gap-2 px-4">
         <Building2 className="size-5 text-blue-600" />
         <span className="text-[18px] font-bold tracking-tight text-blue-700">
-          TakeoffAI
+          CalienteAI
         </span>
         <Badge className="ml-1 bg-blue-100 px-1.5 py-0 text-[10px] tracking-wider text-blue-700 uppercase">
           BETA

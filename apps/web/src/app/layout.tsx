@@ -4,7 +4,7 @@ import { Toaster } from '@/components/ui/sonner';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'TakeoffAI — AI Construction Takeoff',
+  title: 'CalienteAI — AI Construction Takeoff',
   description: 'AI-powered construction takeoff for estimators.',
 };
 
