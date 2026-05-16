@@ -43,7 +43,7 @@ const NavLink = ({
     href={item.href}
     className={`flex h-10 items-center gap-3 px-4 text-[13px] font-medium transition-colors ${
       active
-        ? 'border-l-2 border-blue-600 bg-zinc-100 pl-[14px] text-blue-700'
+        ? 'border-l-2 border-blue-600 bg-blue-50 pl-[14px] text-blue-700'
         : 'border-l-2 border-transparent text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900'
     }`}
   >
@@ -64,7 +64,7 @@ export function AppSidebar() {
         <span className="text-[18px] font-bold tracking-tight text-blue-700">
           CalienteAI
         </span>
-        <Badge className="ml-1 bg-zinc-100 px-1.5 py-0 text-[10px] tracking-wider text-zinc-600 uppercase">
+        <Badge className="ml-1 bg-blue-100 px-1.5 py-0 text-[10px] tracking-wider text-blue-700 uppercase">
           BETA
         </Badge>
       </div>
