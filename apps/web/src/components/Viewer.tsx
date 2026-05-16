@@ -43,6 +43,8 @@ export default function Viewer({ tileSource }: Props) {
   const osdRef = useRef<typeof OpenSeadragonNS | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
+  const [zoomPct, setZoomPct] = useState<number | null>(null);
+
   const polygons = useStore((s) => s.polygons);
   const selectedId = useStore((s) => s.selectedPolygonId);
 
@@ -87,6 +89,11 @@ export default function Viewer({ tileSource }: Props) {
           location: new OpenSeadragon.Rect(0, 0, 1, size.y / size.x),
         });
         setIsOpen(true);
+      });
+
+      viewer.addHandler('zoom', () => {
+        const z = viewer.viewport.getZoom(true);
+        setZoomPct(Math.round(z * 100));
       });
     })();
 
@@ -155,5 +162,14 @@ export default function Viewer({ tileSource }: Props) {
     viewer.viewport.fitBounds(rect, false);
   }, [selectedId, polygons, isOpen]);
 
-  return <div ref={containerRef} className="absolute inset-0 bg-zinc-100" />;
+  return (
+    <>
+      <div ref={containerRef} className="absolute inset-0 bg-zinc-100" />
+      {zoomPct !== null && (
+        <div className="pointer-events-none absolute bottom-3 left-3 rounded-md border border-zinc-200 bg-white/90 px-2 py-1 font-mono text-[11px] text-zinc-600 shadow-sm">
+          {zoomPct}%
+        </div>
+      )}
+    </>
+  );
 }
