@@ -22,16 +22,23 @@ type Actions = {
   loadPolygons: (polygons: Polygon[]) => void;
   selectPolygon: (id: string | null) => void;
   updatePolygonStatus: (id: string, status: DetectionStatus) => void;
+  deletePolygon: (id: string) => void;
+  acceptAllPending: () => number;
   setSidebarFilter: (filter: SidebarFilter) => void;
+  reset: () => void;
   getFilteredPolygons: () => Polygon[];
   getStats: () => Stats;
 };
 
-export const useStore = create<State & Actions>((set, get) => ({
+const INITIAL_STATE: State = {
   job: null,
   polygons: [],
   selectedPolygonId: null,
   sidebarFilter: 'all',
+};
+
+export const useStore = create<State & Actions>((set, get) => ({
+  ...INITIAL_STATE,
 
   setJob: (job) => set({ job }),
   loadPolygons: (polygons) => set({ polygons }),
@@ -40,7 +47,24 @@ export const useStore = create<State & Actions>((set, get) => ({
     set((state) => ({
       polygons: state.polygons.map((p) => (p.id === id ? { ...p, status } : p)),
     })),
+  deletePolygon: (id) =>
+    set((state) => ({
+      polygons: state.polygons.filter((p) => p.id !== id),
+      selectedPolygonId:
+        state.selectedPolygonId === id ? null : state.selectedPolygonId,
+    })),
+  acceptAllPending: () => {
+    const { polygons } = get();
+    const count = polygons.filter((p) => p.status === 'pending').length;
+    set({
+      polygons: polygons.map((p) =>
+        p.status === 'pending' ? { ...p, status: 'accepted' } : p,
+      ),
+    });
+    return count;
+  },
   setSidebarFilter: (filter) => set({ sidebarFilter: filter }),
+  reset: () => set({ ...INITIAL_STATE }),
 
   getFilteredPolygons: () => {
     const { polygons, sidebarFilter } = get();
