@@ -1,726 +1,726 @@
 [
   {
     "id": "det_001",
-    "label": "Conference Room A",
+    "label": "General Learning Area 1",
     "category": "room",
     "status": "pending",
     "confidence": 0.96,
     "points": [
       [
-        120,
-        120
+        2350,
+        2500
       ],
       [
-        820,
-        120
+        2830,
+        2500
       ],
       [
-        820,
-        480
+        2830,
+        3200
       ],
       [
-        120,
-        480
+        2350,
+        3200
       ]
     ],
-    "area_sqft": 403,
-    "perimeter_ft": 84.8,
+    "area_sqft": 48,
+    "perimeter_ft": 28.3,
     "color": "#3b82f6"
   },
   {
     "id": "det_002",
-    "label": "Office 101",
+    "label": "General Learning Area 2",
     "category": "room",
     "status": "pending",
     "confidence": 0.79,
     "points": [
       [
-        840,
-        120
+        2840,
+        2500
       ],
       [
-        1540,
-        120
+        3320,
+        2500
       ],
       [
-        1540,
-        480
+        3320,
+        3200
       ],
       [
-        840,
-        480
+        2840,
+        3200
       ]
     ],
-    "area_sqft": 403,
-    "perimeter_ft": 84.8,
+    "area_sqft": 48,
+    "perimeter_ft": 28.3,
     "color": "#3b82f6"
   },
   {
     "id": "det_003",
-    "label": "Office 102",
+    "label": "General Learning Area 3",
     "category": "room",
     "status": "pending",
     "confidence": 0.89,
     "points": [
       [
-        1560,
-        120
+        3330,
+        2500
       ],
       [
-        2280,
-        120
+        3810,
+        2500
       ],
       [
-        2280,
-        480
+        3810,
+        3200
       ],
       [
-        1560,
-        480
+        3330,
+        3200
       ]
     ],
-    "area_sqft": 415,
-    "perimeter_ft": 86.4,
+    "area_sqft": 48,
+    "perimeter_ft": 28.3,
     "color": "#3b82f6"
   },
   {
     "id": "det_004",
-    "label": "Restroom M",
+    "label": "General Learning Area 4",
     "category": "room",
     "status": "pending",
     "confidence": 0.85,
     "points": [
       [
-        120,
-        500
+        3820,
+        2500
       ],
       [
-        580,
-        500
+        4300,
+        2500
       ],
       [
-        580,
-        820
+        4300,
+        3200
       ],
       [
-        120,
-        820
+        3820,
+        3200
       ]
     ],
-    "area_sqft": 236,
-    "perimeter_ft": 62.4,
+    "area_sqft": 48,
+    "perimeter_ft": 28.3,
     "color": "#3b82f6"
   },
   {
     "id": "det_005",
-    "label": "Corridor C1",
+    "label": "General Learning Area 5",
     "category": "room",
     "status": "pending",
     "confidence": 0.87,
     "points": [
       [
-        600,
-        500
+        4310,
+        2500
       ],
       [
-        2280,
-        500
+        4790,
+        2500
       ],
       [
-        2280,
-        820
+        4790,
+        3200
       ],
       [
-        600,
-        820
+        4310,
+        3200
       ]
     ],
-    "area_sqft": 860,
-    "perimeter_ft": 160,
+    "area_sqft": 48,
+    "perimeter_ft": 28.3,
     "color": "#3b82f6"
   },
   {
     "id": "det_006",
-    "label": "Mechanical Room",
+    "label": "Practical Learning Area",
     "category": "room",
     "status": "pending",
     "confidence": 0.91,
     "points": [
       [
-        120,
-        840
+        1700,
+        1300
       ],
       [
-        820,
-        840
+        2600,
+        1300
       ],
       [
-        820,
-        1200
+        2600,
+        1900
       ],
       [
-        120,
-        1200
+        1700,
+        1900
       ]
     ],
-    "area_sqft": 403,
-    "perimeter_ft": 84.8,
+    "area_sqft": 78,
+    "perimeter_ft": 36,
     "color": "#3b82f6"
   },
   {
     "id": "det_007",
-    "label": "Server Room",
+    "label": "Bridge",
     "category": "room",
     "status": "pending",
     "confidence": 0.81,
     "points": [
       [
-        840,
-        840
+        400,
+        1500
       ],
       [
-        1540,
-        840
+        1300,
+        1500
       ],
       [
-        1540,
-        1200
+        1300,
+        2100
       ],
       [
-        840,
-        1200
+        400,
+        2100
       ]
     ],
-    "area_sqft": 403,
-    "perimeter_ft": 84.8,
+    "area_sqft": 78,
+    "perimeter_ft": 36,
     "color": "#3b82f6"
   },
   {
     "id": "det_008",
-    "label": "Electrical Room",
+    "label": "Res Store",
     "category": "room",
     "status": "pending",
     "confidence": 0.91,
     "points": [
       [
-        1560,
-        840
+        1900,
+        1900
       ],
       [
-        2280,
-        840
+        2200,
+        1900
       ],
       [
-        2280,
-        1200
+        2200,
+        2200
       ],
       [
-        1560,
-        1200
+        1900,
+        2200
       ]
     ],
-    "area_sqft": 415,
-    "perimeter_ft": 86.4,
+    "area_sqft": 13,
+    "perimeter_ft": 14.4,
     "color": "#3b82f6"
   },
   {
     "id": "det_009",
-    "label": "Reception",
+    "label": "Data",
     "category": "room",
     "status": "pending",
     "confidence": 0.87,
     "points": [
       [
-        120,
-        1220
+        100,
+        1900
       ],
       [
-        720,
-        1220
+        300,
+        1900
       ],
       [
-        720,
-        1480
+        300,
+        2200
       ],
       [
-        120,
-        1480
+        100,
+        2200
       ]
     ],
-    "area_sqft": 250,
-    "perimeter_ft": 68.8,
+    "area_sqft": 9,
+    "perimeter_ft": 12,
     "color": "#3b82f6"
   },
   {
     "id": "det_010",
-    "label": "Break Room",
+    "label": "Office (Admin)",
     "category": "room",
     "status": "pending",
     "confidence": 0.79,
     "points": [
       [
-        740,
-        1220
+        2800,
+        1800
       ],
       [
-        1440,
-        1220
+        3000,
+        1800
       ],
       [
-        1440,
-        1480
+        3000,
+        2050
       ],
       [
-        740,
-        1480
+        2800,
+        2050
       ]
     ],
-    "area_sqft": 291,
-    "perimeter_ft": 76.8,
+    "area_sqft": 7,
+    "perimeter_ft": 10.8,
     "color": "#3b82f6"
   },
   {
     "id": "det_011",
-    "label": "Storage",
+    "label": "Learning & Activity Space",
     "category": "room",
     "status": "pending",
     "confidence": 0.82,
     "points": [
       [
-        1460,
-        1220
+        3000,
+        1800
       ],
       [
-        1940,
-        1220
+        3400,
+        1800
       ],
       [
-        1940,
-        1480
+        3400,
+        2100
       ],
       [
-        1460,
-        1480
+        3000,
+        2100
       ]
     ],
-    "area_sqft": 200,
-    "perimeter_ft": 59.2,
+    "area_sqft": 17,
+    "perimeter_ft": 16.8,
     "color": "#3b82f6"
   },
   {
     "id": "det_012",
-    "label": "Stairwell A",
+    "label": "Team Interaction",
     "category": "room",
     "status": "pending",
     "confidence": 0.94,
     "points": [
       [
-        1960,
-        1220
+        3400,
+        1800
       ],
       [
-        2280,
-        1220
+        3700,
+        1800
       ],
       [
-        2280,
-        1480
+        3700,
+        2100
       ],
       [
-        1960,
-        1480
+        3400,
+        2100
       ]
     ],
-    "area_sqft": 133,
-    "perimeter_ft": 46.4,
+    "area_sqft": 13,
+    "perimeter_ft": 14.4,
     "color": "#3b82f6"
   },
   {
     "id": "det_013",
-    "label": "North Wall",
-    "category": "wall",
+    "label": "Specialist Service & Therapy",
+    "category": "room",
     "status": "pending",
     "confidence": 0.78,
     "points": [
       [
-        120,
-        102
+        3700,
+        1800
       ],
       [
-        2280,
-        102
+        4000,
+        1800
       ],
       [
-        2280,
-        120
+        4000,
+        2100
       ],
       [
-        120,
-        120
+        3700,
+        2100
       ]
     ],
-    "area_sqft": 62,
-    "perimeter_ft": 174.2,
-    "color": "#6b7280"
+    "area_sqft": 13,
+    "perimeter_ft": 14.4,
+    "color": "#3b82f6"
   },
   {
     "id": "det_014",
-    "label": "South Wall",
-    "category": "wall",
+    "label": "Inter Room",
+    "category": "room",
     "status": "pending",
     "confidence": 0.82,
     "points": [
       [
-        120,
-        1480
+        4000,
+        1800
       ],
       [
-        2280,
-        1480
+        4300,
+        1800
       ],
       [
-        2280,
-        1498
+        4300,
+        2050
       ],
       [
-        120,
-        1498
+        4000,
+        2050
       ]
     ],
-    "area_sqft": 62,
-    "perimeter_ft": 174.2,
-    "color": "#6b7280"
+    "area_sqft": 11,
+    "perimeter_ft": 13.2,
+    "color": "#3b82f6"
   },
   {
     "id": "det_015",
-    "label": "West Wall",
-    "category": "wall",
+    "label": "Office (East)",
+    "category": "room",
     "status": "pending",
     "confidence": 0.87,
     "points": [
       [
-        102,
-        120
+        4300,
+        1800
       ],
       [
-        120,
-        120
+        4600,
+        1800
       ],
       [
-        120,
-        1480
+        4600,
+        2050
       ],
       [
-        102,
-        1480
+        4300,
+        2050
       ]
     ],
-    "area_sqft": 39,
-    "perimeter_ft": 110.2,
-    "color": "#6b7280"
+    "area_sqft": 11,
+    "perimeter_ft": 13.2,
+    "color": "#3b82f6"
   },
   {
     "id": "det_016",
-    "label": "East Wall",
-    "category": "wall",
+    "label": "Office (Far East)",
+    "category": "room",
     "status": "pending",
     "confidence": 0.97,
     "points": [
       [
-        2280,
-        120
+        4600,
+        1800
       ],
       [
-        2298,
-        120
+        4900,
+        1800
       ],
       [
-        2298,
-        1480
+        4900,
+        2050
       ],
       [
-        2280,
-        1480
+        4600,
+        2050
       ]
     ],
-    "area_sqft": 39,
-    "perimeter_ft": 110.2,
-    "color": "#6b7280"
+    "area_sqft": 11,
+    "perimeter_ft": 13.2,
+    "color": "#3b82f6"
   },
   {
     "id": "det_017",
-    "label": "Partition N1",
-    "category": "wall",
+    "label": "Inter Room (Lower)",
+    "category": "room",
     "status": "pending",
     "confidence": 0.87,
     "points": [
       [
-        820,
-        120
+        2800,
+        2050
       ],
       [
-        838,
-        120
+        3000,
+        2050
       ],
       [
-        838,
-        500
+        3000,
+        2300
       ],
       [
-        820,
-        500
+        2800,
+        2300
       ]
     ],
-    "area_sqft": 11,
-    "perimeter_ft": 31.8,
-    "color": "#6b7280"
+    "area_sqft": 7,
+    "perimeter_ft": 10.8,
+    "color": "#3b82f6"
   },
   {
     "id": "det_018",
-    "label": "Partition N2",
-    "category": "wall",
+    "label": "Office (Lower)",
+    "category": "room",
     "status": "pending",
     "confidence": 0.91,
     "points": [
       [
-        1540,
-        120
+        2800,
+        2300
       ],
       [
-        1558,
-        120
+        3000,
+        2300
       ],
       [
-        1558,
-        500
+        3000,
+        2500
       ],
       [
-        1540,
-        500
+        2800,
+        2500
       ]
     ],
-    "area_sqft": 11,
-    "perimeter_ft": 31.8,
-    "color": "#6b7280"
+    "area_sqft": 6,
+    "perimeter_ft": 9.6,
+    "color": "#3b82f6"
   },
   {
     "id": "det_019",
-    "label": "Partition C1",
-    "category": "wall",
+    "label": "Reception",
+    "category": "room",
     "status": "pending",
     "confidence": 0.84,
     "points": [
       [
-        580,
-        500
+        3000,
+        2200
       ],
       [
-        598,
-        500
+        3300,
+        2200
       ],
       [
-        598,
-        820
+        3300,
+        2500
       ],
       [
-        580,
-        820
+        3000,
+        2500
       ]
     ],
-    "area_sqft": 9,
-    "perimeter_ft": 27,
-    "color": "#6b7280"
+    "area_sqft": 13,
+    "perimeter_ft": 14.4,
+    "color": "#3b82f6"
   },
   {
     "id": "det_020",
-    "label": "Partition S1",
-    "category": "wall",
+    "label": "Breezeway",
+    "category": "room",
     "status": "pending",
     "confidence": 0.93,
     "points": [
       [
-        820,
-        840
+        3300,
+        2400
       ],
       [
-        838,
-        840
+        3900,
+        2400
       ],
       [
-        838,
-        1200
+        3900,
+        2600
       ],
       [
-        820,
-        1200
+        3300,
+        2600
       ]
     ],
-    "area_sqft": 10,
-    "perimeter_ft": 30.2,
-    "color": "#6b7280"
+    "area_sqft": 17,
+    "perimeter_ft": 19.2,
+    "color": "#3b82f6"
   },
   {
     "id": "det_021",
-    "label": "Light Fixture 1",
-    "category": "fixture",
+    "label": "Classroom-Side Corridor Wall",
+    "category": "wall",
     "status": "pending",
     "confidence": 0.89,
     "points": [
       [
-        270,
-        240
+        1700,
+        2480
       ],
       [
-        330,
-        240
+        5290,
+        2480
       ],
       [
-        330,
-        300
+        5290,
+        2505
       ],
       [
-        270,
-        300
+        1700,
+        2505
       ]
     ],
-    "area_sqft": 5.8,
-    "perimeter_ft": 9.6,
-    "color": "#f59e0b"
+    "area_sqft": 13,
+    "perimeter_ft": 86.8,
+    "color": "#6b7280"
   },
   {
     "id": "det_022",
-    "label": "Light Fixture 2",
-    "category": "fixture",
+    "label": "Partition GLA 1/2",
+    "category": "wall",
     "status": "pending",
     "confidence": 0.91,
     "points": [
       [
-        590,
-        240
+        2830,
+        2500
       ],
       [
-        650,
-        240
+        2845,
+        2500
       ],
       [
-        650,
-        300
+        2845,
+        3200
       ],
       [
-        590,
-        300
+        2830,
+        3200
       ]
     ],
-    "area_sqft": 5.8,
-    "perimeter_ft": 9.6,
-    "color": "#f59e0b"
+    "area_sqft": 2,
+    "perimeter_ft": 17.2,
+    "color": "#6b7280"
   },
   {
     "id": "det_023",
-    "label": "Light Fixture 3",
-    "category": "fixture",
+    "label": "Partition GLA 2/3",
+    "category": "wall",
     "status": "pending",
     "confidence": 0.9,
     "points": [
       [
-        1010,
-        240
+        3320,
+        2500
       ],
       [
-        1070,
-        240
+        3335,
+        2500
       ],
       [
-        1070,
-        300
+        3335,
+        3200
       ],
       [
-        1010,
-        300
+        3320,
+        3200
       ]
     ],
-    "area_sqft": 5.8,
-    "perimeter_ft": 9.6,
-    "color": "#f59e0b"
+    "area_sqft": 2,
+    "perimeter_ft": 17.2,
+    "color": "#6b7280"
   },
   {
     "id": "det_024",
-    "label": "Light Fixture 4",
-    "category": "fixture",
+    "label": "Partition GLA 3/4",
+    "category": "wall",
     "status": "pending",
     "confidence": 0.95,
     "points": [
       [
-        1330,
-        240
+        3810,
+        2500
       ],
       [
-        1390,
-        240
+        3825,
+        2500
       ],
       [
-        1390,
-        300
+        3825,
+        3200
       ],
       [
-        1330,
-        300
+        3810,
+        3200
       ]
     ],
-    "area_sqft": 5.8,
-    "perimeter_ft": 9.6,
-    "color": "#f59e0b"
+    "area_sqft": 2,
+    "perimeter_ft": 17.2,
+    "color": "#6b7280"
   },
   {
     "id": "det_025",
-    "label": "Light Fixture 5",
-    "category": "fixture",
+    "label": "Partition GLA 4/5",
+    "category": "wall",
     "status": "pending",
     "confidence": 0.91,
     "points": [
       [
-        1730,
-        240
+        4300,
+        2500
       ],
       [
-        1790,
-        240
+        4315,
+        2500
       ],
       [
-        1790,
-        300
+        4315,
+        3200
       ],
       [
-        1730,
-        300
+        4300,
+        3200
       ]
     ],
-    "area_sqft": 5.8,
-    "perimeter_ft": 9.6,
-    "color": "#f59e0b"
+    "area_sqft": 2,
+    "perimeter_ft": 17.2,
+    "color": "#6b7280"
   },
   {
     "id": "det_026",
-    "label": "Light Fixture 6",
+    "label": "PWD Assist WC",
     "category": "fixture",
     "status": "pending",
     "confidence": 0.88,
     "points": [
       [
-        2050,
-        240
+        3500,
+        2300
       ],
       [
-        2110,
-        240
+        3700,
+        2300
       ],
       [
-        2110,
-        300
+        3700,
+        2500
       ],
       [
-        2050,
-        300
+        3500,
+        2500
       ]
     ],
     "area_sqft": 5.8,
@@ -729,114 +729,170 @@
   },
   {
     "id": "det_027",
-    "label": "AHU-1",
-    "category": "equipment",
+    "label": "PWD / AHR",
+    "category": "fixture",
     "status": "pending",
     "confidence": 0.98,
     "points": [
       [
-        200,
-        940
+        3700,
+        2300
       ],
       [
-        440,
-        940
+        3900,
+        2300
       ],
       [
-        440,
-        1100
+        3900,
+        2500
       ],
       [
-        200,
-        1100
+        3700,
+        2500
       ]
     ],
-    "area_sqft": 61,
-    "perimeter_ft": 32,
-    "color": "#8b5cf6"
+    "area_sqft": 5.8,
+    "perimeter_ft": 9.6,
+    "color": "#f59e0b"
   },
   {
     "id": "det_028",
-    "label": "VAV Box 2",
-    "category": "equipment",
+    "label": "WC Staff",
+    "category": "fixture",
     "status": "pending",
     "confidence": 0.95,
     "points": [
       [
-        500,
-        940
+        3900,
+        2300
       ],
       [
-        700,
-        940
+        4100,
+        2300
       ],
       [
-        700,
-        1100
+        4100,
+        2500
       ],
       [
-        500,
-        1100
+        3900,
+        2500
       ]
     ],
-    "area_sqft": 51,
-    "perimeter_ft": 28.8,
-    "color": "#8b5cf6"
+    "area_sqft": 5.8,
+    "perimeter_ft": 9.6,
+    "color": "#f59e0b"
   },
   {
     "id": "det_029",
-    "label": "Fire Panel",
-    "category": "equipment",
+    "label": "Universal WC",
+    "category": "fixture",
     "status": "pending",
     "confidence": 0.9,
     "points": [
       [
-        920,
-        940
+        4100,
+        2300
       ],
       [
-        1100,
-        940
+        4300,
+        2300
       ],
       [
-        1100,
-        1160
+        4300,
+        2500
       ],
       [
-        920,
-        1160
+        4100,
+        2500
       ]
     ],
-    "area_sqft": 63,
-    "perimeter_ft": 32,
-    "color": "#8b5cf6"
+    "area_sqft": 5.8,
+    "perimeter_ft": 9.6,
+    "color": "#f59e0b"
   },
   {
     "id": "det_030",
-    "label": "Electrical Panel",
-    "category": "equipment",
+    "label": "Cleaner / Laundry",
+    "category": "fixture",
     "status": "pending",
     "confidence": 0.98,
     "points": [
       [
-        1640,
-        940
+        4500,
+        2300
       ],
       [
-        1880,
-        940
+        4700,
+        2300
       ],
       [
-        1880,
-        1140
+        4700,
+        2500
       ],
       [
-        1640,
-        1140
+        4500,
+        2500
       ]
     ],
-    "area_sqft": 77,
-    "perimeter_ft": 35.2,
+    "area_sqft": 5.8,
+    "perimeter_ft": 9.6,
+    "color": "#f59e0b"
+  },
+  {
+    "id": "det_031",
+    "label": "Stairs Up",
+    "category": "equipment",
+    "status": "pending",
+    "confidence": 0.92,
+    "points": [
+      [
+        400,
+        1300
+      ],
+      [
+        700,
+        1300
+      ],
+      [
+        700,
+        1500
+      ],
+      [
+        400,
+        1500
+      ]
+    ],
+    "area_sqft": 9,
+    "perimeter_ft": 12,
+    "color": "#8b5cf6"
+  },
+  {
+    "id": "det_032",
+    "label": "Office (CLNR adjacent)",
+    "category": "equipment",
+    "status": "pending",
+    "confidence": 0.84,
+    "points": [
+      [
+        4700,
+        2300
+      ],
+      [
+        4900,
+        2300
+      ],
+      [
+        4900,
+        2500
+      ],
+      [
+        4700,
+        2500
+      ]
+    ],
+    "area_sqft": 6,
+    "perimeter_ft": 9.6,
     "color": "#8b5cf6"
   }
 ]

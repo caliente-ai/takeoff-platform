@@ -14,7 +14,8 @@ import { DetailPanel } from '@/components/DetailPanel';
 import { DetectionList } from '@/components/DetectionList';
 import { ExportButton } from '@/components/ExportButton';
 import { ProcessingScreen } from '@/components/ProcessingScreen';
-import { PROJECTS } from '@/lib/projects';
+import { applyProjectStatuses, loadDemoPolygons } from '@/lib/demo-data';
+import { PROJECTS, STATUS_LABEL, type ProjectStatus } from '@/lib/projects';
 import { useStore } from '@/lib/store';
 
 const Viewer = dynamic(() => import('@/components/Viewer'), {
@@ -32,26 +33,76 @@ function ProjectInner() {
   const stats = useStore(useShallow((s) => s.getStats()));
   const scenario = params.get('demo') ?? 'mep_hero';
 
-  const projectMeta = PROJECTS.find((p) => p.id === routeParams?.id) ?? PROJECTS[0];
+  const id = routeParams?.id;
+  const isNewProjectFlow = params.get('demo') === 'mep_hero' && id === 'demo-job-1';
+  const projectMeta = PROJECTS.find((p) => p.id === id);
+  const fallbackName = projectMeta?.name ?? 'Memorial Hospital — MEP Phase 2';
+  const headerStatus: ProjectStatus = projectMeta?.status ?? 'in-review';
 
   useEffect(() => {
-    const demoParam = params.get('demo');
-    if (!demoParam) return;
-    const state = useStore.getState();
-    if (state.job?.status === 'complete') return;
-    state.setJob({
-      id: routeParams?.id ?? 'demo-job-1',
-      filename: `${projectMeta.name}.pdf`,
-      status: 'processing',
-      created_at: new Date().toISOString(),
-    });
-  }, [params, routeParams?.id, projectMeta.name]);
+    if (isNewProjectFlow) {
+      const state = useStore.getState();
+      if (state.job?.status === 'complete') return;
+      state.setJob({
+        id: id ?? 'demo-job-1',
+        filename: `${fallbackName}.pdf`,
+        status: 'processing',
+        created_at: new Date().toISOString(),
+      });
+      return;
+    }
+    if (!projectMeta) return;
+    let cancelled = false;
+    (async () => {
+      const base = await loadDemoPolygons(scenario);
+      if (cancelled) return;
+      const polygons = applyProjectStatuses(base, projectMeta.status);
+      const state = useStore.getState();
+      state.reset();
+      state.loadPolygons(polygons);
+      state.setJob({
+        id: projectMeta.id,
+        filename: `${projectMeta.name}.pdf`,
+        status: 'complete',
+        progress: 100,
+        polygon_count: polygons.length,
+        created_at: new Date().toISOString(),
+      });
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [isNewProjectFlow, projectMeta, id, fallbackName, scenario]);
 
-  if (!job || job.status === 'processing' || job.status === 'uploading') {
-    return <ProcessingScreen scenario={scenario} />;
+  if (isNewProjectFlow) {
+    if (!job || job.status === 'processing' || job.status === 'uploading') {
+      return <ProcessingScreen scenario={scenario} />;
+    }
+  } else if (!projectMeta) {
+    return (
+      <div className="flex flex-1 items-center justify-center px-6">
+        <Card className="max-w-md space-y-4 p-8 text-center">
+          <h1 className="text-lg font-semibold text-zinc-900">
+            Project not found
+          </h1>
+          <p className="text-sm text-zinc-500">
+            We couldn&apos;t find a project with that ID.
+          </p>
+          <Button onClick={() => router.push('/projects')}>
+            Back to projects
+          </Button>
+        </Card>
+      </div>
+    );
+  } else if (!job || job.id !== projectMeta.id || job.status !== 'complete') {
+    return (
+      <div className="flex flex-1 items-center justify-center bg-zinc-50">
+        <Skeleton className="h-10 w-40" />
+      </div>
+    );
   }
 
-  if (job.status === 'error') {
+  if (job?.status === 'error') {
     return (
       <div className="flex flex-1 items-center justify-center px-6">
         <Card className="max-w-md space-y-4 p-8 text-center">
@@ -78,7 +129,8 @@ function ProjectInner() {
         crossOrigin="anonymous"
       />
       <WorkspaceHeader
-        projectName={projectMeta.name}
+        projectName={fallbackName}
+        projectStatus={headerStatus}
         statsTotal={stats.total}
         statsAccepted={stats.accepted}
         statsRejected={stats.rejected}
@@ -98,13 +150,22 @@ function ProjectInner() {
   );
 }
 
+const STATUS_BADGE_CLASS: Record<ProjectStatus, string> = {
+  'in-progress': 'bg-blue-100 text-blue-700',
+  'in-review': 'bg-amber-100 text-amber-800',
+  complete: 'bg-emerald-100 text-emerald-700',
+  archived: 'bg-zinc-100 text-zinc-700',
+};
+
 function WorkspaceHeader({
   projectName,
+  projectStatus,
   statsTotal,
   statsAccepted,
   statsRejected,
 }: {
   projectName: string;
+  projectStatus: ProjectStatus;
   statsTotal: number;
   statsAccepted: number;
   statsRejected: number;
@@ -126,8 +187,10 @@ function WorkspaceHeader({
           <ChevronRight className="size-3 text-zinc-300" />
           <span className="font-semibold text-blue-700">{projectName}</span>
         </div>
-        <Badge className="bg-amber-100 text-[10px] tracking-wider text-amber-800 uppercase">
-          In Review
+        <Badge
+          className={`text-[10px] tracking-wider uppercase ${STATUS_BADGE_CLASS[projectStatus]}`}
+        >
+          {STATUS_LABEL[projectStatus]}
         </Badge>
       </div>
       <div className="flex items-center gap-3">

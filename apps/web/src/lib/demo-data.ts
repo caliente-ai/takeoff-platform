@@ -1,4 +1,5 @@
-import type { Polygon } from '@/lib/types';
+import type { ProjectStatus } from '@/lib/projects';
+import type { DetectionStatus, Polygon } from '@/lib/types';
 
 const FALLBACK_POLYGONS: Polygon[] = [
   {
@@ -94,6 +95,28 @@ export async function loadDemoPolygons(scenario: string): Promise<Polygon[]> {
     console.error('loadDemoPolygons failed, using fallback', err);
     return FALLBACK_POLYGONS;
   }
+}
+
+// Maps a project's overall lifecycle status to per-polygon review statuses.
+// "complete" / "archived" → everything accepted (looks like a finished review).
+// "in-review" → deterministic mix (~25% accepted, ~15% rejected, rest pending).
+// "in-progress" → everything pending (fresh from AI detection).
+export function applyProjectStatuses(
+  polygons: Polygon[],
+  projectStatus: ProjectStatus,
+): Polygon[] {
+  if (projectStatus === 'complete' || projectStatus === 'archived') {
+    return polygons.map((p) => ({ ...p, status: 'accepted' as DetectionStatus }));
+  }
+  if (projectStatus === 'in-review') {
+    return polygons.map((p, i) => {
+      let status: DetectionStatus = 'pending';
+      if (i % 7 === 0) status = 'rejected';
+      else if (i % 4 === 0) status = 'accepted';
+      return { ...p, status };
+    });
+  }
+  return polygons;
 }
 
 const wait = (ms: number): Promise<void> =>
