@@ -1,16 +1,16 @@
-// Generates a synthetic hospital MEP floor plan as SVG, rasterizes to PNG,
-// produces DZI tiles, and emits matching polygon JSON.
+// Takes the rendered PDF page (Ripley Valley State School, page 9, Bldg Sec. K
+// Level 1 Floor Plan) at apps/web/public/demo/mep_hero.png, produces DZI tiles,
+// and emits hand-traced polygon JSON matching the visible rooms.
 //
-// Pixel-perfect alignment: the SVG room rectangles and the polygon coordinates
-// are derived from the SAME bounding-box definitions. They cannot drift.
+// Polygon coordinates were traced against a 25-pixel coordinate grid overlay
+// on the 6623x4678 render. Zones: GLA strip (bottom), middle-left wing
+// (Bridge/Data/Res Store/Practical Learning), admin/specialist strip + toilet
+// cluster (middle-right).
 //
-// Outputs:
-//   apps/web/public/demo/mep_hero.png
-//   apps/web/public/demo/mep_hero.dzi
-//   apps/web/public/demo/mep_hero_files/...
-//   apps/web/public/demo/mep_hero.json
-//
-// Run: node scripts/generate-demo-plan.mjs
+// Re-run after dropping in a new PNG of the same dimensions:
+//   pdftoppm -r 200 -f 9 -l 9 -png "demo-fixtures/Architectural Drawings 020520.pdf" /tmp/ripley
+//   cp /tmp/ripley-09.png apps/web/public/demo/mep_hero.png
+//   node scripts/generate-demo-plan.mjs
 
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
@@ -20,9 +20,8 @@ import sharp from 'sharp';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const PUBLIC_DEMO = resolve(ROOT, 'apps/web/public/demo');
+const SRC_PNG = resolve(PUBLIC_DEMO, 'mep_hero.png');
 
-const W = 4800;
-const H = 3000;
 const FT_PER_PX = 0.025;
 
 const COLORS = {
@@ -32,289 +31,105 @@ const COLORS = {
   equipment: '#8b5cf6',
 };
 
-// ----------------------------------------------------------------------------
-// Plan layout — every dimension below is the single source of truth used by
-// both the SVG renderer and the polygon JSON generator.
-// ----------------------------------------------------------------------------
-
-// Outer building shell (inset 80px from canvas edge)
-const SHELL = { x: 80, y: 80, w: W - 160, h: H - 160 };
-
-// Main horizontal corridor through the middle
-const CORRIDOR_Y = 1500;
-const CORRIDOR_H = 220;
-
-// Top wing: surgery suite (left) + patient rooms (right)
-// Top sub-strip for support rooms above the main rooms
-const TOP_SUPPORT_Y = 100;
-const TOP_SUPPORT_H = 240;
-
-const TOP_ROOMS_Y = TOP_SUPPORT_Y + TOP_SUPPORT_H; // 340
-const TOP_ROOMS_H = CORRIDOR_Y - TOP_ROOMS_Y; // 1160
-
-const BOTTOM_ROOMS_Y = CORRIDOR_Y + CORRIDOR_H; // 1720
-const BOTTOM_ROOMS_H = 980;
-const BOTTOM_SUPPORT_Y = BOTTOM_ROOMS_Y + BOTTOM_ROOMS_H; // 2700
-const BOTTOM_SUPPORT_H = H - 80 - BOTTOM_SUPPORT_Y; // 220
-
-const rooms = [
-  // Top sub-strip — support rooms above main wing
-  { x: 100, y: TOP_SUPPORT_Y, w: 320, h: TOP_SUPPORT_H, label: 'Reception' },
-  { x: 420, y: TOP_SUPPORT_Y, w: 380, h: TOP_SUPPORT_H, label: 'Waiting Area' },
-  { x: 800, y: TOP_SUPPORT_Y, w: 280, h: TOP_SUPPORT_H, label: 'Triage' },
-  { x: 1080, y: TOP_SUPPORT_Y, w: 280, h: TOP_SUPPORT_H, label: 'Nurse Station N1' },
-  { x: 1360, y: TOP_SUPPORT_Y, w: 320, h: TOP_SUPPORT_H, label: 'Records' },
-  { x: 1680, y: TOP_SUPPORT_Y, w: 300, h: TOP_SUPPORT_H, label: 'Sterile Storage' },
-  { x: 1980, y: TOP_SUPPORT_Y, w: 380, h: TOP_SUPPORT_H, label: 'Scrub Room' },
-  { x: 2780, y: TOP_SUPPORT_Y, w: 480, h: TOP_SUPPORT_H, label: 'Conference Room' },
-  { x: 3260, y: TOP_SUPPORT_Y, w: 460, h: TOP_SUPPORT_H, label: 'Staff Lounge' },
-  { x: 3720, y: TOP_SUPPORT_Y, w: 480, h: TOP_SUPPORT_H, label: 'Locker Room' },
-  { x: 4200, y: TOP_SUPPORT_Y, w: 500, h: TOP_SUPPORT_H, label: 'Director Office' },
-
-  // Top main wing — Operating rooms (left), then exam rooms / labs
-  { x: 100, y: TOP_ROOMS_Y, w: 600, h: TOP_ROOMS_H, label: 'Operating Room 1' },
-  { x: 700, y: TOP_ROOMS_Y, w: 600, h: TOP_ROOMS_H, label: 'Operating Room 2' },
-  { x: 1300, y: TOP_ROOMS_Y, w: 600, h: TOP_ROOMS_H, label: 'Operating Room 3' },
-  { x: 1900, y: TOP_ROOMS_Y, w: 460, h: TOP_ROOMS_H, label: 'Recovery Bay' },
-  { x: 2360, y: TOP_ROOMS_Y, w: 420, h: TOP_ROOMS_H, label: 'Pre-Op Holding' },
-
-  // Top main wing — Exam rooms (right side, smaller)
-  { x: 2780, y: TOP_ROOMS_Y, w: 380, h: 560, label: 'Exam Room A' },
-  { x: 3160, y: TOP_ROOMS_Y, w: 380, h: 560, label: 'Exam Room B' },
-  { x: 3540, y: TOP_ROOMS_Y, w: 380, h: 560, label: 'Exam Room C' },
-  { x: 3920, y: TOP_ROOMS_Y, w: 380, h: 560, label: 'Exam Room D' },
-  { x: 4300, y: TOP_ROOMS_Y, w: 400, h: 560, label: 'Imaging' },
-
-  // Top wing — second sub-row under exam rooms
-  { x: 2780, y: TOP_ROOMS_Y + 560, w: 540, h: 600, label: 'Pharmacy' },
-  { x: 3320, y: TOP_ROOMS_Y + 560, w: 540, h: 600, label: 'Laboratory' },
-  { x: 3860, y: TOP_ROOMS_Y + 560, w: 440, h: 600, label: 'Clean Utility' },
-  { x: 4300, y: TOP_ROOMS_Y + 560, w: 400, h: 600, label: 'Soiled Utility' },
-
-  // Bottom main wing — Patient rooms (8 across)
-  { x: 100, y: BOTTOM_ROOMS_Y, w: 560, h: BOTTOM_ROOMS_H, label: 'Patient Room 101' },
-  { x: 660, y: BOTTOM_ROOMS_Y, w: 560, h: BOTTOM_ROOMS_H, label: 'Patient Room 102' },
-  { x: 1220, y: BOTTOM_ROOMS_Y, w: 560, h: BOTTOM_ROOMS_H, label: 'Patient Room 103' },
-  { x: 1780, y: BOTTOM_ROOMS_Y, w: 560, h: BOTTOM_ROOMS_H, label: 'Patient Room 104' },
-  { x: 2340, y: BOTTOM_ROOMS_Y, w: 560, h: BOTTOM_ROOMS_H, label: 'Patient Room 105' },
-  { x: 2900, y: BOTTOM_ROOMS_Y, w: 560, h: BOTTOM_ROOMS_H, label: 'Patient Room 106' },
-  { x: 3460, y: BOTTOM_ROOMS_Y, w: 560, h: BOTTOM_ROOMS_H, label: 'Patient Room 107' },
-  { x: 4020, y: BOTTOM_ROOMS_Y, w: 680, h: BOTTOM_ROOMS_H, label: 'ICU Suite' },
-
-  // Bottom sub-strip — support rooms below patient wing
-  { x: 100, y: BOTTOM_SUPPORT_Y, w: 320, h: BOTTOM_SUPPORT_H, label: 'Nurse Station S1' },
-  { x: 420, y: BOTTOM_SUPPORT_Y, w: 260, h: BOTTOM_SUPPORT_H, label: 'Med Room' },
-  { x: 680, y: BOTTOM_SUPPORT_Y, w: 280, h: BOTTOM_SUPPORT_H, label: 'Linen Closet' },
-  { x: 960, y: BOTTOM_SUPPORT_Y, w: 280, h: BOTTOM_SUPPORT_H, label: 'Equipment Bay' },
-  { x: 1240, y: BOTTOM_SUPPORT_Y, w: 400, h: BOTTOM_SUPPORT_H, label: 'Family Lounge' },
+// rect helper: returns a 4-vertex polygon points array for a bounding box.
+// Use this for rectangular rooms. For irregular rooms, list points explicitly.
+const rect = (x, y, w, h) => [
+  [x, y],
+  [x + w, y],
+  [x + w, y + h],
+  [x, y + h],
 ];
 
-// Small fixture-category rooms (toilets, utility closets)
-const fixtures = [
-  { x: 1680, y: BOTTOM_SUPPORT_Y, w: 160, h: BOTTOM_SUPPORT_H, label: 'Staff WC (Men)' },
-  { x: 1840, y: BOTTOM_SUPPORT_Y, w: 160, h: BOTTOM_SUPPORT_H, label: 'Staff WC (Women)' },
-  { x: 2000, y: BOTTOM_SUPPORT_Y, w: 160, h: BOTTOM_SUPPORT_H, label: 'Universal WC' },
-  { x: 2160, y: BOTTOM_SUPPORT_Y, w: 160, h: BOTTOM_SUPPORT_H, label: 'Janitor Closet' },
-  { x: 2320, y: BOTTOM_SUPPORT_Y, w: 160, h: BOTTOM_SUPPORT_H, label: 'Bio-Hazard' },
+// Hand-traced polygons on the Ripley page 9 render (6623x4678).
+// All coordinates are in original-image pixels.
+const POLYGONS = [
+  // ----- Bottom strip: 5 General Learning Areas -----
+  { label: 'General Learning Area 1', category: 'room', points: rect(2360, 2485, 495, 670) },
+  { label: 'General Learning Area 2', category: 'room', points: rect(2865, 2485, 490, 670) },
+  { label: 'General Learning Area 3', category: 'room', points: rect(3365, 2485, 490, 670) },
+  { label: 'General Learning Area 4', category: 'room', points: rect(3865, 2485, 490, 670) },
+  { label: 'General Learning Area 5', category: 'room', points: rect(4365, 2485, 490, 670) },
+
+  // ----- Middle-left wing: Bridge corridor + adjacent rooms -----
+  { label: 'Practical Learning Area', category: 'room', points: rect(1880, 1500, 700, 480) },
+  { label: 'Data', category: 'room', points: rect(640, 1980, 250, 245) },
+  { label: 'Bridge', category: 'room', points: rect(890, 1980, 970, 245) },
+  { label: 'Res Store', category: 'room', points: rect(1860, 1980, 240, 245) },
+  { label: 'Stair (Up)', category: 'equipment', points: rect(930, 1650, 200, 260) },
+  { label: 'Elevator', category: 'equipment', points: rect(1160, 1700, 110, 180) },
+
+  // ----- Admin/specialist strip (top row, y ~ 1500-1830) -----
+  { label: 'Office (North)', category: 'room', points: rect(2740, 1500, 240, 180) },
+  { label: 'Learning & Activity Space', category: 'room', points: rect(2985, 1500, 460, 330) },
+  { label: 'Team Interaction', category: 'room', points: rect(3445, 1500, 315, 330) },
+  { label: 'Specialist Service & Therapy', category: 'room', points: rect(3760, 1500, 465, 330) },
+  { label: 'Inter Room (NE)', category: 'room', points: rect(4225, 1500, 255, 240) },
+  { label: 'Office (NE)', category: 'room', points: rect(4480, 1500, 250, 240) },
+
+  // ----- Middle column on the left side -----
+  { label: 'Inter Room (Mid)', category: 'room', points: rect(2980, 1680, 265, 220) },
+  { label: 'Office (Mid)', category: 'room', points: rect(2980, 1900, 265, 220) },
+  { label: 'Reception', category: 'room', points: rect(3245, 1830, 275, 330) },
+
+  // ----- Toilet cluster (fixtures, amber) -----
+  { label: 'PWD Assist WC', category: 'fixture', points: rect(3585, 1890, 235, 270) },
+  { label: 'PWD / AHR', category: 'fixture', points: rect(3820, 1890, 140, 270) },
+  { label: 'WC Staff', category: 'fixture', points: rect(3960, 1890, 140, 270) },
+  { label: 'Universal WC', category: 'fixture', points: rect(4100, 1890, 140, 270) },
+  { label: 'Cleaner / Laundry', category: 'fixture', points: rect(4400, 1830, 170, 290) },
+
+  // ----- Far-east office + bottom corridor -----
+  { label: 'Office (SE)', category: 'room', points: rect(4570, 1830, 160, 290) },
+  { label: 'Breezeway', category: 'room', points: rect(3300, 2160, 730, 280) },
 ];
 
-// Equipment / mechanical
-const equipment = [
-  { x: 2480, y: BOTTOM_SUPPORT_Y, w: 240, h: BOTTOM_SUPPORT_H, label: 'AHU-1' },
-  { x: 2720, y: BOTTOM_SUPPORT_Y, w: 240, h: BOTTOM_SUPPORT_H, label: 'AHU-2' },
-  { x: 2960, y: BOTTOM_SUPPORT_Y, w: 220, h: BOTTOM_SUPPORT_H, label: 'Electrical Panel' },
-  { x: 3180, y: BOTTOM_SUPPORT_Y, w: 220, h: BOTTOM_SUPPORT_H, label: 'Fire Pump' },
-  { x: 3400, y: BOTTOM_SUPPORT_Y, w: 1300, h: BOTTOM_SUPPORT_H, label: 'Loading Dock' },
-];
+// ----- Derived field helpers -----
 
-// Wall segments — exterior shell + a few notable interior partitions
-const walls = [
-  // Exterior shell (4 sides)
-  { x: SHELL.x, y: SHELL.y, w: SHELL.w, h: 18, label: 'North Exterior Wall' },
-  { x: SHELL.x, y: SHELL.y + SHELL.h - 18, w: SHELL.w, h: 18, label: 'South Exterior Wall' },
-  { x: SHELL.x, y: SHELL.y, w: 18, h: SHELL.h, label: 'West Exterior Wall' },
-  { x: SHELL.x + SHELL.w - 18, y: SHELL.y, w: 18, h: SHELL.h, label: 'East Exterior Wall' },
-  // Central corridor walls
-  { x: SHELL.x, y: CORRIDOR_Y, w: SHELL.w, h: 14, label: 'Corridor Wall (North)' },
-  { x: SHELL.x, y: CORRIDOR_Y + CORRIDOR_H - 14, w: SHELL.w, h: 14, label: 'Corridor Wall (South)' },
-];
-
-// ----------------------------------------------------------------------------
-// SVG renderer — draws the plan from the room/fixture/wall/equipment lists
-// ----------------------------------------------------------------------------
-
-const escapeXml = (s) =>
-  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-const rectFill = (r, fill, stroke, strokeWidth) =>
-  `<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeWidth}" />`;
-
-const centeredLabel = (r, primary, secondary, primarySize, secondarySize) => {
-  const cx = r.x + r.w / 2;
-  const cy = r.y + r.h / 2;
-  return (
-    `<text x="${cx}" y="${cy - 4}" font-family="Helvetica, Arial, sans-serif" font-size="${primarySize}" font-weight="500" fill="#27272a" text-anchor="middle">${escapeXml(primary)}</text>` +
-    `<text x="${cx}" y="${cy + secondarySize + 6}" font-family="Helvetica, Arial, sans-serif" font-size="${secondarySize}" font-weight="400" fill="#71717a" text-anchor="middle">${escapeXml(secondary)}</text>`
-  );
+const shoelaceArea = (points) => {
+  let a = 0;
+  for (let i = 0; i < points.length; i++) {
+    const [x1, y1] = points[i];
+    const [x2, y2] = points[(i + 1) % points.length];
+    a += x1 * y2 - x2 * y1;
+  }
+  return Math.abs(a) / 2;
 };
 
-const doorSwing = (cx, cy, radius, startAngle, sweep) => {
-  // SVG arc path for door swing
-  const rad = (a) => (a * Math.PI) / 180;
-  const x1 = cx + radius * Math.cos(rad(startAngle));
-  const y1 = cy + radius * Math.sin(rad(startAngle));
-  const x2 = cx + radius * Math.cos(rad(startAngle + sweep));
-  const y2 = cy + radius * Math.sin(rad(startAngle + sweep));
-  return `<path d="M ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2}" fill="none" stroke="#a1a1aa" stroke-width="1" /><line x1="${cx}" y1="${cy}" x2="${x1}" y2="${y1}" stroke="#a1a1aa" stroke-width="1" />`;
+const perimeter = (points) => {
+  let p = 0;
+  for (let i = 0; i < points.length; i++) {
+    const [x1, y1] = points[i];
+    const [x2, y2] = points[(i + 1) % points.length];
+    p += Math.hypot(x2 - x1, y2 - y1);
+  }
+  return p;
 };
-
-const titleBlock = () => {
-  const x = W - 540;
-  const y = H - 200;
-  return (
-    `<g>` +
-    `<rect x="${x}" y="${y}" width="500" height="160" fill="white" stroke="#52525b" stroke-width="2" />` +
-    `<line x1="${x}" y1="${y + 40}" x2="${x + 500}" y2="${y + 40}" stroke="#52525b" stroke-width="1" />` +
-    `<text x="${x + 16}" y="${y + 28}" font-family="Helvetica" font-size="22" font-weight="600" fill="#18181b">MEMORIAL HOSPITAL — MEP PHASE 2</text>` +
-    `<text x="${x + 16}" y="${y + 64}" font-family="Helvetica" font-size="14" fill="#52525b">Sheet M-101 · Level 1 Floor Plan</text>` +
-    `<text x="${x + 16}" y="${y + 88}" font-family="Helvetica" font-size="14" fill="#52525b">Scale 1/8" = 1'-0"   ·   Issued 2026-05-16</text>` +
-    `<text x="${x + 16}" y="${y + 122}" font-family="Helvetica" font-size="11" fill="#a1a1aa">DD-A2011 · Rev. C · TakeoffAI</text>` +
-    `<text x="${x + 16}" y="${y + 144}" font-family="Helvetica" font-size="11" fill="#a1a1aa">DO NOT SCALE DRAWING · USE FIGURED DIMENSIONS</text>` +
-    `</g>`
-  );
-};
-
-const northArrow = () => {
-  const cx = W - 200;
-  const cy = 200;
-  return (
-    `<g transform="translate(${cx},${cy})">` +
-    `<circle r="60" fill="white" stroke="#52525b" stroke-width="2" />` +
-    `<path d="M 0 -42 L -16 30 L 0 16 L 16 30 Z" fill="#18181b" />` +
-    `<text x="0" y="-52" font-family="Helvetica" font-size="18" font-weight="700" fill="#18181b" text-anchor="middle">N</text>` +
-    `</g>`
-  );
-};
-
-const scaleBar = () => {
-  const x = 120;
-  const y = H - 140;
-  const segWidth = 80;
-  return (
-    `<g>` +
-    `<rect x="${x}" y="${y}" width="${segWidth}" height="12" fill="#18181b" />` +
-    `<rect x="${x + segWidth}" y="${y}" width="${segWidth}" height="12" fill="white" stroke="#18181b" stroke-width="1" />` +
-    `<rect x="${x + segWidth * 2}" y="${y}" width="${segWidth}" height="12" fill="#18181b" />` +
-    `<rect x="${x + segWidth * 3}" y="${y}" width="${segWidth}" height="12" fill="white" stroke="#18181b" stroke-width="1" />` +
-    `<text x="${x}" y="${y + 30}" font-family="Helvetica" font-size="11" fill="#52525b">0</text>` +
-    `<text x="${x + segWidth * 2}" y="${y + 30}" font-family="Helvetica" font-size="11" fill="#52525b" text-anchor="middle">10'</text>` +
-    `<text x="${x + segWidth * 4}" y="${y + 30}" font-family="Helvetica" font-size="11" fill="#52525b" text-anchor="end">20'</text>` +
-    `</g>`
-  );
-};
-
-const buildSvg = () => {
-  const parts = [];
-  parts.push(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`,
-  );
-  // Paper background
-  parts.push(`<rect width="${W}" height="${H}" fill="#fafafa" />`);
-
-  // Subtle drafting grid
-  for (let x = 0; x <= W; x += 80) {
-    parts.push(`<line x1="${x}" y1="0" x2="${x}" y2="${H}" stroke="#e4e4e7" stroke-width="0.5" />`);
-  }
-  for (let y = 0; y <= H; y += 80) {
-    parts.push(`<line x1="0" y1="${y}" x2="${W}" y2="${y}" stroke="#e4e4e7" stroke-width="0.5" />`);
-  }
-
-  // Rooms (white with thin border + label)
-  for (const r of rooms) {
-    parts.push(rectFill(r, '#ffffff', '#71717a', 2));
-    const sqft = Math.round(r.w * r.h * FT_PER_PX * FT_PER_PX);
-    parts.push(centeredLabel(r, r.label, `${sqft} sq ft`, 22, 16));
-  }
-
-  // Fixtures (amber tint)
-  for (const f of fixtures) {
-    parts.push(rectFill(f, '#fef3c7', '#a16207', 2));
-    parts.push(centeredLabel(f, f.label, '', 12, 0));
-  }
-
-  // Equipment (violet tint)
-  for (const e of equipment) {
-    parts.push(rectFill(e, '#ede9fe', '#6d28d9', 2));
-    parts.push(centeredLabel(e, e.label, '', 16, 0));
-  }
-
-  // Walls (drawn over rooms so they sit on top)
-  for (const w of walls) parts.push(rectFill(w, '#18181b', '#18181b', 0));
-
-  // Door swings on each room (just for visual richness)
-  for (const r of rooms) {
-    // Place a door near top-center of each room
-    const doorRadius = Math.min(60, r.w * 0.12);
-    parts.push(doorSwing(r.x + r.w / 2, r.y + 18, doorRadius, 0, 90));
-  }
-
-  // North arrow, scale bar, title block
-  parts.push(northArrow());
-  parts.push(scaleBar());
-  parts.push(titleBlock());
-
-  parts.push(`</svg>`);
-  return parts.join('');
-};
-
-// ----------------------------------------------------------------------------
-// Polygon JSON — generated from the SAME rect definitions
-// ----------------------------------------------------------------------------
-
-const rectPoints = (r) => [
-  [r.x, r.y],
-  [r.x + r.w, r.y],
-  [r.x + r.w, r.y + r.h],
-  [r.x, r.y + r.h],
-];
-const rectArea = (r) => r.w * r.h * FT_PER_PX * FT_PER_PX;
-const rectPerimeter = (r) => 2 * (r.w + r.h) * FT_PER_PX;
 
 const seededConfidence = (i) => {
   const v = (Math.sin(i * 12.9898) * 43758.5453) % 1;
   return Math.round((0.78 + Math.abs(v) * 0.2) * 100) / 100;
 };
 
-const buildPolygons = () => {
-  const out = [];
-  let i = 1;
+const buildPolygonsOutput = () => {
   const pad = (n) => String(n).padStart(3, '0');
-  const push = (group, category, areaPrecise = false) => {
-    for (const r of group) {
-      out.push({
-        id: `det_${pad(i)}`,
-        label: r.label,
-        category,
-        status: 'pending',
-        confidence: seededConfidence(i),
-        points: rectPoints(r),
-        area_sqft: areaPrecise
-          ? Math.round(rectArea(r) * 10) / 10
-          : Math.round(rectArea(r)),
-        perimeter_ft: Math.round(rectPerimeter(r) * 10) / 10,
-        color: COLORS[category],
-      });
-      i++;
-    }
-  };
-  push(rooms, 'room');
-  push(walls, 'wall');
-  push(fixtures, 'fixture', true);
-  push(equipment, 'equipment');
-  return out;
+  return POLYGONS.map((p, i) => {
+    const area_px = shoelaceArea(p.points);
+    const peri_px = perimeter(p.points);
+    return {
+      id: `det_${pad(i + 1)}`,
+      label: p.label,
+      category: p.category,
+      status: 'pending',
+      confidence: seededConfidence(i + 1),
+      points: p.points,
+      area_sqft: Math.round(area_px * FT_PER_PX * FT_PER_PX),
+      perimeter_ft: Math.round(peri_px * FT_PER_PX * 10) / 10,
+      color: COLORS[p.category],
+    };
+  });
 };
 
-// ----------------------------------------------------------------------------
+// ----- Main -----
 
 async function main() {
   await mkdir(PUBLIC_DEMO, { recursive: true });
@@ -322,22 +137,20 @@ async function main() {
   await rm(`${tileBase}.dzi`, { force: true });
   await rm(`${tileBase}_files`, { recursive: true, force: true });
 
-  const svg = buildSvg();
-  const pngPath = resolve(PUBLIC_DEMO, 'mep_hero.png');
-  await sharp(Buffer.from(svg)).png().toFile(pngPath);
+  const meta = await sharp(SRC_PNG).metadata();
 
-  await sharp(pngPath)
+  await sharp(SRC_PNG)
     .tile({ size: 256, overlap: 1, layout: 'dz' })
     .toFile(tileBase);
 
-  const polygons = buildPolygons();
+  const polygons = buildPolygonsOutput();
   await writeFile(
     resolve(PUBLIC_DEMO, 'mep_hero.json'),
     JSON.stringify(polygons, null, 2),
   );
 
   console.error(
-    `wrote: mep_hero.png (${W}x${H}), DZI tiles, mep_hero.json (${polygons.length} polygons)`,
+    `wrote: DZI tiles for ${meta.width}x${meta.height}, ${polygons.length} polygons`,
   );
 }
 
