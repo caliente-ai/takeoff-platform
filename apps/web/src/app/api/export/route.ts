@@ -1,7 +1,7 @@
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import { NextResponse } from 'next/server';
+import basePolygonsData from '../../../../public/demo/mep_hero.json';
 import type { DetectionStatus, Polygon } from '@/lib/types';
+
+const basePolygons = basePolygonsData as Polygon[];
 
 type Override = { id: string; status: DetectionStatus };
 
@@ -40,18 +40,6 @@ export async function POST(req: Request): Promise<Response> {
     overrides?: Override[];
     statusFilter?: DetectionStatus | 'all';
   };
-
-  const scenarioPath = join(
-    process.cwd(),
-    'public',
-    'demo',
-    'mep_hero.json',
-  );
-  const raw = await readFile(scenarioPath, 'utf-8').catch(() => null);
-  if (!raw) {
-    return NextResponse.json({ error: 'scenario not found' }, { status: 404 });
-  }
-  const basePolygons = JSON.parse(raw) as Polygon[];
 
   const overrideMap = new Map<string, DetectionStatus>();
   for (const o of body.overrides ?? []) overrideMap.set(o.id, o.status);
