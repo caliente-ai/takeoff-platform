@@ -3,13 +3,10 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  Activity,
   Building2,
   ChevronsUpDown,
-  Clock,
   FolderClosed,
   HelpCircle,
-  Library,
   Settings,
   type LucideIcon,
 } from 'lucide-react';
@@ -19,9 +16,6 @@ type NavItem = { href: string; label: string; icon: LucideIcon };
 
 const NAV: NavItem[] = [
   { href: '/projects', label: 'Projects', icon: FolderClosed },
-  { href: '/library', label: 'Library', icon: Library },
-  { href: '/history', label: 'History', icon: Clock },
-  { href: '/usage', label: 'Usage', icon: Activity },
 ];
 
 const FOOTER: NavItem[] = [
