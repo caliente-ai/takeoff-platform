@@ -1,0 +1,14 @@
+{
+  "name": "takeoff-platform",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build"
+  },
+  "packageManager": "pnpm@9.15.4"
+}

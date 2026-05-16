@@ -1,0 +1,1 @@
+Production architecture: Next.js 15 on Vercel (presentation only) → Hono + tRPC API on Fly.io → pg-boss queue → Modal Python workers (PDF ingest, OCR, CV inference) → Postgres on Neon + Cloudflare R2. This demo runs everything locally in Next.js route handlers with prebaked detection data. See the full tech design in Notion.
