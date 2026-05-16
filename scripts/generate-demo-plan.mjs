@@ -30,59 +30,62 @@ const COLORS = {
 // Building active area roughly x: 800-5400, y: 950-3300.
 // Rooms below are bounding-box approximations of the visible rooms.
 
-// Coordinates measured against a 200px grid overlay on the 6623x4678 render.
+// Coordinates measured against fine 50-pixel grid overlays on the 6623x4678 render.
 const rooms = [
-  // Bottom strip: 5 General Learning Areas (classrooms with curved fronts)
-  { x: 2350, y: 2500, w: 480, h: 700, label: 'General Learning Area 1' },
-  { x: 2840, y: 2500, w: 480, h: 700, label: 'General Learning Area 2' },
-  { x: 3330, y: 2500, w: 480, h: 700, label: 'General Learning Area 3' },
-  { x: 3820, y: 2500, w: 480, h: 700, label: 'General Learning Area 4' },
-  { x: 4310, y: 2500, w: 480, h: 700, label: 'General Learning Area 5' },
+  // Bottom strip: 5 General Learning Areas (~500 wide each)
+  { x: 2355, y: 2485, w: 500, h: 685, label: 'General Learning Area 1' },
+  { x: 2855, y: 2485, w: 500, h: 685, label: 'General Learning Area 2' },
+  { x: 3355, y: 2485, w: 500, h: 685, label: 'General Learning Area 3' },
+  { x: 3855, y: 2485, w: 500, h: 685, label: 'General Learning Area 4' },
+  { x: 4355, y: 2485, w: 500, h: 685, label: 'General Learning Area 5' },
 
-  // Middle strip — Practical Learning Area + adjacent rooms
-  { x: 1700, y: 1300, w: 900, h: 600, label: 'Practical Learning Area' },
-  { x: 400, y: 1500, w: 900, h: 600, label: 'Bridge' },
-  { x: 1900, y: 1900, w: 300, h: 300, label: 'Res Store' },
-  { x: 100, y: 1900, w: 200, h: 300, label: 'Data' },
+  // Middle-left strip
+  { x: 1750, y: 1500, w: 900, h: 450, label: 'Practical Learning Area' },
+  { x: 850, y: 1980, w: 900, h: 300, label: 'Bridge' },
+  { x: 600, y: 2000, w: 250, h: 280, label: 'Data' },
+  { x: 1860, y: 1980, w: 250, h: 300, label: 'Res Store' },
 
-  // Top admin strip (left to right)
-  { x: 2800, y: 1800, w: 200, h: 250, label: 'Office (Admin)' },
-  { x: 3000, y: 1800, w: 400, h: 300, label: 'Learning & Activity Space' },
-  { x: 3400, y: 1800, w: 300, h: 300, label: 'Team Interaction' },
-  { x: 3700, y: 1800, w: 300, h: 300, label: 'Specialist Service & Therapy' },
-  { x: 4000, y: 1800, w: 300, h: 250, label: 'Inter Room' },
-  { x: 4300, y: 1800, w: 300, h: 250, label: 'Office (East)' },
-  { x: 4600, y: 1800, w: 300, h: 250, label: 'Office (Far East)' },
+  // Top admin/specialist strip (left to right) — y ~1500-1700
+  { x: 2750, y: 1500, w: 250, h: 200, label: 'Office (Admin North)' },
+  { x: 3050, y: 1500, w: 450, h: 350, label: 'Learning & Activity Space' },
+  { x: 3500, y: 1500, w: 300, h: 350, label: 'Team Interaction' },
+  { x: 3800, y: 1500, w: 450, h: 350, label: 'Specialist Service & Therapy' },
+  { x: 4250, y: 1500, w: 250, h: 250, label: 'Inter Room (North)' },
+  { x: 4500, y: 1500, w: 250, h: 250, label: 'Office (North-East)' },
 
-  // Lower admin strip
-  { x: 2800, y: 2050, w: 200, h: 250, label: 'Inter Room (Lower)' },
-  { x: 2800, y: 2300, w: 200, h: 200, label: 'Office (Lower)' },
-  { x: 3000, y: 2200, w: 300, h: 300, label: 'Reception' },
-  { x: 3300, y: 2400, w: 600, h: 200, label: 'Breezeway' },
+  // Middle admin strip — y ~1750-1950
+  { x: 2950, y: 1750, w: 300, h: 200, label: 'Inter Room (Center)' },
+
+  // Lower admin strip — y ~1850-2150
+  { x: 2950, y: 1950, w: 300, h: 200, label: 'Office (Center)' },
+  { x: 3250, y: 1850, w: 300, h: 300, label: 'Reception' },
+  { x: 4400, y: 1850, w: 150, h: 250, label: 'Cleaner / Laundry' },
+  { x: 4550, y: 1850, w: 200, h: 250, label: 'Office (South-East)' },
+
+  // Bottom corridor
+  { x: 3300, y: 2200, w: 700, h: 280, label: 'Breezeway' },
 ];
 
-// Small toilet/utility rooms — fixture category, light amber
+// Small toilet cluster — fixture category
 const fixtures = [
-  { x: 3500, y: 2300, w: 200, h: 200, label: 'PWD Assist WC' },
-  { x: 3700, y: 2300, w: 200, h: 200, label: 'PWD / AHR' },
-  { x: 3900, y: 2300, w: 200, h: 200, label: 'WC Staff' },
-  { x: 4100, y: 2300, w: 200, h: 200, label: 'Universal WC' },
-  { x: 4500, y: 2300, w: 200, h: 200, label: 'Cleaner / Laundry' },
+  { x: 3600, y: 1900, w: 200, h: 250, label: 'PWD Assist WC' },
+  { x: 3800, y: 1900, w: 150, h: 250, label: 'PWD / AHR' },
+  { x: 3950, y: 1900, w: 150, h: 250, label: 'WC Staff' },
+  { x: 4100, y: 1900, w: 150, h: 250, label: 'Universal WC' },
 ];
 
-// Major walls — using horizontal partition lines for the classroom front
+// Walls (using GLA partitions which are clearly visible)
 const walls = [
-  { x: 1700, y: 2480, w: 3590, h: 25, label: 'Classroom-Side Corridor Wall' },
-  { x: 2830, y: 2500, w: 15, h: 700, label: 'Partition GLA 1/2' },
-  { x: 3320, y: 2500, w: 15, h: 700, label: 'Partition GLA 2/3' },
-  { x: 3810, y: 2500, w: 15, h: 700, label: 'Partition GLA 3/4' },
-  { x: 4300, y: 2500, w: 15, h: 700, label: 'Partition GLA 4/5' },
+  { x: 1700, y: 2470, w: 3200, h: 25, label: 'Classroom Corridor Wall' },
+  { x: 2840, y: 2485, w: 20, h: 685, label: 'Partition GLA 1/2' },
+  { x: 3340, y: 2485, w: 20, h: 685, label: 'Partition GLA 2/3' },
+  { x: 3840, y: 2485, w: 20, h: 685, label: 'Partition GLA 3/4' },
+  { x: 4340, y: 2485, w: 20, h: 685, label: 'Partition GLA 4/5' },
 ];
 
-// Major equipment / circulation cores
+// Circulation / mechanical
 const equipment = [
-  { x: 400, y: 1300, w: 300, h: 200, label: 'Stairs Up' },
-  { x: 4700, y: 2300, w: 200, h: 200, label: 'Office (CLNR adjacent)' },
+  { x: 900, y: 1650, w: 200, h: 280, label: 'Stair (Up)' },
 ];
 
 const FT_PER_PX = 0.012;
