@@ -44,7 +44,7 @@ const NavLink = ({
     className={`flex h-10 items-center gap-3 px-4 text-[13px] font-medium transition-colors ${
       active
         ? 'border-l-2 border-blue-600 bg-zinc-100 pl-[14px] text-blue-700'
-        : 'border-l-2 border-transparent text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900'
+        : 'border-l-2 border-transparent text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900'
     }`}
   >
     <item.icon className="size-[18px] shrink-0" />
@@ -58,7 +58,7 @@ export function AppSidebar() {
     pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <nav className="fixed inset-y-0 left-0 z-20 flex h-screen w-60 flex-col border-r border-zinc-200 bg-zinc-50 py-4">
+    <nav className="fixed inset-y-0 left-0 z-20 flex h-screen w-60 flex-col border-r border-zinc-200 bg-white py-4">
       <div className="mb-5 flex items-center gap-2 px-4">
         <Building2 className="size-5 text-blue-600" />
         <span className="text-[18px] font-bold tracking-tight text-blue-700">
@@ -72,7 +72,7 @@ export function AppSidebar() {
       <div className="mb-4 px-3">
         <button
           type="button"
-          className="flex w-full items-center justify-between rounded-md border border-zinc-200 bg-white px-3 py-2 text-[13px] font-medium text-zinc-900 transition-colors hover:bg-zinc-50"
+          className="flex w-full items-center justify-between rounded-md border border-zinc-200 bg-zinc-50 px-3 py-2 text-[13px] font-medium text-zinc-900 transition-colors hover:bg-zinc-100"
         >
           <span className="flex items-center gap-2 truncate">
             <span className="grid size-5 shrink-0 place-items-center rounded bg-zinc-200 font-mono text-[10px] text-zinc-600">
