@@ -1,0 +1,842 @@
+[
+  {
+    "id": "det_001",
+    "label": "Conference Room A",
+    "category": "room",
+    "status": "pending",
+    "confidence": 0.96,
+    "points": [
+      [
+        120,
+        120
+      ],
+      [
+        820,
+        120
+      ],
+      [
+        820,
+        480
+      ],
+      [
+        120,
+        480
+      ]
+    ],
+    "area_sqft": 403,
+    "perimeter_ft": 84.8,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_002",
+    "label": "Office 101",
+    "category": "room",
+    "status": "pending",
+    "confidence": 0.79,
+    "points": [
+      [
+        840,
+        120
+      ],
+      [
+        1540,
+        120
+      ],
+      [
+        1540,
+        480
+      ],
+      [
+        840,
+        480
+      ]
+    ],
+    "area_sqft": 403,
+    "perimeter_ft": 84.8,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_003",
+    "label": "Office 102",
+    "category": "room",
+    "status": "pending",
+    "confidence": 0.89,
+    "points": [
+      [
+        1560,
+        120
+      ],
+      [
+        2280,
+        120
+      ],
+      [
+        2280,
+        480
+      ],
+      [
+        1560,
+        480
+      ]
+    ],
+    "area_sqft": 415,
+    "perimeter_ft": 86.4,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_004",
+    "label": "Restroom M",
+    "category": "room",
+    "status": "pending",
+    "confidence": 0.85,
+    "points": [
+      [
+        120,
+        500
+      ],
+      [
+        580,
+        500
+      ],
+      [
+        580,
+        820
+      ],
+      [
+        120,
+        820
+      ]
+    ],
+    "area_sqft": 236,
+    "perimeter_ft": 62.4,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_005",
+    "label": "Corridor C1",
+    "category": "room",
+    "status": "pending",
+    "confidence": 0.87,
+    "points": [
+      [
+        600,
+        500
+      ],
+      [
+        2280,
+        500
+      ],
+      [
+        2280,
+        820
+      ],
+      [
+        600,
+        820
+      ]
+    ],
+    "area_sqft": 860,
+    "perimeter_ft": 160,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_006",
+    "label": "Mechanical Room",
+    "category": "room",
+    "status": "pending",
+    "confidence": 0.91,
+    "points": [
+      [
+        120,
+        840
+      ],
+      [
+        820,
+        840
+      ],
+      [
+        820,
+        1200
+      ],
+      [
+        120,
+        1200
+      ]
+    ],
+    "area_sqft": 403,
+    "perimeter_ft": 84.8,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_007",
+    "label": "Server Room",
+    "category": "room",
+    "status": "pending",
+    "confidence": 0.81,
+    "points": [
+      [
+        840,
+        840
+      ],
+      [
+        1540,
+        840
+      ],
+      [
+        1540,
+        1200
+      ],
+      [
+        840,
+        1200
+      ]
+    ],
+    "area_sqft": 403,
+    "perimeter_ft": 84.8,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_008",
+    "label": "Electrical Room",
+    "category": "room",
+    "status": "pending",
+    "confidence": 0.91,
+    "points": [
+      [
+        1560,
+        840
+      ],
+      [
+        2280,
+        840
+      ],
+      [
+        2280,
+        1200
+      ],
+      [
+        1560,
+        1200
+      ]
+    ],
+    "area_sqft": 415,
+    "perimeter_ft": 86.4,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_009",
+    "label": "Reception",
+    "category": "room",
+    "status": "pending",
+    "confidence": 0.87,
+    "points": [
+      [
+        120,
+        1220
+      ],
+      [
+        720,
+        1220
+      ],
+      [
+        720,
+        1480
+      ],
+      [
+        120,
+        1480
+      ]
+    ],
+    "area_sqft": 250,
+    "perimeter_ft": 68.8,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_010",
+    "label": "Break Room",
+    "category": "room",
+    "status": "pending",
+    "confidence": 0.79,
+    "points": [
+      [
+        740,
+        1220
+      ],
+      [
+        1440,
+        1220
+      ],
+      [
+        1440,
+        1480
+      ],
+      [
+        740,
+        1480
+      ]
+    ],
+    "area_sqft": 291,
+    "perimeter_ft": 76.8,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_011",
+    "label": "Storage",
+    "category": "room",
+    "status": "pending",
+    "confidence": 0.82,
+    "points": [
+      [
+        1460,
+        1220
+      ],
+      [
+        1940,
+        1220
+      ],
+      [
+        1940,
+        1480
+      ],
+      [
+        1460,
+        1480
+      ]
+    ],
+    "area_sqft": 200,
+    "perimeter_ft": 59.2,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_012",
+    "label": "Stairwell A",
+    "category": "room",
+    "status": "pending",
+    "confidence": 0.94,
+    "points": [
+      [
+        1960,
+        1220
+      ],
+      [
+        2280,
+        1220
+      ],
+      [
+        2280,
+        1480
+      ],
+      [
+        1960,
+        1480
+      ]
+    ],
+    "area_sqft": 133,
+    "perimeter_ft": 46.4,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_013",
+    "label": "North Wall",
+    "category": "wall",
+    "status": "pending",
+    "confidence": 0.78,
+    "points": [
+      [
+        120,
+        102
+      ],
+      [
+        2280,
+        102
+      ],
+      [
+        2280,
+        120
+      ],
+      [
+        120,
+        120
+      ]
+    ],
+    "area_sqft": 62,
+    "perimeter_ft": 174.2,
+    "color": "#6b7280"
+  },
+  {
+    "id": "det_014",
+    "label": "South Wall",
+    "category": "wall",
+    "status": "pending",
+    "confidence": 0.82,
+    "points": [
+      [
+        120,
+        1480
+      ],
+      [
+        2280,
+        1480
+      ],
+      [
+        2280,
+        1498
+      ],
+      [
+        120,
+        1498
+      ]
+    ],
+    "area_sqft": 62,
+    "perimeter_ft": 174.2,
+    "color": "#6b7280"
+  },
+  {
+    "id": "det_015",
+    "label": "West Wall",
+    "category": "wall",
+    "status": "pending",
+    "confidence": 0.87,
+    "points": [
+      [
+        102,
+        120
+      ],
+      [
+        120,
+        120
+      ],
+      [
+        120,
+        1480
+      ],
+      [
+        102,
+        1480
+      ]
+    ],
+    "area_sqft": 39,
+    "perimeter_ft": 110.2,
+    "color": "#6b7280"
+  },
+  {
+    "id": "det_016",
+    "label": "East Wall",
+    "category": "wall",
+    "status": "pending",
+    "confidence": 0.97,
+    "points": [
+      [
+        2280,
+        120
+      ],
+      [
+        2298,
+        120
+      ],
+      [
+        2298,
+        1480
+      ],
+      [
+        2280,
+        1480
+      ]
+    ],
+    "area_sqft": 39,
+    "perimeter_ft": 110.2,
+    "color": "#6b7280"
+  },
+  {
+    "id": "det_017",
+    "label": "Partition N1",
+    "category": "wall",
+    "status": "pending",
+    "confidence": 0.87,
+    "points": [
+      [
+        820,
+        120
+      ],
+      [
+        838,
+        120
+      ],
+      [
+        838,
+        500
+      ],
+      [
+        820,
+        500
+      ]
+    ],
+    "area_sqft": 11,
+    "perimeter_ft": 31.8,
+    "color": "#6b7280"
+  },
+  {
+    "id": "det_018",
+    "label": "Partition N2",
+    "category": "wall",
+    "status": "pending",
+    "confidence": 0.91,
+    "points": [
+      [
+        1540,
+        120
+      ],
+      [
+        1558,
+        120
+      ],
+      [
+        1558,
+        500
+      ],
+      [
+        1540,
+        500
+      ]
+    ],
+    "area_sqft": 11,
+    "perimeter_ft": 31.8,
+    "color": "#6b7280"
+  },
+  {
+    "id": "det_019",
+    "label": "Partition C1",
+    "category": "wall",
+    "status": "pending",
+    "confidence": 0.84,
+    "points": [
+      [
+        580,
+        500
+      ],
+      [
+        598,
+        500
+      ],
+      [
+        598,
+        820
+      ],
+      [
+        580,
+        820
+      ]
+    ],
+    "area_sqft": 9,
+    "perimeter_ft": 27,
+    "color": "#6b7280"
+  },
+  {
+    "id": "det_020",
+    "label": "Partition S1",
+    "category": "wall",
+    "status": "pending",
+    "confidence": 0.93,
+    "points": [
+      [
+        820,
+        840
+      ],
+      [
+        838,
+        840
+      ],
+      [
+        838,
+        1200
+      ],
+      [
+        820,
+        1200
+      ]
+    ],
+    "area_sqft": 10,
+    "perimeter_ft": 30.2,
+    "color": "#6b7280"
+  },
+  {
+    "id": "det_021",
+    "label": "Light Fixture 1",
+    "category": "fixture",
+    "status": "pending",
+    "confidence": 0.89,
+    "points": [
+      [
+        270,
+        240
+      ],
+      [
+        330,
+        240
+      ],
+      [
+        330,
+        300
+      ],
+      [
+        270,
+        300
+      ]
+    ],
+    "area_sqft": 5.8,
+    "perimeter_ft": 9.6,
+    "color": "#f59e0b"
+  },
+  {
+    "id": "det_022",
+    "label": "Light Fixture 2",
+    "category": "fixture",
+    "status": "pending",
+    "confidence": 0.91,
+    "points": [
+      [
+        590,
+        240
+      ],
+      [
+        650,
+        240
+      ],
+      [
+        650,
+        300
+      ],
+      [
+        590,
+        300
+      ]
+    ],
+    "area_sqft": 5.8,
+    "perimeter_ft": 9.6,
+    "color": "#f59e0b"
+  },
+  {
+    "id": "det_023",
+    "label": "Light Fixture 3",
+    "category": "fixture",
+    "status": "pending",
+    "confidence": 0.9,
+    "points": [
+      [
+        1010,
+        240
+      ],
+      [
+        1070,
+        240
+      ],
+      [
+        1070,
+        300
+      ],
+      [
+        1010,
+        300
+      ]
+    ],
+    "area_sqft": 5.8,
+    "perimeter_ft": 9.6,
+    "color": "#f59e0b"
+  },
+  {
+    "id": "det_024",
+    "label": "Light Fixture 4",
+    "category": "fixture",
+    "status": "pending",
+    "confidence": 0.95,
+    "points": [
+      [
+        1330,
+        240
+      ],
+      [
+        1390,
+        240
+      ],
+      [
+        1390,
+        300
+      ],
+      [
+        1330,
+        300
+      ]
+    ],
+    "area_sqft": 5.8,
+    "perimeter_ft": 9.6,
+    "color": "#f59e0b"
+  },
+  {
+    "id": "det_025",
+    "label": "Light Fixture 5",
+    "category": "fixture",
+    "status": "pending",
+    "confidence": 0.91,
+    "points": [
+      [
+        1730,
+        240
+      ],
+      [
+        1790,
+        240
+      ],
+      [
+        1790,
+        300
+      ],
+      [
+        1730,
+        300
+      ]
+    ],
+    "area_sqft": 5.8,
+    "perimeter_ft": 9.6,
+    "color": "#f59e0b"
+  },
+  {
+    "id": "det_026",
+    "label": "Light Fixture 6",
+    "category": "fixture",
+    "status": "pending",
+    "confidence": 0.88,
+    "points": [
+      [
+        2050,
+        240
+      ],
+      [
+        2110,
+        240
+      ],
+      [
+        2110,
+        300
+      ],
+      [
+        2050,
+        300
+      ]
+    ],
+    "area_sqft": 5.8,
+    "perimeter_ft": 9.6,
+    "color": "#f59e0b"
+  },
+  {
+    "id": "det_027",
+    "label": "AHU-1",
+    "category": "equipment",
+    "status": "pending",
+    "confidence": 0.98,
+    "points": [
+      [
+        200,
+        940
+      ],
+      [
+        440,
+        940
+      ],
+      [
+        440,
+        1100
+      ],
+      [
+        200,
+        1100
+      ]
+    ],
+    "area_sqft": 61,
+    "perimeter_ft": 32,
+    "color": "#8b5cf6"
+  },
+  {
+    "id": "det_028",
+    "label": "VAV Box 2",
+    "category": "equipment",
+    "status": "pending",
+    "confidence": 0.95,
+    "points": [
+      [
+        500,
+        940
+      ],
+      [
+        700,
+        940
+      ],
+      [
+        700,
+        1100
+      ],
+      [
+        500,
+        1100
+      ]
+    ],
+    "area_sqft": 51,
+    "perimeter_ft": 28.8,
+    "color": "#8b5cf6"
+  },
+  {
+    "id": "det_029",
+    "label": "Fire Panel",
+    "category": "equipment",
+    "status": "pending",
+    "confidence": 0.9,
+    "points": [
+      [
+        920,
+        940
+      ],
+      [
+        1100,
+        940
+      ],
+      [
+        1100,
+        1160
+      ],
+      [
+        920,
+        1160
+      ]
+    ],
+    "area_sqft": 63,
+    "perimeter_ft": 32,
+    "color": "#8b5cf6"
+  },
+  {
+    "id": "det_030",
+    "label": "Electrical Panel",
+    "category": "equipment",
+    "status": "pending",
+    "confidence": 0.98,
+    "points": [
+      [
+        1640,
+        940
+      ],
+      [
+        1880,
+        940
+      ],
+      [
+        1880,
+        1140
+      ],
+      [
+        1640,
+        1140
+      ]
+    ],
+    "area_sqft": 77,
+    "perimeter_ft": 35.2,
+    "color": "#8b5cf6"
+  }
+]

@@ -17,7 +17,7 @@ const Viewer = dynamic(() => import('@/components/Viewer'), {
   loading: () => <Skeleton className="h-full w-full rounded-none" />,
 });
 
-const DEMO_TILE_SOURCE = '/demo/mep_hero/mep_hero.dzi';
+const DEMO_TILE_SOURCE = '/demo/mep_hero.dzi';
 
 export default function ProjectPage() {
   const params = useSearchParams();

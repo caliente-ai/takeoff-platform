@@ -10,5 +10,8 @@
     "dev": "pnpm --filter web dev",
     "build": "pnpm --filter web build"
   },
-  "packageManager": "pnpm@9.15.4"
+  "packageManager": "pnpm@9.15.4",
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  }
 }
