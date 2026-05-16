@@ -153,7 +153,7 @@ function ProjectInner() {
 const STATUS_BADGE_CLASS: Record<ProjectStatus, string> = {
   'in-progress': 'bg-blue-100 text-blue-700',
   'in-review': 'bg-amber-100 text-amber-800',
-  complete: 'bg-emerald-100 text-emerald-700',
+  complete: 'bg-zinc-100 text-zinc-700',
   archived: 'bg-zinc-100 text-zinc-700',
 };
 
