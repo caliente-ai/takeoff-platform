@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { ClerkLoaded, ClerkLoading, UserButton, useUser } from '@clerk/nextjs';
 import {
   Building2,
   ChevronsUpDown,
@@ -41,6 +42,9 @@ export function AppSidebar() {
   const pathname = usePathname();
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
+  const { user } = useUser();
+  const displayName = user?.fullName ?? user?.primaryEmailAddress?.emailAddress ?? 'Account';
+  const displayEmail = user?.primaryEmailAddress?.emailAddress;
 
   return (
     <nav className="fixed inset-y-0 left-0 z-20 flex h-screen w-[280px] flex-col bg-slate-900 p-4">
@@ -83,16 +87,21 @@ export function AppSidebar() {
         ))}
         <Separator className="my-2 bg-white/5" />
         <div className="flex items-center gap-3 px-4 py-2">
-          <div className="grid size-9 shrink-0 place-items-center rounded-full bg-blue-600 text-[12px] font-bold text-white">
-            DB
-          </div>
+          <ClerkLoading>
+            <div className="size-9 shrink-0 rounded-full bg-white/10" />
+          </ClerkLoading>
+          <ClerkLoaded>
+            <UserButton appearance={{ elements: { avatarBox: 'size-9' } }} />
+          </ClerkLoaded>
           <div className="min-w-0 flex-1">
             <div className="truncate text-[13px] font-semibold text-white">
-              Account
+              {displayName}
             </div>
-            <div className="truncate text-[11px] text-slate-400">
-              Premium Tier
-            </div>
+            {displayEmail && displayEmail !== displayName && (
+              <div className="truncate text-[11px] text-slate-400">
+                {displayEmail}
+              </div>
+            )}
           </div>
         </div>
       </div>
