@@ -36,17 +36,33 @@ const bbox = (points: [number, number][]) => {
   return { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
 };
 
+const screenToImage = (svg: SVGSVGElement, clientX: number, clientY: number) => {
+  const pt = svg.createSVGPoint();
+  pt.x = clientX;
+  pt.y = clientY;
+  const ctm = svg.getScreenCTM();
+  if (!ctm) return { x: 0, y: 0 };
+  const inv = ctm.inverse();
+  const r = pt.matrixTransform(inv);
+  return { x: r.x, y: r.y };
+};
+
 export default function Viewer({ tileSource }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<OpenSeadragonNS.Viewer | null>(null);
   const overlayRef = useRef<SVGSVGElement | null>(null);
   const osdRef = useRef<typeof OpenSeadragonNS | null>(null);
+  const imageSizeRef = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
   const [isOpen, setIsOpen] = useState(false);
 
   const [zoomPct, setZoomPct] = useState<number | null>(null);
 
   const polygons = useStore((s) => s.polygons);
   const selectedId = useStore((s) => s.selectedPolygonId);
+  const editMode = useStore((s) => s.editMode);
+
+  const [drawingPoints, setDrawingPoints] = useState<[number, number][]>([]);
+  const [isDrawing, setIsDrawing] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -78,6 +94,7 @@ export default function Viewer({ tileSource }: Props) {
         const item = viewer.world.getItemAt(0);
         if (!item) return;
         const size = item.getContentSize();
+        imageSizeRef.current = { w: size.x, h: size.y };
         const svg = document.createElementNS(SVG_NS, 'svg');
         svg.setAttribute('viewBox', `0 0 ${size.x} ${size.y}`);
         svg.setAttribute('width', String(size.x));
@@ -108,12 +125,16 @@ export default function Viewer({ tileSource }: Props) {
 
   useEffect(() => {
     const svg = overlayRef.current;
+    const viewer = viewerRef.current;
     if (!svg || !isOpen) return;
     while (svg.firstChild) svg.removeChild(svg.firstChild);
 
     const sorted = [...polygons].sort(
       (a, b) => CATEGORY_Z[a.category] - CATEGORY_Z[b.category],
     );
+
+    const handleSize = Math.max(8, Math.min(20, imageSizeRef.current.w / 600));
+    const edgeHandleSize = handleSize * 0.7;
 
     for (const p of sorted) {
       const color = STATUS_COLOR[p.status];
@@ -126,29 +147,194 @@ export default function Viewer({ tileSource }: Props) {
       el.setAttribute('fill-opacity', String(baseOpacity));
       el.setAttribute('stroke', color);
       el.setAttribute('stroke-width', isSelected ? '4' : '2');
-      el.style.cursor = 'pointer';
+      el.style.cursor = editMode ? 'move' : 'pointer';
       el.style.transition = 'fill-opacity 120ms ease';
-      el.addEventListener('click', (e) => {
-        e.stopPropagation();
-        useStore.getState().selectPolygon(p.id);
-      });
-      el.addEventListener('mouseenter', () => {
-        el.setAttribute('fill-opacity', String(Math.min(baseOpacity + 0.14, 0.6)));
-      });
-      el.addEventListener('mouseleave', () => {
-        const stillSelected = p.id === useStore.getState().selectedPolygonId;
-        el.setAttribute('fill-opacity', String(stillSelected ? 0.35 : 0.18));
-      });
+
+      if (editMode) {
+        // Drag whole polygon
+        el.addEventListener('pointerdown', (e: PointerEvent) => {
+          e.preventDefault();
+          e.stopPropagation();
+          useStore.getState().selectPolygon(p.id);
+          if (!viewer) return;
+          viewer.setMouseNavEnabled(false);
+          (el as Element & { setPointerCapture: (id: number) => void }).setPointerCapture(
+            e.pointerId,
+          );
+          const start = screenToImage(svg, e.clientX, e.clientY);
+          let lastX = start.x;
+          let lastY = start.y;
+          const onMove = (mv: PointerEvent) => {
+            const cur = screenToImage(svg, mv.clientX, mv.clientY);
+            const dx = cur.x - lastX;
+            const dy = cur.y - lastY;
+            lastX = cur.x;
+            lastY = cur.y;
+            useStore.getState().movePolygon(p.id, dx, dy);
+          };
+          const onUp = () => {
+            el.removeEventListener('pointermove', onMove);
+            el.removeEventListener('pointerup', onUp);
+            el.removeEventListener('pointercancel', onUp);
+            viewer.setMouseNavEnabled(true);
+          };
+          el.addEventListener('pointermove', onMove);
+          el.addEventListener('pointerup', onUp);
+          el.addEventListener('pointercancel', onUp);
+        });
+      } else {
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          useStore.getState().selectPolygon(p.id);
+        });
+        el.addEventListener('mouseenter', () => {
+          el.setAttribute('fill-opacity', String(Math.min(baseOpacity + 0.14, 0.6)));
+        });
+        el.addEventListener('mouseleave', () => {
+          const stillSelected = p.id === useStore.getState().selectedPolygonId;
+          el.setAttribute('fill-opacity', String(stillSelected ? 0.35 : 0.18));
+        });
+      }
       const title = document.createElementNS(SVG_NS, 'title');
       title.textContent = `${p.label} (${Math.round(p.confidence * 100)}%)`;
       el.appendChild(title);
       svg.appendChild(el);
+
+      // Edit handles — only on selected polygon when in edit mode
+      if (editMode && isSelected) {
+        // Vertex handles
+        p.points.forEach((pt, idx) => {
+          const handle = document.createElementNS(SVG_NS, 'circle');
+          handle.setAttribute('cx', String(pt[0]));
+          handle.setAttribute('cy', String(pt[1]));
+          handle.setAttribute('r', String(handleSize));
+          handle.setAttribute('fill', '#ffffff');
+          handle.setAttribute('stroke', color);
+          handle.setAttribute('stroke-width', '3');
+          handle.style.cursor = 'grab';
+          handle.addEventListener('pointerdown', (e: PointerEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.shiftKey) {
+              // Delete vertex if at least 3 remain
+              if (p.points.length > 3) {
+                const next = p.points.filter((_, i) => i !== idx);
+                useStore.getState().updatePolygonPoints(p.id, next);
+              }
+              return;
+            }
+            if (!viewer) return;
+            viewer.setMouseNavEnabled(false);
+            (handle as Element & {
+              setPointerCapture: (id: number) => void;
+            }).setPointerCapture(e.pointerId);
+            const onMove = (mv: PointerEvent) => {
+              const cur = screenToImage(svg, mv.clientX, mv.clientY);
+              const cur2: [number, number] = [Math.round(cur.x), Math.round(cur.y)];
+              const latest = useStore
+                .getState()
+                .polygons.find((q) => q.id === p.id);
+              if (!latest) return;
+              const next = latest.points.map(
+                (pp, i) => (i === idx ? cur2 : pp) as [number, number],
+              );
+              useStore.getState().updatePolygonPoints(p.id, next);
+            };
+            const onUp = () => {
+              handle.removeEventListener('pointermove', onMove);
+              handle.removeEventListener('pointerup', onUp);
+              handle.removeEventListener('pointercancel', onUp);
+              viewer.setMouseNavEnabled(true);
+            };
+            handle.addEventListener('pointermove', onMove);
+            handle.addEventListener('pointerup', onUp);
+            handle.addEventListener('pointercancel', onUp);
+          });
+          const ttitle = document.createElementNS(SVG_NS, 'title');
+          ttitle.textContent = `Vertex ${idx} — drag to move, Shift+click to delete`;
+          handle.appendChild(ttitle);
+          svg.appendChild(handle);
+        });
+
+        // Midpoint handles (Alt+click adds vertex) — show as small hollow squares
+        p.points.forEach((pt, idx) => {
+          const next = p.points[(idx + 1) % p.points.length];
+          const mx = (pt[0] + next[0]) / 2;
+          const my = (pt[1] + next[1]) / 2;
+          const mid = document.createElementNS(SVG_NS, 'rect');
+          mid.setAttribute('x', String(mx - edgeHandleSize / 2));
+          mid.setAttribute('y', String(my - edgeHandleSize / 2));
+          mid.setAttribute('width', String(edgeHandleSize));
+          mid.setAttribute('height', String(edgeHandleSize));
+          mid.setAttribute('fill', '#ffffff');
+          mid.setAttribute('stroke', color);
+          mid.setAttribute('stroke-width', '2');
+          mid.style.cursor = 'copy';
+          mid.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const latest = useStore.getState().polygons.find((q) => q.id === p.id);
+            if (!latest) return;
+            const insertAt = idx + 1;
+            const newPoints = [...latest.points];
+            newPoints.splice(insertAt, 0, [Math.round(mx), Math.round(my)]);
+            useStore.getState().updatePolygonPoints(p.id, newPoints);
+          });
+          const ttitle = document.createElementNS(SVG_NS, 'title');
+          ttitle.textContent = 'Click to insert vertex here';
+          mid.appendChild(ttitle);
+          svg.appendChild(mid);
+        });
+      }
     }
-  }, [polygons, selectedId, isOpen]);
+
+    // In-progress drawing of new polygon
+    if (editMode && isDrawing && drawingPoints.length > 0) {
+      const path = document.createElementNS(SVG_NS, 'polyline');
+      path.setAttribute('points', drawingPoints.map((pt) => pt.join(',')).join(' '));
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', '#0ea5e9');
+      path.setAttribute('stroke-width', '3');
+      path.setAttribute('stroke-dasharray', '8,6');
+      svg.appendChild(path);
+      drawingPoints.forEach((pt) => {
+        const c = document.createElementNS(SVG_NS, 'circle');
+        c.setAttribute('cx', String(pt[0]));
+        c.setAttribute('cy', String(pt[1]));
+        c.setAttribute('r', String(handleSize * 0.7));
+        c.setAttribute('fill', '#0ea5e9');
+        svg.appendChild(c);
+      });
+    }
+  }, [polygons, selectedId, isOpen, editMode, isDrawing, drawingPoints]);
+
+  // Empty-area clicks: while drawing, add a vertex
+  useEffect(() => {
+    const svg = overlayRef.current;
+    const viewer = viewerRef.current;
+    if (!svg || !isOpen || !editMode) return;
+    const onClick = (e: MouseEvent) => {
+      if (!isDrawing) return;
+      // Ignore clicks that hit a polygon or handle
+      const target = e.target as Element | null;
+      if (target && target !== svg) return;
+      e.stopPropagation();
+      const p = screenToImage(svg, e.clientX, e.clientY);
+      setDrawingPoints((prev) => [...prev, [Math.round(p.x), Math.round(p.y)]]);
+    };
+    svg.addEventListener('click', onClick);
+    if (isDrawing && viewer) {
+      viewer.setMouseNavEnabled(false);
+    }
+    return () => {
+      svg.removeEventListener('click', onClick);
+      if (viewer) viewer.setMouseNavEnabled(true);
+    };
+  }, [isOpen, editMode, isDrawing]);
 
   useEffect(() => {
     const viewer = viewerRef.current;
     if (!viewer || !isOpen || !selectedId) return;
+    if (editMode) return;
     const target = polygons.find((p) => p.id === selectedId);
     if (!target) return;
     const b = bbox(target.points);
@@ -160,7 +346,43 @@ export default function Viewer({ tileSource }: Props) {
       b.h + pad * 2,
     );
     viewer.viewport.fitBounds(rect, false);
-  }, [selectedId, polygons, isOpen]);
+  }, [selectedId, polygons, isOpen, editMode]);
+
+  // Drawing toolbar handlers (Enter finishes, Escape cancels)
+  useEffect(() => {
+    if (!editMode || !isDrawing) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' && drawingPoints.length >= 3) {
+        finishDrawing();
+      } else if (e.key === 'Escape') {
+        setIsDrawing(false);
+        setDrawingPoints([]);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
+
+  const finishDrawing = () => {
+    if (drawingPoints.length < 3) return;
+    const id = `det_${Date.now().toString(36)}`;
+    const polygon: Polygon = {
+      id,
+      label: 'New polygon',
+      category: 'room',
+      status: 'pending',
+      confidence: 1,
+      points: drawingPoints,
+      area_sqft: 0,
+      perimeter_ft: 0,
+      color: '#3b82f6',
+    };
+    useStore.getState().addPolygon(polygon);
+    // recompute derived metrics via updatePolygonPoints
+    useStore.getState().updatePolygonPoints(id, drawingPoints);
+    setIsDrawing(false);
+    setDrawingPoints([]);
+  };
 
   return (
     <>
@@ -168,6 +390,58 @@ export default function Viewer({ tileSource }: Props) {
       {zoomPct !== null && (
         <div className="pointer-events-none absolute bottom-3 left-3 rounded-md border border-zinc-200 bg-white/90 px-2 py-1 font-mono text-[11px] text-zinc-600 shadow-sm">
           {zoomPct}%
+        </div>
+      )}
+      {editMode && (
+        <div className="absolute top-3 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded-md border border-zinc-200 bg-white/95 px-3 py-2 text-[12px] shadow-md">
+          {!isDrawing ? (
+            <>
+              <span className="font-medium text-zinc-700">Edit mode</span>
+              <span className="text-zinc-400">·</span>
+              <span className="text-zinc-600">
+                Drag polygon to move. Click polygon to select. Drag white dots to
+                move vertices. Click square between dots to insert vertex.
+                Shift+click vertex to delete.
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsDrawing(true);
+                  setDrawingPoints([]);
+                }}
+                className="ml-2 rounded border border-blue-300 bg-blue-50 px-2 py-1 text-[11px] font-medium text-blue-700 hover:bg-blue-100"
+              >
+                + Add polygon
+              </button>
+            </>
+          ) : (
+            <>
+              <span className="font-medium text-sky-700">Drawing new polygon</span>
+              <span className="text-zinc-400">·</span>
+              <span className="text-zinc-600">
+                Click to place vertices. Enter to finish ({drawingPoints.length}
+                {' '}placed, min 3). Esc to cancel.
+              </span>
+              <button
+                type="button"
+                onClick={finishDrawing}
+                disabled={drawingPoints.length < 3}
+                className="ml-2 rounded border border-emerald-300 bg-emerald-50 px-2 py-1 text-[11px] font-medium text-emerald-700 hover:bg-emerald-100 disabled:opacity-40"
+              >
+                Finish
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsDrawing(false);
+                  setDrawingPoints([]);
+                }}
+                className="rounded border border-zinc-300 bg-white px-2 py-1 text-[11px] font-medium text-zinc-700 hover:bg-zinc-50"
+              >
+                Cancel
+              </button>
+            </>
+          )}
         </div>
       )}
     </>

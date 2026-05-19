@@ -1,758 +1,562 @@
 [
   {
-    "id": "det_001",
-    "label": "General Learning Area 1",
+    "id": "det_mpd2od5n",
+    "label": "New polygon",
     "category": "room",
-    "status": "pending",
-    "confidence": 0.96,
+    "status": "accepted",
+    "confidence": 1,
     "points": [
       [
-        2360,
-        2485
+        4244,
+        3246
       ],
       [
-        2855,
-        2485
+        3070,
+        3256
       ],
       [
-        2855,
-        3155
+        3070,
+        2481
       ],
       [
-        2360,
-        3155
+        4234,
+        2491
       ]
     ],
-    "area_sqft": 207,
-    "perimeter_ft": 58.3,
+    "area_sqft": 559,
+    "perimeter_ft": 96.7,
     "color": "#3b82f6"
   },
   {
-    "id": "det_002",
-    "label": "General Learning Area 2",
+    "id": "det_mpd2or30",
+    "label": "New polygon",
     "category": "room",
-    "status": "pending",
-    "confidence": 0.79,
+    "status": "accepted",
+    "confidence": 1,
     "points": [
       [
-        2865,
-        2485
+        4265,
+        3256
       ],
       [
-        3355,
-        2485
+        5428,
+        3256
       ],
       [
-        3355,
-        3155
+        5418,
+        2470
       ],
       [
-        2865,
-        3155
+        4265,
+        2491
       ]
     ],
-    "area_sqft": 205,
-    "perimeter_ft": 58,
+    "area_sqft": 561,
+    "perimeter_ft": 96.7,
     "color": "#3b82f6"
   },
   {
-    "id": "det_003",
-    "label": "General Learning Area 3",
+    "id": "det_mpd2p231",
+    "label": "New polygon",
     "category": "room",
-    "status": "pending",
-    "confidence": 0.89,
+    "status": "accepted",
+    "confidence": 1,
     "points": [
       [
-        3365,
-        2485
+        3060,
+        3267
       ],
       [
-        3855,
-        2485
+        1907,
+        3256
       ],
       [
-        3855,
-        3155
+        1897,
+        2481
       ],
       [
-        3365,
-        3155
+        3039,
+        2502
       ]
     ],
-    "area_sqft": 205,
-    "perimeter_ft": 58,
+    "area_sqft": 552,
+    "perimeter_ft": 95.9,
     "color": "#3b82f6"
   },
   {
-    "id": "det_004",
-    "label": "General Learning Area 4",
+    "id": "det_mpd2pfx7",
+    "label": "New polygon",
     "category": "room",
-    "status": "pending",
-    "confidence": 0.85,
+    "status": "accepted",
+    "confidence": 1,
     "points": [
       [
-        3865,
-        2485
+        5458,
+        1687
       ],
       [
-        4355,
-        2485
+        5453,
+        1380
       ],
       [
-        4355,
-        3155
+        5740,
+        1376
       ],
       [
-        3865,
-        3155
+        5744,
+        1691
       ]
     ],
-    "area_sqft": 205,
-    "perimeter_ft": 58,
+    "area_sqft": 56,
+    "perimeter_ft": 29.9,
     "color": "#3b82f6"
   },
   {
-    "id": "det_005",
-    "label": "General Learning Area 5",
+    "id": "det_mpd2ssm3",
+    "label": "New polygon",
     "category": "room",
-    "status": "pending",
-    "confidence": 0.87,
+    "status": "accepted",
+    "confidence": 1,
     "points": [
       [
-        4365,
-        2485
+        5432,
+        1683
       ],
       [
-        4855,
-        2485
+        5174,
+        1679
       ],
       [
-        4855,
-        3155
+        5163,
+        1367
       ],
       [
-        4365,
-        3155
+        5428,
+        1376
       ]
     ],
-    "area_sqft": 205,
-    "perimeter_ft": 58,
+    "area_sqft": 51,
+    "perimeter_ft": 28.6,
     "color": "#3b82f6"
   },
   {
-    "id": "det_006",
-    "label": "Practical Learning Area",
+    "id": "det_mpd2t0b6",
+    "label": "New polygon",
     "category": "room",
-    "status": "pending",
-    "confidence": 0.91,
+    "status": "accepted",
+    "confidence": 1,
     "points": [
       [
-        1880,
-        1500
+        4952,
+        1696
       ],
       [
-        2580,
-        1500
+        4948,
+        1376
       ],
       [
-        2580,
-        1980
+        5150,
+        1376
       ],
       [
-        1880,
-        1980
+        5150,
+        1687
       ]
     ],
-    "area_sqft": 210,
-    "perimeter_ft": 59,
+    "area_sqft": 39,
+    "perimeter_ft": 25.8,
     "color": "#3b82f6"
   },
   {
-    "id": "det_007",
-    "label": "Data",
+    "id": "det_mpd2t8wg",
+    "label": "New polygon",
     "category": "room",
-    "status": "pending",
-    "confidence": 0.81,
+    "status": "accepted",
+    "confidence": 1,
     "points": [
       [
-        640,
-        1980
+        4721,
+        1687
       ],
       [
-        890,
-        1980
+        4716,
+        1376
       ],
       [
-        890,
-        2225
+        4931,
+        1376
       ],
       [
-        640,
-        2225
+        4935,
+        1691
       ]
     ],
-    "area_sqft": 38,
-    "perimeter_ft": 24.8,
+    "area_sqft": 42,
+    "perimeter_ft": 26.4,
     "color": "#3b82f6"
   },
   {
-    "id": "det_008",
-    "label": "Bridge",
+    "id": "det_mpd2vk2b",
+    "label": "New polygon",
     "category": "room",
-    "status": "pending",
-    "confidence": 0.91,
+    "status": "accepted",
+    "confidence": 1,
     "points": [
       [
-        890,
-        1980
+        4205,
+        1370
       ],
       [
-        1860,
-        1980
+        4208,
+        1692
       ],
       [
-        1860,
-        2225
+        4717,
+        1701
       ],
       [
-        890,
-        2225
+        4711,
+        1373
       ]
     ],
-    "area_sqft": 149,
-    "perimeter_ft": 60.8,
+    "area_sqft": 103,
+    "perimeter_ft": 41.6,
     "color": "#3b82f6"
   },
   {
-    "id": "det_009",
-    "label": "Res Store",
+    "id": "det_mpd2wbyp",
+    "label": "New polygon",
     "category": "room",
-    "status": "pending",
-    "confidence": 0.87,
+    "status": "accepted",
+    "confidence": 1,
     "points": [
       [
-        1860,
-        1980
+        3913,
+        1379
       ],
       [
-        2100,
-        1980
+        4197,
+        1382
       ],
       [
-        2100,
-        2225
+        4194,
+        1697
       ],
       [
-        1860,
-        2225
+        3913,
+        1686
+      ]
+    ],
+    "area_sqft": 55,
+    "perimeter_ft": 29.7,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_mpd2x4us",
+    "label": "New polygon",
+    "category": "room",
+    "status": "accepted",
+    "confidence": 1,
+    "points": [
+      [
+        3916,
+        1849
+      ],
+      [
+        3918,
+        2155
+      ],
+      [
+        4133,
+        2157
+      ],
+      [
+        4138,
+        1853
+      ]
+    ],
+    "area_sqft": 42,
+    "perimeter_ft": 26.2,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_mpd2xf3r",
+    "label": "New polygon",
+    "category": "room",
+    "status": "accepted",
+    "confidence": 1,
+    "points": [
+      [
+        4327,
+        2153
+      ],
+      [
+        4331,
+        1929
+      ],
+      [
+        4147,
+        1927
+      ],
+      [
+        4149,
+        2149
+      ]
+    ],
+    "area_sqft": 25,
+    "perimeter_ft": 20.2,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_mpd2xpg6",
+    "label": "New polygon",
+    "category": "room",
+    "status": "accepted",
+    "confidence": 1,
+    "points": [
+      [
+        4505,
+        1931
+      ],
+      [
+        4344,
+        1931
+      ],
+      [
+        4338,
+        2164
+      ],
+      [
+        4507,
+        2159
+      ]
+    ],
+    "area_sqft": 24,
+    "perimeter_ft": 19.8,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_mpd2xyq8",
+    "label": "New polygon",
+    "category": "room",
+    "status": "accepted",
+    "confidence": 1,
+    "points": [
+      [
+        4720,
+        2155
+      ],
+      [
+        4718,
+        1925
+      ],
+      [
+        4520,
+        1931
+      ],
+      [
+        4522,
+        2159
+      ]
+    ],
+    "area_sqft": 28,
+    "perimeter_ft": 21.4,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_mpd2y7dc",
+    "label": "New polygon",
+    "category": "room",
+    "status": "accepted",
+    "confidence": 1,
+    "points": [
+      [
+        4954,
+        1852
+      ],
+      [
+        4723,
+        1852
+      ],
+      [
+        4736,
+        2149
+      ],
+      [
+        4956,
+        2158
+      ]
+    ],
+    "area_sqft": 42,
+    "perimeter_ft": 26.4,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "det_mpd2yfxn",
+    "label": "New polygon",
+    "category": "room",
+    "status": "accepted",
+    "confidence": 1,
+    "points": [
+      [
+        5162,
+        1850
+      ],
+      [
+        4964,
+        1858
+      ],
+      [
+        4967,
+        2152
+      ],
+      [
+        5169,
+        2152
       ]
     ],
     "area_sqft": 37,
-    "perimeter_ft": 24.3,
+    "perimeter_ft": 24.9,
     "color": "#3b82f6"
   },
   {
-    "id": "det_010",
-    "label": "Stair (Up)",
-    "category": "equipment",
-    "status": "pending",
-    "confidence": 0.79,
-    "points": [
-      [
-        930,
-        1650
-      ],
-      [
-        1130,
-        1650
-      ],
-      [
-        1130,
-        1910
-      ],
-      [
-        930,
-        1910
-      ]
-    ],
-    "area_sqft": 33,
-    "perimeter_ft": 23,
-    "color": "#8b5cf6"
-  },
-  {
-    "id": "det_011",
-    "label": "Elevator",
-    "category": "equipment",
-    "status": "pending",
-    "confidence": 0.82,
-    "points": [
-      [
-        1160,
-        1700
-      ],
-      [
-        1270,
-        1700
-      ],
-      [
-        1270,
-        1880
-      ],
-      [
-        1160,
-        1880
-      ]
-    ],
-    "area_sqft": 12,
-    "perimeter_ft": 14.5,
-    "color": "#8b5cf6"
-  },
-  {
-    "id": "det_012",
-    "label": "Office (North)",
+    "id": "det_mpd2zg4w",
+    "label": "New polygon",
     "category": "room",
-    "status": "pending",
-    "confidence": 0.94,
+    "status": "accepted",
+    "confidence": 1,
     "points": [
       [
-        2740,
-        1500
+        3422,
+        1374
       ],
       [
-        2980,
-        1500
+        3125,
+        1378
       ],
       [
-        2980,
-        1680
+        3125,
+        1631
       ],
       [
-        2740,
-        1680
+        3404,
+        1631
       ]
     ],
-    "area_sqft": 27,
-    "perimeter_ft": 21,
+    "area_sqft": 46,
+    "perimeter_ft": 27.2,
     "color": "#3b82f6"
   },
   {
-    "id": "det_013",
-    "label": "Learning & Activity Space",
+    "id": "det_mpd2zmz8",
+    "label": "New polygon",
     "category": "room",
-    "status": "pending",
-    "confidence": 0.78,
+    "status": "accepted",
+    "confidence": 1,
     "points": [
       [
-        2985,
-        1500
+        3422,
+        1883
       ],
       [
-        3445,
-        1500
+        3427,
+        1635
       ],
       [
-        3445,
-        1830
+        3125,
+        1653
       ],
       [
-        2985,
-        1830
+        3116,
+        1883
       ]
     ],
-    "area_sqft": 95,
-    "perimeter_ft": 39.5,
+    "area_sqft": 45,
+    "perimeter_ft": 27.2,
     "color": "#3b82f6"
   },
   {
-    "id": "det_014",
-    "label": "Team Interaction",
+    "id": "det_mpd2zt4y",
+    "label": "New polygon",
     "category": "room",
-    "status": "pending",
-    "confidence": 0.82,
+    "status": "accepted",
+    "confidence": 1,
     "points": [
       [
-        3445,
-        1500
+        3431,
+        2140
       ],
       [
-        3760,
-        1500
+        3427,
+        1914
       ],
       [
-        3760,
-        1830
+        3120,
+        1914
       ],
       [
-        3445,
-        1830
+        3125,
+        2158
       ]
     ],
-    "area_sqft": 65,
-    "perimeter_ft": 32.3,
+    "area_sqft": 45,
+    "perimeter_ft": 27.1,
     "color": "#3b82f6"
   },
   {
-    "id": "det_015",
-    "label": "Specialist Service & Therapy",
+    "id": "det_mpd30ner",
+    "label": "New polygon",
     "category": "room",
     "status": "pending",
-    "confidence": 0.87,
+    "confidence": 1,
     "points": [
       [
-        3760,
-        1500
+        2627,
+        1387
       ],
       [
-        4225,
-        1500
+        1870,
+        1387
       ],
       [
-        4225,
-        1830
+        1889,
+        2153
       ],
       [
-        3760,
-        1830
+        2618,
+        2134
       ]
     ],
-    "area_sqft": 96,
-    "perimeter_ft": 39.8,
+    "area_sqft": 351,
+    "perimeter_ft": 75,
     "color": "#3b82f6"
   },
   {
-    "id": "det_016",
-    "label": "Inter Room (NE)",
+    "id": "det_mpd310ul",
+    "label": "New polygon",
     "category": "room",
-    "status": "pending",
-    "confidence": 0.97,
+    "status": "accepted",
+    "confidence": 1,
     "points": [
       [
-        4225,
-        1500
+        625,
+        2183
       ],
       [
-        4480,
-        1500
+        877,
+        2186
       ],
       [
-        4480,
-        1740
+        866,
+        1842
       ],
       [
-        4225,
-        1740
+        620,
+        1847
       ]
     ],
-    "area_sqft": 38,
-    "perimeter_ft": 24.8,
-    "color": "#3b82f6"
-  },
-  {
-    "id": "det_017",
-    "label": "Office (NE)",
-    "category": "room",
-    "status": "pending",
-    "confidence": 0.87,
-    "points": [
-      [
-        4480,
-        1500
-      ],
-      [
-        4730,
-        1500
-      ],
-      [
-        4730,
-        1740
-      ],
-      [
-        4480,
-        1740
-      ]
-    ],
-    "area_sqft": 38,
-    "perimeter_ft": 24.5,
-    "color": "#3b82f6"
-  },
-  {
-    "id": "det_018",
-    "label": "Inter Room (Mid)",
-    "category": "room",
-    "status": "pending",
-    "confidence": 0.91,
-    "points": [
-      [
-        2980,
-        1680
-      ],
-      [
-        3245,
-        1680
-      ],
-      [
-        3245,
-        1900
-      ],
-      [
-        2980,
-        1900
-      ]
-    ],
-    "area_sqft": 36,
-    "perimeter_ft": 24.3,
-    "color": "#3b82f6"
-  },
-  {
-    "id": "det_019",
-    "label": "Office (Mid)",
-    "category": "room",
-    "status": "pending",
-    "confidence": 0.84,
-    "points": [
-      [
-        2980,
-        1900
-      ],
-      [
-        3245,
-        1900
-      ],
-      [
-        3245,
-        2120
-      ],
-      [
-        2980,
-        2120
-      ]
-    ],
-    "area_sqft": 36,
-    "perimeter_ft": 24.3,
-    "color": "#3b82f6"
-  },
-  {
-    "id": "det_020",
-    "label": "Reception",
-    "category": "room",
-    "status": "pending",
-    "confidence": 0.93,
-    "points": [
-      [
-        3245,
-        1830
-      ],
-      [
-        3520,
-        1830
-      ],
-      [
-        3520,
-        2160
-      ],
-      [
-        3245,
-        2160
-      ]
-    ],
-    "area_sqft": 57,
-    "perimeter_ft": 30.3,
-    "color": "#3b82f6"
-  },
-  {
-    "id": "det_021",
-    "label": "PWD Assist WC",
-    "category": "fixture",
-    "status": "pending",
-    "confidence": 0.89,
-    "points": [
-      [
-        3585,
-        1890
-      ],
-      [
-        3820,
-        1890
-      ],
-      [
-        3820,
-        2160
-      ],
-      [
-        3585,
-        2160
-      ]
-    ],
-    "area_sqft": 40,
-    "perimeter_ft": 25.3,
-    "color": "#f59e0b"
-  },
-  {
-    "id": "det_022",
-    "label": "PWD / AHR",
-    "category": "fixture",
-    "status": "pending",
-    "confidence": 0.91,
-    "points": [
-      [
-        3820,
-        1890
-      ],
-      [
-        3960,
-        1890
-      ],
-      [
-        3960,
-        2160
-      ],
-      [
-        3820,
-        2160
-      ]
-    ],
-    "area_sqft": 24,
-    "perimeter_ft": 20.5,
-    "color": "#f59e0b"
-  },
-  {
-    "id": "det_023",
-    "label": "WC Staff",
-    "category": "fixture",
-    "status": "pending",
-    "confidence": 0.9,
-    "points": [
-      [
-        3960,
-        1890
-      ],
-      [
-        4100,
-        1890
-      ],
-      [
-        4100,
-        2160
-      ],
-      [
-        3960,
-        2160
-      ]
-    ],
-    "area_sqft": 24,
-    "perimeter_ft": 20.5,
-    "color": "#f59e0b"
-  },
-  {
-    "id": "det_024",
-    "label": "Universal WC",
-    "category": "fixture",
-    "status": "pending",
-    "confidence": 0.95,
-    "points": [
-      [
-        4100,
-        1890
-      ],
-      [
-        4240,
-        1890
-      ],
-      [
-        4240,
-        2160
-      ],
-      [
-        4100,
-        2160
-      ]
-    ],
-    "area_sqft": 24,
-    "perimeter_ft": 20.5,
-    "color": "#f59e0b"
-  },
-  {
-    "id": "det_025",
-    "label": "Cleaner / Laundry",
-    "category": "fixture",
-    "status": "pending",
-    "confidence": 0.91,
-    "points": [
-      [
-        4400,
-        1830
-      ],
-      [
-        4570,
-        1830
-      ],
-      [
-        4570,
-        2120
-      ],
-      [
-        4400,
-        2120
-      ]
-    ],
-    "area_sqft": 31,
-    "perimeter_ft": 23,
-    "color": "#f59e0b"
-  },
-  {
-    "id": "det_026",
-    "label": "Office (SE)",
-    "category": "room",
-    "status": "pending",
-    "confidence": 0.88,
-    "points": [
-      [
-        4570,
-        1830
-      ],
-      [
-        4730,
-        1830
-      ],
-      [
-        4730,
-        2120
-      ],
-      [
-        4570,
-        2120
-      ]
-    ],
-    "area_sqft": 29,
-    "perimeter_ft": 22.5,
-    "color": "#3b82f6"
-  },
-  {
-    "id": "det_027",
-    "label": "Breezeway",
-    "category": "room",
-    "status": "pending",
-    "confidence": 0.98,
-    "points": [
-      [
-        3300,
-        2160
-      ],
-      [
-        4030,
-        2160
-      ],
-      [
-        4030,
-        2440
-      ],
-      [
-        3300,
-        2440
-      ]
-    ],
-    "area_sqft": 128,
-    "perimeter_ft": 50.5,
+    "area_sqft": 53,
+    "perimeter_ft": 29.5,
     "color": "#3b82f6"
   }
 ]

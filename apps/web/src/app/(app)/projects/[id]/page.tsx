@@ -1,10 +1,18 @@
 'use client';
 
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { toast } from 'sonner';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  Pencil,
+  Save,
+  Trash2,
+} from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -59,6 +67,7 @@ function ProjectInner() {
       const polygons = applyProjectStatuses(base, projectMeta.status);
       const state = useStore.getState();
       state.reset();
+      state.setScenario(scenario);
       state.loadPolygons(polygons);
       state.setJob({
         id: projectMeta.id,
@@ -134,6 +143,7 @@ function ProjectInner() {
         statsTotal={stats.total}
         statsAccepted={stats.accepted}
         statsRejected={stats.rejected}
+        scenario={scenario}
       />
       <div className="flex flex-1 overflow-hidden">
         <aside className="w-[280px] shrink-0 overflow-y-auto border-r border-zinc-200 bg-white">
@@ -163,13 +173,86 @@ function WorkspaceHeader({
   statsTotal,
   statsAccepted,
   statsRejected,
+  scenario,
 }: {
   projectName: string;
   projectStatus: ProjectStatus;
   statsTotal: number;
   statsAccepted: number;
   statsRejected: number;
+  scenario: string;
 }) {
+  const editMode = useStore((s) => s.editMode);
+  const polygonCount = useStore((s) => s.polygons.length);
+  const [saving, setSaving] = useState(false);
+
+  const onToggleEdit = () => {
+    useStore.getState().setEditMode(!editMode);
+  };
+
+  const onDeleteAll = async () => {
+    if (polygonCount === 0) return;
+    const ok = window.confirm(
+      `Permanently delete all ${polygonCount} polygons from public/demo/${scenario}.json?\n\nThis writes an empty file to disk and cannot be undone (recover via git if needed).`,
+    );
+    if (!ok) return;
+    const removed = polygonCount;
+    useStore.getState().deleteAllPolygons();
+    try {
+      const res = await fetch('/api/save-polygons', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ scenario, polygons: [], allowEmpty: true }),
+      });
+      if (!res.ok) {
+        const j = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(j.error ?? `Wipe failed (${res.status})`);
+      }
+      toast.success(`Deleted ${removed} polygons from disk`);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Wipe failed';
+      toast.error(msg);
+    }
+  };
+
+  const onSave = async () => {
+    setSaving(true);
+    try {
+      const polygons = useStore.getState().polygons;
+      const res = await fetch('/api/save-polygons', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ scenario, polygons }),
+      });
+      if (!res.ok) {
+        const j = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(j.error ?? `Save failed (${res.status})`);
+      }
+      const j = (await res.json()) as { count: number };
+      toast.success(`Saved ${j.count} polygons to disk`);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Save failed';
+      toast.error(msg);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const onDownload = () => {
+    const polygons = useStore.getState().polygons;
+    const blob = new Blob([JSON.stringify(polygons, null, 2)], {
+      type: 'application/json',
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${scenario}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <header className="sticky top-0 z-10 flex h-12 shrink-0 items-center justify-between border-b border-zinc-200 bg-white px-4">
       <div className="flex items-center gap-3">
@@ -206,6 +289,50 @@ function WorkspaceHeader({
           </span>
         </div>
         <div className="h-5 w-px bg-zinc-200" />
+        <Button
+          variant={editMode ? 'default' : 'outline'}
+          size="sm"
+          onClick={onToggleEdit}
+          className="h-8 gap-1.5"
+        >
+          <Pencil className="size-3.5" />
+          {editMode ? 'Exit edit' : 'Edit polygons'}
+        </Button>
+        {editMode && (
+          <>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onDeleteAll}
+              disabled={polygonCount === 0}
+              className="h-8 gap-1.5 border-rose-300 text-rose-700 hover:bg-rose-50 hover:text-rose-800"
+              title="Remove all polygons from the canvas (in-memory only; save to persist)"
+            >
+              <Trash2 className="size-3.5" />
+              Delete all ({polygonCount})
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onDownload}
+              className="h-8 gap-1.5"
+              title="Download JSON file"
+            >
+              <Download className="size-3.5" />
+              Download
+            </Button>
+            <Button
+              size="sm"
+              onClick={onSave}
+              disabled={saving}
+              className="h-8 gap-1.5"
+              title="Overwrite public/demo/mep_hero.json (dev only)"
+            >
+              <Save className="size-3.5" />
+              {saving ? 'Saving…' : 'Save to disk'}
+            </Button>
+          </>
+        )}
         <ExportButton />
       </div>
     </header>
