@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
+import { ClerkProvider } from '@clerk/nextjs';
 import { DemoHotkeys } from '@/components/DemoHotkeys';
 import { Toaster } from '@/components/ui/sonner';
 import './globals.css';
@@ -20,12 +21,14 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={nunito.variable}>
-      <body className="font-sans antialiased">
-        <DemoHotkeys />
-        {children}
-        <Toaster position="bottom-right" richColors />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={nunito.variable}>
+        <body className="font-sans antialiased">
+          <DemoHotkeys />
+          {children}
+          <Toaster position="bottom-right" richColors />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
