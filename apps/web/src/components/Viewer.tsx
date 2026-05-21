@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { Minus, Plus } from 'lucide-react';
 import type OpenSeadragonNS from 'openseadragon';
 import { useStore } from '@/lib/store';
 import type { DetectionStatus, Polygon } from '@/lib/types';
@@ -9,11 +10,17 @@ type Props = { tileSource: string };
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
+// Detection status colors — blueprint / emerald / rose (Ember-tuned)
 const STATUS_COLOR: Record<DetectionStatus, string> = {
   pending: '#3b82f6',
   accepted: '#10b981',
   rejected: '#f43f5e',
 };
+
+// Ember — the "lock-on" accent for the selected polygon
+const SELECTED_COLOR = '#ff5c35';
+// Blueprint bright — in-progress polygon drawing
+const DRAW_COLOR = '#5b9bff';
 
 const CATEGORY_Z: Record<Polygon['category'], number> = {
   wall: 0,
@@ -77,7 +84,7 @@ export default function Viewer({ tileSource }: Props) {
         element: containerRef.current,
         tileSources: tileSource,
         prefixUrl: '/osd-images/',
-        showNavigationControl: true,
+        showNavigationControl: false,
         showNavigator: true,
         navigatorPosition: 'BOTTOM_RIGHT',
         navigatorSizeRatio: 0.13,
@@ -139,13 +146,14 @@ export default function Viewer({ tileSource }: Props) {
     for (const p of sorted) {
       const color = STATUS_COLOR[p.status];
       const isSelected = p.id === selectedId;
+      const strokeColor = isSelected ? SELECTED_COLOR : color;
       const baseOpacity = isSelected ? 0.35 : 0.18;
 
       const el = document.createElementNS(SVG_NS, 'polygon');
       el.setAttribute('points', p.points.map((pt) => pt.join(',')).join(' '));
       el.setAttribute('fill', color);
       el.setAttribute('fill-opacity', String(baseOpacity));
-      el.setAttribute('stroke', color);
+      el.setAttribute('stroke', strokeColor);
       el.setAttribute('stroke-width', isSelected ? '4' : '2');
       el.style.cursor = editMode ? 'move' : 'pointer';
       el.style.transition = 'fill-opacity 120ms ease';
@@ -209,7 +217,7 @@ export default function Viewer({ tileSource }: Props) {
           handle.setAttribute('cy', String(pt[1]));
           handle.setAttribute('r', String(handleSize));
           handle.setAttribute('fill', '#ffffff');
-          handle.setAttribute('stroke', color);
+          handle.setAttribute('stroke', SELECTED_COLOR);
           handle.setAttribute('stroke-width', '3');
           handle.style.cursor = 'grab';
           handle.addEventListener('pointerdown', (e: PointerEvent) => {
@@ -267,7 +275,7 @@ export default function Viewer({ tileSource }: Props) {
           mid.setAttribute('width', String(edgeHandleSize));
           mid.setAttribute('height', String(edgeHandleSize));
           mid.setAttribute('fill', '#ffffff');
-          mid.setAttribute('stroke', color);
+          mid.setAttribute('stroke', SELECTED_COLOR);
           mid.setAttribute('stroke-width', '2');
           mid.style.cursor = 'copy';
           mid.addEventListener('click', (e) => {
@@ -292,7 +300,7 @@ export default function Viewer({ tileSource }: Props) {
       const path = document.createElementNS(SVG_NS, 'polyline');
       path.setAttribute('points', drawingPoints.map((pt) => pt.join(',')).join(' '));
       path.setAttribute('fill', 'none');
-      path.setAttribute('stroke', '#0ea5e9');
+      path.setAttribute('stroke', DRAW_COLOR);
       path.setAttribute('stroke-width', '3');
       path.setAttribute('stroke-dasharray', '8,6');
       svg.appendChild(path);
@@ -301,7 +309,7 @@ export default function Viewer({ tileSource }: Props) {
         c.setAttribute('cx', String(pt[0]));
         c.setAttribute('cy', String(pt[1]));
         c.setAttribute('r', String(handleSize * 0.7));
-        c.setAttribute('fill', '#0ea5e9');
+        c.setAttribute('fill', DRAW_COLOR);
         svg.appendChild(c);
       });
     }
@@ -384,21 +392,47 @@ export default function Viewer({ tileSource }: Props) {
     setDrawingPoints([]);
   };
 
+  const zoomBy = (factor: number): void => {
+    const v = viewerRef.current;
+    if (!v) return;
+    v.viewport.zoomBy(factor);
+    v.viewport.applyConstraints();
+  };
+
   return (
     <>
-      <div ref={containerRef} className="absolute inset-0 bg-zinc-100" />
-      {zoomPct !== null && (
-        <div className="pointer-events-none absolute bottom-3 left-3 rounded-md border border-zinc-200 bg-white/90 px-2 py-1 font-mono text-[11px] text-zinc-600 shadow-sm">
-          {zoomPct}%
-        </div>
-      )}
+      <div ref={containerRef} className="absolute inset-0 bg-ink" />
+
+      {/* Zoom control */}
+      <div className="absolute bottom-3 left-3 flex items-center gap-0.5 rounded-lg border border-hairline bg-carbon/90 p-1 backdrop-blur-sm">
+        <button
+          type="button"
+          aria-label="Zoom out"
+          onClick={() => zoomBy(0.8)}
+          className="grid size-6 place-items-center rounded text-slate transition-colors hover:bg-carbon-high hover:text-bone"
+        >
+          <Minus className="size-3.5" />
+        </button>
+        <span className="w-12 text-center font-mono text-[11px] text-slate">
+          {zoomPct ?? '—'}%
+        </span>
+        <button
+          type="button"
+          aria-label="Zoom in"
+          onClick={() => zoomBy(1.25)}
+          className="grid size-6 place-items-center rounded text-slate transition-colors hover:bg-carbon-high hover:text-bone"
+        >
+          <Plus className="size-3.5" />
+        </button>
+      </div>
+
       {editMode && (
-        <div className="absolute top-3 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded-md border border-zinc-200 bg-white/95 px-3 py-2 text-[12px] shadow-md">
+        <div className="absolute top-3 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded-lg border border-hairline bg-carbon/95 px-3 py-2 text-[12px] shadow-lg shadow-black/40 backdrop-blur-sm">
           {!isDrawing ? (
             <>
-              <span className="font-medium text-zinc-700">Edit mode</span>
-              <span className="text-zinc-400">·</span>
-              <span className="text-zinc-600">
+              <span className="font-medium text-bone">Edit mode</span>
+              <span className="text-slate-dim">·</span>
+              <span className="text-slate">
                 Drag polygon to move. Click polygon to select. Drag white dots to
                 move vertices. Click square between dots to insert vertex.
                 Shift+click vertex to delete.
@@ -409,16 +443,18 @@ export default function Viewer({ tileSource }: Props) {
                   setIsDrawing(true);
                   setDrawingPoints([]);
                 }}
-                className="ml-2 rounded border border-blue-300 bg-blue-50 px-2 py-1 text-[11px] font-medium text-blue-700 hover:bg-blue-100"
+                className="ml-2 rounded-md border border-blueprint/40 bg-blueprint/15 px-2 py-1 text-[11px] font-medium text-blueprint-bright transition-colors hover:bg-blueprint/25"
               >
                 + Add polygon
               </button>
             </>
           ) : (
             <>
-              <span className="font-medium text-sky-700">Drawing new polygon</span>
-              <span className="text-zinc-400">·</span>
-              <span className="text-zinc-600">
+              <span className="font-medium text-blueprint-bright">
+                Drawing new polygon
+              </span>
+              <span className="text-slate-dim">·</span>
+              <span className="text-slate">
                 Click to place vertices. Enter to finish ({drawingPoints.length}
                 {' '}placed, min 3). Esc to cancel.
               </span>
@@ -426,7 +462,7 @@ export default function Viewer({ tileSource }: Props) {
                 type="button"
                 onClick={finishDrawing}
                 disabled={drawingPoints.length < 3}
-                className="ml-2 rounded border border-emerald-300 bg-emerald-50 px-2 py-1 text-[11px] font-medium text-emerald-700 hover:bg-emerald-100 disabled:opacity-40"
+                className="ml-2 rounded-md border border-status-accepted/40 bg-status-accepted/15 px-2 py-1 text-[11px] font-medium text-status-accepted transition-colors hover:bg-status-accepted/25 disabled:opacity-40"
               >
                 Finish
               </button>
@@ -436,7 +472,7 @@ export default function Viewer({ tileSource }: Props) {
                   setIsDrawing(false);
                   setDrawingPoints([]);
                 }}
-                className="rounded border border-zinc-300 bg-white px-2 py-1 text-[11px] font-medium text-zinc-700 hover:bg-zinc-50"
+                className="rounded-md border border-hairline bg-carbon px-2 py-1 text-[11px] font-medium text-slate transition-colors hover:bg-carbon-high hover:text-bone"
               >
                 Cancel
               </button>

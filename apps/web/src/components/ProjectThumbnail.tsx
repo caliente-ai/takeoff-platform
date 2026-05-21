@@ -1,10 +1,11 @@
 type Props = { seed: number };
 
+// Ink canvas with blueprint line work — the "drawing blue" motif.
 const PALETTES = [
-  { ink: '#1e3a8a', wash: '#dbeafe' },
-  { ink: '#3730a3', wash: '#e0e7ff' },
-  { ink: '#155e75', wash: '#cffafe' },
-  { ink: '#374151', wash: '#e5e7eb' },
+  { bg: '#0b0c10', line: '#3b82f6' },
+  { bg: '#14161c', line: '#5b9bff' },
+  { bg: '#0b0c10', line: '#5b9bff' },
+  { bg: '#14161c', line: '#3b82f6' },
 ];
 
 function lineSet(seed: number) {
@@ -29,11 +30,11 @@ function lineSet(seed: number) {
 
 export function ProjectThumbnail({ seed }: Props) {
   const palette = PALETTES[seed % PALETTES.length];
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" preserveAspectRatio="xMidYMid slice"><rect width="400" height="120" fill="${palette.wash}" /><g style="color:${palette.ink}; opacity: 0.55;">${lineSet(seed)}</g></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" preserveAspectRatio="xMidYMid slice"><rect width="400" height="120" fill="${palette.bg}" /><g style="color:${palette.line}; opacity: 0.5;">${lineSet(seed)}</g></svg>`;
   const dataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
   return (
     <div
-      className="h-32 w-full bg-zinc-100 bg-cover bg-center"
+      className="h-32 w-full bg-ink bg-cover bg-center"
       style={{ backgroundImage: `url("${dataUrl}")` }}
       aria-hidden
     />

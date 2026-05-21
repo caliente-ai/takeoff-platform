@@ -4,12 +4,42 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Caliente AI — "Ember" design system.
+ * Dark, cinematic, precise. Deep ink foundation, scarce ember accent,
+ * cool blueprint blue for data. Source of truth: Confluence "Ember" page.
+ */
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --font-sans: var(--font-sans);
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --font-heading: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
+  --font-heading: var(--font-display);
+
+  /* Ember palette — direct utilities (bg-ink, text-ember, border-hairline …) */
+  --color-ink: var(--ink);
+  --color-ink-deep: var(--ink-deep);
+  --color-carbon: var(--carbon);
+  --color-carbon-high: var(--carbon-high);
+  --color-ember: var(--ember);
+  --color-ember-bright: var(--ember-bright);
+  --color-ember-deep: var(--ember-deep);
+  --color-blueprint: var(--blueprint);
+  --color-blueprint-bright: var(--blueprint-bright);
+  --color-bone: var(--bone);
+  --color-slate: var(--slate);
+  --color-slate-dim: var(--slate-dim);
+  --color-hairline: var(--hairline);
+  --color-hairline-bright: var(--hairline-bright);
+
+  /* Detection status — semantic, dark-tuned */
+  --color-status-pending: var(--blueprint);
+  --color-status-accepted: var(--accepted);
+  --color-status-rejected: var(--rejected);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -39,6 +69,8 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+
+  /* Radii — buttons 0.75rem, cards ~1rem, panels ~1.35rem */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -49,72 +81,60 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
+  --radius: 0.75rem;
+  --ease-ember: cubic-bezier(0.16, 1, 0.3, 1);
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Ember palette */
+  --ink: #0b0c10;
+  --ink-deep: #070708;
+  --carbon: #14161c;
+  --carbon-high: #1c1f28;
+  --ember: #ff5c35;
+  --ember-bright: #ff7a57;
+  --ember-deep: #e0421f;
+  --blueprint: #3b82f6;
+  --blueprint-bright: #5b9bff;
+  --bone: #f5f3ef;
+  --slate: #9498a6;
+  --slate-dim: #7f828e;
+  --hairline: #242732;
+  --hairline-bright: #343847;
+  --accepted: #10b981;
+  --rejected: #f43f5e;
+
+  /* shadcn semantic tokens mapped onto Ember */
+  --background: var(--ink);
+  --foreground: var(--bone);
+  --card: var(--carbon);
+  --card-foreground: var(--bone);
+  --popover: var(--carbon-high);
+  --popover-foreground: var(--bone);
+  --primary: var(--ember);
+  --primary-foreground: var(--ink);
+  --secondary: var(--carbon-high);
+  --secondary-foreground: var(--bone);
+  --muted: var(--carbon-high);
+  --muted-foreground: var(--slate);
+  --accent: var(--carbon-high);
+  --accent-foreground: var(--bone);
+  --destructive: var(--rejected);
+  --border: var(--hairline);
+  --input: var(--hairline);
+  --ring: var(--ember);
+  --chart-1: var(--ember);
+  --chart-2: var(--blueprint);
+  --chart-3: var(--ember-bright);
+  --chart-4: var(--blueprint-bright);
+  --chart-5: var(--slate);
+
+  --sidebar: var(--ink);
+  --sidebar-foreground: var(--bone);
+  --sidebar-primary: var(--ember);
+  --sidebar-primary-foreground: var(--ink);
+  --sidebar-accent: var(--carbon-high);
+  --sidebar-accent-foreground: var(--bone);
+  --sidebar-border: var(--hairline);
+  --sidebar-ring: var(--ember);
 }
 
 @layer base {
@@ -127,4 +147,95 @@
   html {
     @apply font-sans;
   }
+  ::selection {
+    background-color: color-mix(in srgb, var(--ember) 32%, transparent);
+    color: var(--bone);
+  }
+}
+
+@layer components {
+  /* Eyebrow label — mono, uppercase, wide tracking */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--slate-dim);
+  }
+}
+
+@layer utilities {
+  /* Faint blueprint grid, radially faded — a brand backdrop */
+  .bp-grid {
+    background-image:
+      linear-gradient(to right, rgba(59, 130, 246, 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(59, 130, 246, 0.055) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 75% 60% at 50% 28%,
+      #000 0%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 75% 60% at 50% 28%,
+      #000 0%,
+      transparent 100%
+    );
+  }
+
+  /* Warm and cool glows — light sources, never decorative gradients */
+  .glow-ember {
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 92, 53, 0.2) 0%,
+      transparent 70%
+    );
+  }
+  .glow-blueprint {
+    background: radial-gradient(
+      circle at center,
+      rgba(59, 130, 246, 0.18) 0%,
+      transparent 70%
+    );
+  }
+
+  /* Subtle filmic grain laid over everything */
+  .film-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+  }
+
+  /* Entrance motion — gentle rise-in */
+  .rise-in {
+    animation: rise-in 0.62s var(--ease-ember) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rise-in {
+      animation: none;
+    }
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* OpenSeadragon — dark-mode chrome for the plan viewer */
+.openseadragon-container .navigator {
+  border: 1px solid var(--hairline) !important;
+  border-radius: 0.5rem !important;
+  background: var(--carbon) !important;
+  overflow: hidden;
+}
+.openseadragon-container .displayregion {
+  border: 2px solid var(--ember) !important;
 }

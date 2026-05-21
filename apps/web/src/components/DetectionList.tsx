@@ -68,15 +68,16 @@ export function DetectionList() {
 
   const onAcceptAll = (): void => {
     const n = useStore.getState().acceptAllPending();
-    if (n > 0) toast.success(`Accepted ${n} pending detection${n === 1 ? '' : 's'}`);
+    if (n > 0)
+      toast.success(`Accepted ${n} pending detection${n === 1 ? '' : 's'}`);
   };
 
   return (
     <div className="flex h-full flex-col">
-      <div className="space-y-3 border-b border-zinc-200 bg-white p-4">
+      <div className="space-y-3 border-b border-hairline bg-carbon p-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-zinc-900">Detections</h2>
-          <Badge variant="secondary" className="bg-zinc-100 text-zinc-600">
+          <h2 className="text-sm font-semibold text-bone">Detections</h2>
+          <Badge variant="secondary" className="bg-carbon-high text-slate">
             {totalCount}
           </Badge>
         </div>
@@ -84,9 +85,14 @@ export function DetectionList() {
           {FILTERS.map((f) => (
             <Button
               key={f.value}
-              variant={filter === f.value ? 'secondary' : 'ghost'}
+              variant="ghost"
               size="xs"
               onClick={() => setFilter(f.value)}
+              className={
+                filter === f.value
+                  ? 'bg-ember/15 text-ember hover:bg-ember/20 hover:text-ember'
+                  : 'text-slate'
+              }
             >
               {f.label}
             </Button>
@@ -97,7 +103,7 @@ export function DetectionList() {
       <ScrollArea className="flex-1">
         <div className="space-y-4 p-2">
           {grouped.length === 0 ? (
-            <p className="px-4 py-10 text-center text-sm text-zinc-400">
+            <p className="px-4 py-10 text-center text-sm text-slate-dim">
               {totalCount === 0
                 ? 'No detections yet.'
                 : 'No detections match this filter.'}
@@ -105,9 +111,9 @@ export function DetectionList() {
           ) : (
             grouped.map((g) => (
               <div key={g.category} className="space-y-1">
-                <div className="px-3 pt-1 text-[11px] font-semibold tracking-wide text-zinc-400 uppercase">
+                <div className="eyebrow px-3 pt-1">
                   {CATEGORY_HEADING[g.category]}{' '}
-                  <span className="text-zinc-300">({g.items.length})</span>
+                  <span className="text-slate-dim/60">({g.items.length})</span>
                 </div>
                 <div className="space-y-0.5">
                   {g.items.map((p) => (
@@ -125,7 +131,7 @@ export function DetectionList() {
       </ScrollArea>
 
       <Separator />
-      <div className="bg-white p-3">
+      <div className="bg-carbon p-3">
         <Button
           variant="outline"
           size="sm"
@@ -135,7 +141,7 @@ export function DetectionList() {
         >
           {pendingCount === 0
             ? 'All reviewed ✓'
-            : `Accept All Pending (${pendingCount})`}
+            : `Accept all pending (${pendingCount})`}
         </Button>
       </div>
     </div>

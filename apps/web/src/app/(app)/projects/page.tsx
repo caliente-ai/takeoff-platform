@@ -55,14 +55,14 @@ export default function ProjectsDashboard() {
             </Button>
             <Button size="sm" onClick={() => setDialogOpen(true)}>
               <Plus className="size-3.5" />
-              Create New
+              Create new
             </Button>
           </div>
         }
       />
 
-      <div className="flex-1 overflow-auto p-6">
-        <div className="mb-6 flex items-end justify-between border-b border-zinc-200">
+      <div className="flex-1 overflow-auto p-8">
+        <div className="mb-6 flex items-end justify-between border-b border-hairline">
           <div className="flex h-10 gap-6">
             {TABS.map((t) => {
               const active = tab === t.value;
@@ -73,16 +73,16 @@ export default function ProjectsDashboard() {
                   onClick={() => setTab(t.value)}
                   className={`flex items-center border-b-2 px-1 text-[13px] font-medium transition-colors ${
                     active
-                      ? 'border-blue-600 text-blue-700'
-                      : 'border-transparent text-zinc-600 hover:border-zinc-200 hover:text-zinc-900'
+                      ? 'border-ember text-bone'
+                      : 'border-transparent text-slate hover:border-hairline-bright hover:text-bone'
                   }`}
                 >
                   {t.label}
                   <span
                     className={`ml-1.5 rounded-full px-1.5 py-0.5 font-mono text-[10px] ${
                       active
-                        ? 'bg-blue-100 text-blue-700'
-                        : 'bg-zinc-100 text-zinc-600'
+                        ? 'bg-ember/15 text-ember'
+                        : 'bg-carbon-high text-slate-dim'
                     }`}
                   >
                     {tabCount(t.value)}
@@ -96,15 +96,15 @@ export default function ProjectsDashboard() {
               <Filter className="size-3.5" />
               Filter
             </Button>
-            <div className="flex overflow-hidden rounded border border-zinc-200 bg-white">
+            <div className="flex overflow-hidden rounded-lg border border-hairline bg-carbon">
               <button
                 type="button"
                 aria-label="Grid view"
                 onClick={() => setView('grid')}
-                className={`grid h-7 w-8 place-items-center border-r border-zinc-200 transition-colors ${
+                className={`grid h-7 w-8 place-items-center border-r border-hairline transition-colors ${
                   view === 'grid'
-                    ? 'bg-zinc-50 text-blue-700'
-                    : 'text-zinc-500 hover:bg-zinc-50'
+                    ? 'bg-carbon-high text-ember'
+                    : 'text-slate hover:bg-carbon-high hover:text-bone'
                 }`}
               >
                 <Grid2x2 className="size-3.5" />
@@ -115,8 +115,8 @@ export default function ProjectsDashboard() {
                 onClick={() => setView('list')}
                 className={`grid h-7 w-8 place-items-center transition-colors ${
                   view === 'list'
-                    ? 'bg-zinc-50 text-blue-700'
-                    : 'text-zinc-500 hover:bg-zinc-50'
+                    ? 'bg-carbon-high text-ember'
+                    : 'text-slate hover:bg-carbon-high hover:text-bone'
                 }`}
               >
                 <List className="size-3.5" />
@@ -126,41 +126,46 @@ export default function ProjectsDashboard() {
         </div>
 
         {filtered.length === 0 ? (
-          <p className="py-20 text-center text-sm text-zinc-500">
+          <p className="py-20 text-center text-sm text-slate">
             No projects in this tab.
           </p>
         ) : view === 'grid' ? (
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {filtered.map((p, i) => (
               <ProjectCard key={p.id} project={p} index={i} />
             ))}
           </div>
         ) : (
-          <div className="overflow-hidden rounded-lg border border-zinc-200 bg-white">
-            <table className="w-full divide-y divide-zinc-200 text-sm">
-              <thead className="bg-zinc-50 text-[10px] tracking-wider text-zinc-500 uppercase">
+          <div className="overflow-hidden rounded-xl border border-hairline bg-carbon">
+            <table className="w-full divide-y divide-hairline text-sm">
+              <thead className="bg-carbon-high text-[10px] tracking-wider text-slate-dim uppercase">
                 <tr>
-                  <th className="px-4 py-2 text-left font-medium">Name</th>
-                  <th className="px-4 py-2 text-left font-medium">Status</th>
-                  <th className="px-4 py-2 text-right font-medium">Sheets</th>
-                  <th className="px-4 py-2 text-right font-medium">Detections</th>
-                  <th className="px-4 py-2 text-right font-medium">Updated</th>
+                  <th className="px-4 py-2.5 text-left font-medium">Name</th>
+                  <th className="px-4 py-2.5 text-left font-medium">Status</th>
+                  <th className="px-4 py-2.5 text-right font-medium">Sheets</th>
+                  <th className="px-4 py-2.5 text-right font-medium">
+                    Detections
+                  </th>
+                  <th className="px-4 py-2.5 text-right font-medium">Updated</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-200">
+              <tbody className="divide-y divide-hairline">
                 {filtered.map((p) => (
-                  <tr key={p.id} className="hover:bg-zinc-50">
-                    <td className="px-4 py-2 font-medium text-zinc-900">
+                  <tr
+                    key={p.id}
+                    className="transition-colors hover:bg-carbon-high"
+                  >
+                    <td className="px-4 py-2.5 font-medium text-bone">
                       {p.name}
                     </td>
-                    <td className="px-4 py-2 text-zinc-600">{p.status}</td>
-                    <td className="px-4 py-2 text-right font-mono text-[13px] text-zinc-700">
+                    <td className="px-4 py-2.5 text-slate">{p.status}</td>
+                    <td className="px-4 py-2.5 text-right font-mono text-[13px] text-slate">
                       {p.sheetsProcessed}/{p.sheetsTotal}
                     </td>
-                    <td className="px-4 py-2 text-right font-mono text-[13px] text-blue-700">
+                    <td className="px-4 py-2.5 text-right font-mono text-[13px] text-blueprint">
                       {p.detections.toLocaleString()}
                     </td>
-                    <td className="px-4 py-2 text-right text-xs text-zinc-500">
+                    <td className="px-4 py-2.5 text-right text-xs text-slate-dim">
                       {p.updatedRelative}
                     </td>
                   </tr>
@@ -171,7 +176,10 @@ export default function ProjectsDashboard() {
         )}
 
         <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4">
-          <StatCard label="Total Active Sheets" value={formatNumber(stats.totalSheets)} />
+          <StatCard
+            label="Total Active Sheets"
+            value={formatNumber(stats.totalSheets)}
+          />
           <StatCard
             label="Processing Queue"
             value={String(stats.processingQueue)}
@@ -181,7 +189,7 @@ export default function ProjectsDashboard() {
             label="Total Detections YTD"
             value={formatNumber(stats.ytdDetections)}
           />
-          <StatCard label="System Status" value="All Systems Operational" status />
+          <StatCard label="System Status" value="All systems operational" status />
         </div>
       </div>
 
@@ -202,18 +210,16 @@ function StatCard({
   status?: boolean;
 }) {
   return (
-    <div className="rounded border border-zinc-200 bg-white p-3">
-      <div className="text-[10px] font-medium tracking-wider text-zinc-500 uppercase">
-        {label}
-      </div>
+    <div className="rounded-xl border border-hairline bg-carbon p-4 transition-colors hover:border-hairline-bright">
+      <div className="eyebrow">{label}</div>
       {status ? (
-        <div className="mt-2 flex items-center gap-2">
-          <span className="size-2 animate-pulse rounded-full bg-emerald-500" />
-          <span className="font-mono text-[13px] text-zinc-900">{value}</span>
+        <div className="mt-2.5 flex items-center gap-2">
+          <span className="size-2 animate-pulse rounded-full bg-status-accepted" />
+          <span className="font-mono text-[13px] text-bone">{value}</span>
         </div>
       ) : (
         <div
-          className={`mt-1 font-mono text-xl ${tone === 'warning' ? 'text-orange-600' : 'text-zinc-900'}`}
+          className={`mt-1.5 font-mono text-xl ${tone === 'warning' ? 'text-ember' : 'text-bone'}`}
         >
           {value}
         </div>

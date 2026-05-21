@@ -91,10 +91,10 @@ function ProjectInner() {
     return (
       <div className="flex flex-1 items-center justify-center px-6">
         <Card className="max-w-md space-y-4 p-8 text-center">
-          <h1 className="text-lg font-semibold text-zinc-900">
+          <h1 className="font-display text-lg font-semibold text-bone">
             Project not found
           </h1>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-slate">
             We couldn&apos;t find a project with that ID.
           </p>
           <Button onClick={() => router.push('/projects')}>
@@ -105,7 +105,7 @@ function ProjectInner() {
     );
   } else if (!job || job.id !== projectMeta.id || job.status !== 'complete') {
     return (
-      <div className="flex flex-1 items-center justify-center bg-zinc-50">
+      <div className="flex flex-1 items-center justify-center bg-ink">
         <Skeleton className="h-10 w-40" />
       </div>
     );
@@ -115,10 +115,10 @@ function ProjectInner() {
     return (
       <div className="flex flex-1 items-center justify-center px-6">
         <Card className="max-w-md space-y-4 p-8 text-center">
-          <h1 className="text-lg font-semibold text-zinc-900">
+          <h1 className="font-display text-lg font-semibold text-bone">
             Something went wrong
           </h1>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-slate">
             We couldn&apos;t process this drawing. Try again.
           </p>
           <Button onClick={() => router.push('/projects')}>
@@ -146,13 +146,13 @@ function ProjectInner() {
         scenario={scenario}
       />
       <div className="flex flex-1 overflow-hidden">
-        <aside className="w-[280px] shrink-0 overflow-y-auto border-r border-zinc-200 bg-white">
+        <aside className="w-[280px] shrink-0 overflow-y-auto border-r border-hairline bg-carbon">
           <DetectionList />
         </aside>
         <main className="relative flex-1 overflow-hidden">
           <Viewer tileSource={DEMO_TILE_SOURCE} />
         </main>
-        <aside className="w-[320px] shrink-0 overflow-y-auto border-l border-zinc-200 bg-white">
+        <aside className="w-[320px] shrink-0 overflow-y-auto border-l border-hairline bg-carbon">
           <DetailPanel />
         </aside>
       </div>
@@ -161,10 +161,10 @@ function ProjectInner() {
 }
 
 const STATUS_BADGE_CLASS: Record<ProjectStatus, string> = {
-  'in-progress': 'bg-blue-100 text-blue-700',
-  'in-review': 'bg-amber-100 text-amber-800',
-  complete: 'bg-emerald-100 text-emerald-700',
-  archived: 'bg-zinc-100 text-zinc-700',
+  'in-progress': 'bg-blueprint/15 text-blueprint-bright',
+  'in-review': 'bg-ember/15 text-ember',
+  complete: 'bg-status-accepted/15 text-status-accepted',
+  archived: 'bg-carbon-high text-slate',
 };
 
 function WorkspaceHeader({
@@ -254,21 +254,23 @@ function WorkspaceHeader({
   };
 
   return (
-    <header className="sticky top-0 z-10 flex h-12 shrink-0 items-center justify-between border-b border-zinc-200 bg-white px-4">
+    <header className="sticky top-0 z-20 flex h-12 shrink-0 items-center justify-between border-b border-hairline bg-ink/80 px-4 backdrop-blur-xl">
       <div className="flex items-center gap-3">
         <Link
           href="/projects"
-          className="flex items-center gap-1 rounded px-2 py-1 text-[13px] font-medium text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900"
+          className="flex items-center gap-1 rounded-md px-2 py-1 text-[13px] font-medium text-slate transition-colors hover:bg-carbon-high hover:text-bone"
         >
           <ChevronLeft className="size-3.5" />
           Back
         </Link>
-        <div className="flex items-center gap-1 text-[13px] text-zinc-500">
-          <Link href="/projects" className="hover:text-zinc-900">
+        <div className="flex items-center gap-1 text-[13px] text-slate-dim">
+          <Link href="/projects" className="hover:text-bone">
             Projects
           </Link>
-          <ChevronRight className="size-3 text-zinc-300" />
-          <span className="font-semibold text-blue-700">{projectName}</span>
+          <ChevronRight className="size-3 text-slate-dim/50" />
+          <span className="font-display font-semibold text-bone">
+            {projectName}
+          </span>
         </div>
         <Badge
           className={`text-[10px] tracking-wider uppercase ${STATUS_BADGE_CLASS[projectStatus]}`}
@@ -278,17 +280,17 @@ function WorkspaceHeader({
       </div>
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-3 font-mono text-[12px]">
-          <span className="text-zinc-700">
-            <span className="text-zinc-900">{statsTotal}</span> Detected
+          <span className="text-slate">
+            <span className="text-bone">{statsTotal}</span> Detected
           </span>
-          <span className="text-emerald-700">
+          <span className="text-status-accepted">
             <span className="font-semibold">{statsAccepted}</span> Accepted
           </span>
-          <span className="text-rose-700">
+          <span className="text-status-rejected">
             <span className="font-semibold">{statsRejected}</span> Rejected
           </span>
         </div>
-        <div className="h-5 w-px bg-zinc-200" />
+        <div className="h-5 w-px bg-hairline" />
         <Button
           variant={editMode ? 'default' : 'outline'}
           size="sm"
@@ -305,7 +307,7 @@ function WorkspaceHeader({
               size="sm"
               onClick={onDeleteAll}
               disabled={polygonCount === 0}
-              className="h-8 gap-1.5 border-rose-300 text-rose-700 hover:bg-rose-50 hover:text-rose-800"
+              className="h-8 gap-1.5 border-status-rejected/40 text-status-rejected hover:border-status-rejected/60 hover:bg-status-rejected/10 hover:text-status-rejected"
               title="Remove all polygons from the canvas (in-memory only; save to persist)"
             >
               <Trash2 className="size-3.5" />

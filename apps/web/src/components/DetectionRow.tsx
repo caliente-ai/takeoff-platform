@@ -9,16 +9,16 @@ import type { Polygon } from '@/lib/types';
 type Props = { polygon: Polygon; isSelected: boolean };
 
 const STATUS_BAR: Record<Polygon['status'], string> = {
-  pending: 'border-l-blue-500',
-  accepted: 'border-l-emerald-500',
-  rejected: 'border-l-rose-500',
+  pending: 'border-l-status-pending',
+  accepted: 'border-l-status-accepted',
+  rejected: 'border-l-status-rejected',
 };
 
 const CATEGORY_BADGE: Record<Polygon['category'], string> = {
-  room: 'bg-blue-100 text-blue-700',
-  wall: 'bg-zinc-200 text-zinc-700',
-  fixture: 'bg-amber-100 text-amber-700',
-  equipment: 'bg-violet-100 text-violet-700',
+  room: 'bg-blueprint/12 text-blueprint-bright',
+  wall: 'bg-carbon-high text-slate-dim',
+  fixture: 'bg-carbon-high text-slate',
+  equipment: 'bg-blueprint/12 text-blueprint-bright',
 };
 
 const CATEGORY_LABEL: Record<Polygon['category'], string> = {
@@ -54,32 +54,35 @@ export function DetectionRow({ polygon, isSelected }: Props) {
     <button
       type="button"
       onClick={onSelect}
-      className={`group flex w-full items-start gap-3 rounded-lg border-l-4 px-3 py-2.5 text-left transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 ${
+      className={`group flex w-full items-start gap-3 rounded-lg border-l-4 px-3 py-2.5 text-left transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ember/40 focus-visible:outline-none ${
         STATUS_BAR[polygon.status]
       } ${
         isSelected
-          ? 'bg-blue-50 ring-1 ring-blue-200'
-          : 'hover:bg-zinc-50'
+          ? 'bg-ember/10 ring-1 ring-ember/30'
+          : 'hover:bg-carbon-high'
       }`}
     >
       <div className="min-w-0 flex-1 space-y-1">
         <div className="flex items-center gap-2">
-          <span className="truncate text-sm font-medium text-zinc-900">
+          <span className="truncate text-sm font-medium text-bone">
             {polygon.label}
           </span>
-          <Badge variant="secondary" className="bg-zinc-100 text-[10px] text-zinc-600">
+          <Badge
+            variant="secondary"
+            className="bg-carbon-high font-mono text-[10px] text-slate"
+          >
             {Math.round(polygon.confidence * 100)}%
           </Badge>
         </div>
-        <div className="flex items-center gap-2 text-xs text-zinc-500">
+        <div className="flex items-center gap-2 text-xs text-slate">
           <Badge
             variant="secondary"
             className={`${CATEGORY_BADGE[polygon.category]} px-1.5 text-[10px]`}
           >
             {CATEGORY_LABEL[polygon.category]}
           </Badge>
-          <span>
-            {polygon.area_sqft} {polygon.category === 'wall' ? 'sqft' : 'sqft'}
+          <span className="font-mono text-slate-dim">
+            {polygon.area_sqft} sqft
           </span>
         </div>
       </div>
@@ -88,7 +91,7 @@ export function DetectionRow({ polygon, isSelected }: Props) {
           role="button"
           aria-label="Accept"
           onClick={accept}
-          className="grid size-7 place-items-center rounded text-zinc-400 hover:bg-emerald-50 hover:text-emerald-600"
+          className="grid size-7 place-items-center rounded text-slate-dim hover:bg-status-accepted/10 hover:text-status-accepted"
         >
           <Check className="size-4" />
         </span>
@@ -96,7 +99,7 @@ export function DetectionRow({ polygon, isSelected }: Props) {
           role="button"
           aria-label="Reject"
           onClick={reject}
-          className="grid size-7 place-items-center rounded text-zinc-400 hover:bg-rose-50 hover:text-rose-600"
+          className="grid size-7 place-items-center rounded text-slate-dim hover:bg-status-rejected/10 hover:text-status-rejected"
         >
           <X className="size-4" />
         </span>
@@ -104,7 +107,7 @@ export function DetectionRow({ polygon, isSelected }: Props) {
           role="button"
           aria-label="Delete"
           onClick={remove}
-          className="grid size-7 place-items-center rounded text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700"
+          className="grid size-7 place-items-center rounded text-slate-dim hover:bg-carbon-high hover:text-bone"
         >
           <Trash2 className="size-4" />
         </span>

@@ -14,12 +14,12 @@ export default function ProjectError({ error, reset }: Props) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 px-6">
+    <div className="flex min-h-screen items-center justify-center bg-ink px-6">
       <Card className="max-w-md space-y-4 p-8 text-center">
-        <h1 className="text-lg font-semibold text-zinc-900">
+        <h1 className="font-display text-lg font-semibold text-bone">
           Something went wrong
         </h1>
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm text-slate">
           The viewer crashed. Click to restart, or return to the upload page.
         </p>
         <div className="flex justify-center gap-2">

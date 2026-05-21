@@ -36,14 +36,28 @@ Wizard-of-Oz investor demo for an AI construction takeoff platform. Upload a PDF
 - Every component must have explicit TypeScript prop types.
 - Use Zustand selectors (not full store subscription) to prevent unnecessary re-renders.
 
-## Visual Design Language
-- Professional, dense, "Linear meets Bloomberg" aesthetic. Not playful.
-- Light theme only. Background: zinc-50. Cards: white with subtle border.
-- Accent: blue-600. Status colors: pending=blue-500, accepted=emerald-500, rejected=rose-500.
-- Font: system font stack (no custom fonts for the demo).
-- Three-pane layout: left sidebar 280px (detection list), center (OSD viewer fills remaining), right panel 320px (detail/inspector).
-- Top bar: 56px height, logo text left, stats badges center, export button right.
+## Visual Design Language — "Ember"
+The platform follows the Caliente AI "Ember" design system (Confluence: "Caliente AI
+Brand & Design System (Ember)"). Dark, cinematic, precise. Tokens live in
+`apps/web/src/app/globals.css`; build every new surface from them.
+- Dark theme only, no theme toggle. Ink `#0B0C10` background, Carbon `#14161C` surfaces.
+- Ember `#FF5C35` is the signature accent: CTAs, highlights, the selected/"lock-on"
+  state. Keep it scarce (roughly one ember element per viewport). Ember always carries
+  Ink text, never white.
+- Blueprint `#3B82F6` is the cool supporting accent for data and tech moments.
+- Text: Bone `#F5F3EF` for headlines, Slate `#9498A6` for body. Borders: Hairline `#242732`.
+- Detection status colors: pending = Blueprint, accepted = emerald `#10B981`,
+  rejected = rose `#F43F5E`, selected = Ember.
+- Fonts: Inter Tight (`font-display`, headlines), Inter (`font-sans`, body),
+  JetBrains Mono (`font-mono`, eyebrow labels and data). Mono UPPERCASE is for labels only.
+- Tailwind utilities expose the palette: `bg-ink`, `bg-carbon`, `text-ember`,
+  `text-blueprint`, `text-bone`, `text-slate`, `border-hairline`, etc.
+- Brand patterns: `.eyebrow` (mono label), `.bp-grid` / `.glow-ember` / `.glow-blueprint`
+  / `.film-grain` (cinematic backdrop), `.rise-in` (entrance motion).
+- Three-pane layout: left sidebar 280px (detection list), center (OSD viewer fills
+  remaining), right panel 320px (detail/inspector).
 - Loading states: skeleton placeholders + staged text labels, never bare spinners.
+- Voice: confirm, don't pitch. Sentence case. Never use em dashes (use a period or comma).
 
 ## Off-Limits (DO NOT DO THESE)
 - No Server Actions for data mutations.

@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ClerkLoaded, ClerkLoading, UserButton, useUser } from '@clerk/nextjs';
 import {
-  Building2,
   ChevronsUpDown,
+  Flame,
   FolderClosed,
   HelpCircle,
   Settings,
@@ -27,13 +27,15 @@ const FOOTER: NavItem[] = [
 const NavLink = ({ item, active }: { item: NavItem; active: boolean }) => (
   <Link
     href={item.href}
-    className={`flex items-center gap-3 rounded-xl px-4 py-2 text-[14px] font-medium transition-all duration-150 ${
+    className={`flex items-center gap-3 rounded-lg border px-4 py-2 text-[14px] font-medium transition-all duration-150 ${
       active
-        ? 'border border-white/20 bg-white/10 text-white shadow-[0_0_20px_rgba(59,130,246,0.2)] backdrop-blur-md'
-        : 'border border-transparent text-slate-300 hover:bg-white/5 hover:text-white'
+        ? 'border-ember/25 bg-ember/10 text-bone'
+        : 'border-transparent text-slate hover:bg-carbon-high hover:text-bone'
     }`}
   >
-    <item.icon className="size-[18px] shrink-0" />
+    <item.icon
+      className={`size-[18px] shrink-0 ${active ? 'text-ember' : ''}`}
+    />
     <span>{item.label}</span>
   </Link>
 );
@@ -43,35 +45,36 @@ export function AppSidebar() {
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
   const { user } = useUser();
-  const displayName = user?.fullName ?? user?.primaryEmailAddress?.emailAddress ?? 'Account';
+  const displayName =
+    user?.fullName ?? user?.primaryEmailAddress?.emailAddress ?? 'Account';
   const displayEmail = user?.primaryEmailAddress?.emailAddress;
 
   return (
-    <nav className="fixed inset-y-0 left-0 z-20 flex h-screen w-[280px] flex-col bg-slate-900 p-4">
-      <div className="mb-2 px-4 py-6">
-        <div className="flex items-center gap-2">
-          <Building2 className="size-6 text-white" />
-          <h1 className="text-[20px] font-bold tracking-tight text-white">
-            CalienteAI
+    <nav className="fixed inset-y-0 left-0 z-20 flex h-screen w-[280px] flex-col border-r border-hairline bg-ink p-4">
+      <div className="mb-2 px-2 py-6">
+        <div className="flex items-center gap-2.5">
+          <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-ember shadow-[0_4px_18px_-4px_rgba(255,92,53,0.55)]">
+            <Flame className="size-[18px] text-ink" />
+          </span>
+          <h1 className="font-display text-[20px] font-semibold tracking-tight text-bone">
+            Caliente AI
           </h1>
         </div>
-        <p className="mt-1 text-[11px] font-semibold tracking-widest text-slate-400 uppercase opacity-80">
-          Construction Takeoff v1.0
-        </p>
+        <p className="eyebrow mt-2.5 pl-0.5">Construction takeoff</p>
       </div>
 
       <div className="mb-4">
         <button
           type="button"
-          className="flex w-full items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-[13px] font-medium text-white transition-colors hover:bg-white/10"
+          className="flex w-full items-center justify-between rounded-lg border border-hairline bg-carbon px-3 py-2 text-[13px] font-medium text-bone transition-colors hover:border-hairline-bright hover:bg-carbon-high"
         >
           <span className="flex items-center gap-2 truncate">
-            <span className="grid size-5 shrink-0 place-items-center rounded bg-white/10 font-mono text-[10px] text-white">
+            <span className="grid size-5 shrink-0 place-items-center rounded bg-carbon-high font-mono text-[10px] text-slate">
               MH
             </span>
             <span className="truncate">Memorial Hospital</span>
           </span>
-          <ChevronsUpDown className="size-3.5 shrink-0 text-slate-400" />
+          <ChevronsUpDown className="size-3.5 shrink-0 text-slate-dim" />
         </button>
       </div>
 
@@ -81,24 +84,24 @@ export function AppSidebar() {
         ))}
       </div>
 
-      <div className="mt-auto space-y-1 border-t border-white/5 pt-4">
+      <div className="mt-auto space-y-1 border-t border-hairline pt-4">
         {FOOTER.map((item) => (
           <NavLink key={item.href} item={item} active={isActive(item.href)} />
         ))}
-        <Separator className="my-2 bg-white/5" />
-        <div className="flex items-center gap-3 px-4 py-2">
+        <Separator className="my-2 bg-hairline" />
+        <div className="flex items-center gap-3 px-2 py-2">
           <ClerkLoading>
-            <div className="size-9 shrink-0 rounded-full bg-white/10" />
+            <div className="size-9 shrink-0 rounded-full bg-carbon-high" />
           </ClerkLoading>
           <ClerkLoaded>
             <UserButton appearance={{ elements: { avatarBox: 'size-9' } }} />
           </ClerkLoaded>
           <div className="min-w-0 flex-1">
-            <div className="truncate text-[13px] font-semibold text-white">
+            <div className="truncate text-[13px] font-semibold text-bone">
               {displayName}
             </div>
             {displayEmail && displayEmail !== displayName && (
-              <div className="truncate text-[11px] text-slate-400">
+              <div className="truncate text-[11px] text-slate-dim">
                 {displayEmail}
               </div>
             )}

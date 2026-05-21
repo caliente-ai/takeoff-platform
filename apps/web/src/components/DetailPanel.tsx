@@ -10,9 +10,9 @@ import { useStore } from '@/lib/store';
 import type { DetectionStatus, Polygon } from '@/lib/types';
 
 const STATUS_BADGE: Record<DetectionStatus, string> = {
-  pending: 'bg-blue-100 text-blue-700',
-  accepted: 'bg-emerald-100 text-emerald-700',
-  rejected: 'bg-rose-100 text-rose-700',
+  pending: 'bg-blueprint/15 text-blueprint-bright',
+  accepted: 'bg-status-accepted/15 text-status-accepted',
+  rejected: 'bg-status-rejected/15 text-status-rejected',
 };
 
 const CATEGORY_LABEL: Record<Polygon['category'], string> = {
@@ -23,15 +23,15 @@ const CATEGORY_LABEL: Record<Polygon['category'], string> = {
 };
 
 const confidenceTone = (c: number): string => {
-  if (c >= 0.9) return 'bg-emerald-500';
-  if (c >= 0.7) return 'bg-amber-500';
-  return 'bg-rose-500';
+  if (c >= 0.9) return 'bg-status-accepted';
+  if (c >= 0.7) return 'bg-ember';
+  return 'bg-status-rejected';
 };
 
 const Row = ({ k, v }: { k: string; v: React.ReactNode }) => (
   <div className="flex items-center justify-between text-sm">
-    <span className="text-zinc-500">{k}</span>
-    <span className="font-medium text-zinc-900">{v}</span>
+    <span className="text-slate">{k}</span>
+    <span className="font-medium text-bone">{v}</span>
   </div>
 );
 
@@ -45,8 +45,8 @@ export function DetailPanel() {
   if (!polygon) {
     return (
       <div className="flex h-full flex-col items-center justify-center gap-3 p-6 text-center">
-        <MousePointerClick className="size-8 text-zinc-300" />
-        <p className="text-sm text-zinc-400">
+        <MousePointerClick className="size-8 text-slate-dim/50" />
+        <p className="text-sm text-slate-dim">
           Select a detection to see details
         </p>
       </div>
@@ -71,9 +71,11 @@ export function DetailPanel() {
   return (
     <div className="flex h-full flex-col">
       <div className="space-y-3 p-5">
-        <h2 className="text-lg font-semibold text-zinc-900">{polygon.label}</h2>
+        <h2 className="font-display text-lg font-semibold text-bone">
+          {polygon.label}
+        </h2>
         <div className="flex items-center gap-2">
-          <Badge variant="secondary" className="bg-zinc-100 text-zinc-700">
+          <Badge variant="secondary" className="bg-carbon-high text-slate">
             {CATEGORY_LABEL[polygon.category]}
           </Badge>
           <Badge variant="secondary" className={STATUS_BADGE[polygon.status]}>
@@ -86,10 +88,12 @@ export function DetailPanel() {
 
       <div className="space-y-2 p-5">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-zinc-500">Confidence</span>
-          <span className="font-medium text-zinc-900">{confidencePct}%</span>
+          <span className="text-slate">Confidence</span>
+          <span className="font-mono font-medium text-bone">
+            {confidencePct}%
+          </span>
         </div>
-        <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-100">
+        <div className="h-2 w-full overflow-hidden rounded-full bg-carbon-high">
           <div
             className={`h-full rounded-full transition-all ${confidenceTone(polygon.confidence)}`}
             style={{ width: `${confidencePct}%` }}
@@ -105,7 +109,11 @@ export function DetailPanel() {
         <Row k="Vertices" v={polygon.points.length} />
         <Row
           k="Detection ID"
-          v={<span className="font-mono text-xs text-zinc-500">{polygon.id}</span>}
+          v={
+            <span className="font-mono text-xs text-slate-dim">
+              {polygon.id}
+            </span>
+          }
         />
       </div>
 
@@ -113,20 +121,29 @@ export function DetailPanel() {
 
       <div className="space-y-2 p-5">
         {polygon.status !== 'accepted' && (
-          <Button className="w-full bg-emerald-600 hover:bg-emerald-700" onClick={onAccept}>
+          <button
+            type="button"
+            onClick={onAccept}
+            className="inline-flex h-8 w-full items-center justify-center rounded-lg bg-status-accepted text-sm font-semibold text-ink transition-all hover:brightness-110"
+          >
             Accept
-          </Button>
+          </button>
         )}
         {polygon.status !== 'rejected' && (
           <Button
             variant="outline"
-            className="w-full border-rose-200 text-rose-600 hover:bg-rose-50"
+            className="w-full border-status-rejected/40 text-status-rejected hover:border-status-rejected/60 hover:bg-status-rejected/10 hover:text-status-rejected"
             onClick={onReject}
           >
             Reject
           </Button>
         )}
-        <Button variant="ghost" size="sm" className="w-full text-zinc-500" onClick={onDelete}>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="w-full text-slate-dim"
+          onClick={onDelete}
+        >
           Delete
         </Button>
       </div>
@@ -137,7 +154,7 @@ export function DetailPanel() {
         <button
           type="button"
           onClick={() => setShowCoords((v) => !v)}
-          className="flex w-full items-center gap-1 text-xs font-medium text-zinc-500 hover:text-zinc-700"
+          className="flex w-full items-center gap-1 text-xs font-medium text-slate-dim hover:text-bone"
         >
           {showCoords ? (
             <ChevronDown className="size-3" />
@@ -147,7 +164,7 @@ export function DetailPanel() {
           Coordinates ({polygon.points.length} points)
         </button>
         {showCoords && (
-          <pre className="mt-2 max-h-48 overflow-auto rounded bg-zinc-50 p-2 font-mono text-[10px] text-zinc-600">
+          <pre className="mt-2 max-h-48 overflow-auto rounded border border-hairline bg-ink p-2 font-mono text-[10px] text-slate">
             {polygon.points.map((p, i) => `${i}: [${p[0]}, ${p[1]}]`).join('\n')}
           </pre>
         )}
