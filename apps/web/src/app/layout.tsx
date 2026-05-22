@@ -35,11 +35,13 @@ const clerkAppearance = {
   variables: {
     colorPrimary: '#ff5c35',
     colorBackground: '#14161c',
-    colorText: '#f5f3ef',
-    colorTextSecondary: '#9498a6',
-    colorTextOnPrimaryBackground: '#0b0c10',
-    colorInputBackground: '#1c1f28',
-    colorInputText: '#f5f3ef',
+    // Clerk v7 renamed these appearance variables; the old names
+    // (colorText, colorTextSecondary, …) are silently ignored.
+    colorForeground: '#f5f3ef',
+    colorMutedForeground: '#9498a6',
+    colorPrimaryForeground: '#0b0c10',
+    colorInput: '#1c1f28',
+    colorInputForeground: '#f5f3ef',
     colorNeutral: '#f5f3ef',
     borderRadius: '0.75rem',
     fontFamily: 'var(--font-sans)',
